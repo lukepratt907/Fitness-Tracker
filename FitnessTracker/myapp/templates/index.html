@@ -1,0 +1,20 @@
+<!--Default Page for our Fitness Tracker-->
+<!DOCTYPE html>
+{% load static %}<!--loads static for stylesheet usagle in django-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}"><!--declares it is looking for a static item which is out css file-->
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/signup">Sign Up</a>
+        </nav>
+    </header>
+    <h1>Hello World!</h1>
+    <p>This is a test.</p>
+</body>
+</html>

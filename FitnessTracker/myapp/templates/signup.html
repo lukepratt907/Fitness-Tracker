@@ -1,0 +1,45 @@
+<h3>Register</h3>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" name="Create User">
+</form>
+
+<!--Signup Page for our Fitness Tracker-->
+<!--https://www.youtube.com/watch?v=tUqUdu0Sjyc&ab_channel=DennisIvy-->
+<!DOCTYPE html>
+{% load static %}<!--loads static for stylesheet usagle in django-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}"><!--declares it is looking for a static item which is out css file-->
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/signin">Sign In</a>
+            <a href="/signup">Sign Up</a>
+        </nav>
+    </header>
+    <form method="POST" action=".">
+        {% csrf_token %}
+        <label for="email">Email</label>
+        {{form.email}}
+        <!--<input type="Email" placeholder="Enter Your Email", aria-label="Email" name="email" required>-->
+        <!--<label for="email">Confirm Email</label>-->
+        <!--<input type="Email" placeholder="Confirm Your Email", aria-label="Email" name="email" required>-->
+        <br><!--Line break-->
+        <label for="password">Password</label>
+        <!--<input type="Password" name="password" placeholder="Enter Your Password" aria-label="Password" required>-->
+        {{form.password1}}
+        <label for="password">Confirm Password</label>
+        <!--<input type="Password" name="password" placeholder="Confirm Your Password" aria-label="Password" required>-->
+        {{form.password2}}
+        <input type="submit" name="Create User">
+    </form>
+</body>
+</html>
