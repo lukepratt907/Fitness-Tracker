@@ -1,4 +1,82 @@
 /*Style Sheet for our Fitness Tracker Project*/
-p {
-    color: red;
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Navigation Bar Styles */
+nav {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: yellow;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+/* Sign-up Form Styles */
+.account-form {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.account-form input[type="text"],
+.account-form input[type="email"],
+.account-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: white;
+    color: black;
+}
+
+.account-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: yellow;
+    color: black;
+    cursor: pointer;
+}
+
+.input-form {
+    margin-bottom: 10px;
+
+}
+
+.input-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Footer Styles */
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    text-align: center;
+    padding: 10px;
+    color: white;
 }

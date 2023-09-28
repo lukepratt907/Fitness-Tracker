@@ -8,17 +8,19 @@ def index(request):
     return render(request, "index.html")
 
 def signup(request):
-    form = SignUpForm(request.POST)
-    if form.is_valid():
-        form.save()
-        username = form.cleaned_data["username"]
-        email = form.cleaned_data["email"]
-        password = form.cleaned_data["password1"]
-        new_user = authenticate(username=username, email=email, password=password)
-        login(request, new_user)
-        return redirect("index")
-
-    form = SignUpForm()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get["username"]
+            email = form.cleaned_data.get["email"]
+            password = form.cleaned_data["password1"]
+            new_user = authenticate(username=username, email=email, password=password)
+            if new_user is not None:
+                login(request, new_user)
+            return redirect("index")
+    else:
+        form = SignUpForm()
     context = {"form":form}
     return render(request, "signup.html", context)
 
