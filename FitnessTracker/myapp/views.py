@@ -22,5 +22,5 @@ def signup(request):
     else:
         form = SignUpForm()
     context = {"form":form}
-    return render(request, "myapp/signup.html", context)
+    return render(request, "signup.html", context)
 

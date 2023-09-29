@@ -1,0 +1,52 @@
+<!-- comment test-->
+<!--Signup Page for our Fitness Tracker-->
+<!--https://www.youtube.com/watch?v=tUqUdu0Sjyc&ab_channel=DennisIvy-->
+<!--{% extends "myapp/base.html" %}-->   <!--Will use later for html inheritance-->
+<!DOCTYPE html>
+{% load static %}<!--loads static for stylesheet usagle in django-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}"><!--declares it is looking for a static item which is out css file-->
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/signin">Sign In</a>
+            <a href="/signup">Sign Up</a>
+        </nav>
+    </header>
+    <p>TEST - signup.html within myapp - TEST</p>
+    <form method="POST" action="" id="signup-form" class="account-form">
+        {% csrf_token %}
+        <div class="input-form">
+            <label for="username">Username</label>
+            {{form.username}}
+        </div>
+        <div class="input-form">
+            <label for="email">Email</label>
+            {{form.email}}
+        </div>
+        <!--<input type="Email" placeholder="Enter Your Email", aria-label="Email" name="email" required>-->
+        <!--<label for="email">Confirm Email</label>-->
+        <!--<input type="Email" placeholder="Confirm Your Email", aria-label="Email" name="email" required>-->
+        <div class="input-form">
+            <label for="password">Password</label>
+            <!--<input type="Password" name="password" placeholder="Enter Your Password" aria-label="Password" required>-->
+            {{form.password1}}
+        </div>
+        <div class="input-form">
+            <label for="password">Confirm Password</label>
+            <!--<input type="Password" name="password" placeholder="Confirm Your Password" aria-label="Password" required>-->
+            {{form.password2}}
+        </div>
+        <input type="submit" name="Create User">
+    </form>
+    <footer>
+        <p>&copy; 2023 Fitness Tracker. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
