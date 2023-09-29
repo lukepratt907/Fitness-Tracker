@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 
 def index(request):
-    return render(request, "index.html")
+    return render(request, "myapp/index.html")
 
 def signup(request):
     if request.method == 'POST':
@@ -22,5 +22,5 @@ def signup(request):
     else:
         form = SignUpForm()
     context = {"form":form}
-    return render(request, "signup.html", context)
+    return render(request, "myapp/signup.html", context)
 
