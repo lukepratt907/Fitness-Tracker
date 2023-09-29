@@ -1,6 +1,7 @@
 <!-- comment test-->
 <!--Signup Page for our Fitness Tracker-->
 <!--https://www.youtube.com/watch?v=tUqUdu0Sjyc&ab_channel=DennisIvy-->
+{% extends "myapp/base.html" %}
 <!DOCTYPE html>
 {% load static %}<!--loads static for stylesheet usagle in django-->
 <html lang="en">
@@ -18,6 +19,7 @@
             <a href="/signup">Sign Up</a>
         </nav>
     </header>
+    <p>TEST - signup.html within myapp - TEST</p>
     <form method="POST" action="" id="signup-form" class="account-form">
         {% csrf_token %}
         <div class="input-form">
