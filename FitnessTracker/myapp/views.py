@@ -7,6 +7,10 @@ from django.contrib.auth import authenticate, login
 def index(request):
     return render(request, "index.html")
 
+#def register(request):
+#    form = UserCreationForm()
+#    return render(request, 'users/register.html', {'form': form})
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
