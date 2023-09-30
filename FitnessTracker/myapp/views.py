@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 
 def index(request):
-    return render(request, "index.html")
+    return render(request, "myapp/index.html")
 
 #def register(request):
 #    form = UserCreationForm()
