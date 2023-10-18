@@ -80,3 +80,65 @@ footer {
     padding: 10px;
     color: white;
 }
+
+/* Main Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: yellow;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #333;
+}
+
+.register {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.register a {
+    color: black;
+    text-decoration: none;
+}
+
+.register a:hover {
+    text-decoration: underline;
+}
