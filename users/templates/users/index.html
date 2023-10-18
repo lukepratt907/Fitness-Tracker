@@ -10,13 +10,23 @@
     <link rel="stylesheet" href="{% static 'users/style.css' %}"><!--declares it is looking for a static item which is our css file-->
 </head>
 <body>
-    <div class="container">
-        <input type="text" placeholder="Username" />
-        <input type="password" placeholder="Password" />
-        <input type="submit" value="Login" />
-        <div class="register">
-            Need an account? <a href="#">Register</a>
-        </div>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/signin">Sign In</a>
+            <a href="/signup">Sign Up</a>
+        </nav>
+    </header>
+    <h1>Hello World!</h1>
+</body>
+
+<div class="container">
+    <input type="text" placeholder="Username" />
+    <input type="password" placeholder="Password" />
+    <input type="submit" value="Login" />
+    <div class="register">
+        Need an account? <a href="#">Register</a>
     </div>
+</div>
 </body>
 </html>
