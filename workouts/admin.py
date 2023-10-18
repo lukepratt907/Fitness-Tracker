@@ -1,3 +1,11 @@
 from django.contrib import admin
+from .models import Workout, FavoriteWorkout
 
-# Register your models here.
+class WorkoutAdmin(admin.ModelAdmin):
+    pass
+
+class FavoriteWorkoutAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Workout, WorkoutAdmin)
+admin.site.register(FavoriteWorkout, FavoriteWorkoutAdmin)
