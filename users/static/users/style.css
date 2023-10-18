@@ -1,5 +1,3 @@
-/*Style Sheet for our Fitness Tracker Project*/
-
 /* Global Styles */
 * {
     margin: 0;
@@ -8,13 +6,21 @@
 }
 
 body, html {
-    height: 100%;
+    font-family: 'Arial', sans-serif;
     background-color: black;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Navigation Bar Styles */
+header {
+    background: black;
+    color: yellow;
+    padding: 10px 0;
+    text-align: center;
+}
+
 nav {
     background-color: #333;
     padding: 10px;
@@ -27,78 +33,13 @@ nav a {
     text-decoration: none;
 }
 
-/* Sign-up Form Styles */
-.account-form {
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%)
-}
-
-.account-form input[type="text"],
-.account-form input[type="email"],
-.account-form input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    background-color: white;
-    color: black;
-}
-
-.account-form input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: yellow;
-    color: black;
-    cursor: pointer;
-}
-
-.input-form {
-    margin-bottom: 10px;
-
-}
-
-.input-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-/* Footer Styles */
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: #333;
-    text-align: center;
-    padding: 10px;
-    color: white;
-}
-
-/* Main Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: black;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
 .container {
     background-color: yellow;
     width: 400px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
 }
 
 input[type="text"],
@@ -141,4 +82,80 @@ input[type="submit"]:hover {
 
 .register a:hover {
     text-decoration: underline;
+}
+
+footer {
+    background: black;
+    color: yellow;
+    padding: 10px 0;
+    text-align: center;
+    margin-top: auto; /* Pushes the footer to the bottom */
+}
+
+/* Sign-up Form Styles */
+.account-form {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.account-form input[type="text"],
+.account-form input[type="email"],
+.account-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: white;
+    color: black;
+}
+
+.account-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: yellow;
+    color: black;
+    cursor: pointer;
+}
+
+.input-form {
+    margin-bottom: 10px;
+}
+
+.input-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+}
+
+.login-button {
+    background-color: black;
+    color: yellow;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+}
+
+.login-button:hover {
+    background-color: white;
+    color: black;
 }

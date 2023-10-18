@@ -7,26 +7,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness Tracker</title>
-    <link rel="stylesheet" href="{% static 'users/style.css' %}"><!--declares it is looking for a static item which is our css file-->
+    <!--<link rel="stylesheet" href="{% static 'users/style.css' %}">declares it is looking for a static item which is our css file-->
 </head>
 <body>
     <header>
         <nav>
             <a href="/">Home</a>
-            <a href="/signin">Sign In</a>
-            <a href="/signup">Sign Up</a>
         </nav>
     </header>
-    <h1>Hello World!</h1>
-</body>
 
 <div class="container">
-    <input type="text" placeholder="Username" />
-    <input type="password" placeholder="Password" />
-    <input type="submit" value="Login" />
+    <form method="post" action="{% url 'users-profile' %}">
+        {% csrf_token %}
+        {{ form.username }}
+        {{ form.password }}
+    </form>
+    <!--<input type="text" placeholder="Username" />
+    <input type="password" placeholder="Password" />-->
+    <input type="submit" value="login"/>
     <div class="register">
-        Need an account? <a href="#">Register</a>
+        Need an account? <a href="{% url 'users-signup' %}">Register</a>
     </div>
 </div>
 </body>
 </html>
+

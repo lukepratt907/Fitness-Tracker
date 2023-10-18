@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}<!--loads static for stylesheet usage in django-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <!--<link rel="stylesheet" href="{% static 'users/style.css' %}">declares it is looking for a static item which is out css file-->
+</head>
+<body>
+    Profile Page
+
+
+{% block content %}
+<h1>Welcome, {{ user.username }}!</h1>
+<p>This is your profile page.</p>
+<a href="{% url 'users-logout' %}">Logout</a>
+{% endblock %}
+
+</body>
+</html>

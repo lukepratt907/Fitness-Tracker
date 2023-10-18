@@ -1,30 +1,38 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import SignUpForm, UserCreationForm
-from django.contrib.auth import authenticate, login
+from .forms import SignUpForm, UserCreationForm, LoginForm
+from django.contrib.auth import authenticate, login, logout
+
 # Create your views here.
 
-def index(request):
-    return render(request, "users/index.html")
-
-#def register(request):
-#    form = UserCreationForm()
-#    return render(request, 'users/register.html', {'form': form})
-
 def signup(request):
-    if request.method == 'POST':
+    if request.method =='POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get["username"]
-            email = form.cleaned_data.get["email"]
-            password = form.cleaned_data["password1"]
-            new_user = authenticate(username=username, email=email, password=password)
-            if new_user is not None:
-                login(request, new_user)
-            return redirect("index")
+            user = form.save()
+            login(request, user)
+            return redirect('users/profile.html')
     else:
         form = SignUpForm()
-    context = {"form":form}
-    return render(request, "users/signup.html", context)
+    return render(request, "users/signup.html", {'form': form})
+
+
+def signin_view(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            return redirect('profile.html')
+    else:
+        form = LoginForm()
+    return render(request, 'users/index.html', {'form': form})
+
+
+def profile_view(request):
+    return render(request, 'users/profile.html', {'user': request.user})
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
 
