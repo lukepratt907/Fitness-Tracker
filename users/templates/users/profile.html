@@ -1,5 +1,16 @@
 {% extends "users/layout.html" %}
 
+{% block header %}
+    <header>
+        <h1>Mac's Fitness Tracker</h1>
+        <nav>
+            <span>
+                <a href="{% url 'users-profile' %}">Home</a>
+            </span>
+        </nav>
+    </header>
+{% endblock %}
+
 {% block main %}
 <h1>Welcome, {{ user.username }}!</h1>
     <p>This is your profile dashboard.</p>

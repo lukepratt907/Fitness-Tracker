@@ -43,7 +43,7 @@ class SignUpForm(UserCreationForm):
             'minlength':'6'
 
         })
-        self.fields["password"].widget.attrs.update({
+        self.fields["password1"].widget.attrs.update({
             'required':'',
             'name':'password1',
             'id':'password1',
@@ -52,8 +52,19 @@ class SignUpForm(UserCreationForm):
             'placeholder':'Password',
             'maxlength':'16',
             'minlength':'6'
-            
+    
+        })
+        self.fields["password2"].widget.attrs.update({
+            'required':'',
+            'name':'password1',
+            'id':'password1',
+            'type':'password',
+            'class':'form-input',
+            'placeholder':'Password',
+            'maxlength':'16',
+            'minlength':'6'
+    
         })
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password1', 'password2']

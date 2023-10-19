@@ -14,7 +14,7 @@ def register_view(request):
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
-            confirmation = form.cleaned_data.get('password2')
+            confirmation = form.cleaned_data.get('confirmation')
 
             # Ensure password matches confirmation
             if password != confirmation:

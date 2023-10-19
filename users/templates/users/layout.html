@@ -11,14 +11,8 @@
         <!--<link rel="stylesheet" href="{% static 'users/style.css' %}">declares it is looking for a static item which is our css file-->
     </head>
     <body>
-        <header>
-            <h1>Mac's Fitness Tracker</h1>
-                <nav>
-                    <span>
-                        <a href="{% url 'users-login' %}">Home</a>
-                    </span>
-                </nav>
-        </header>
+        {% block header %}
+        {% endblock %}
     </div>
     <main>
         {% block main %}
