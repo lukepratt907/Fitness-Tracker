@@ -12,9 +12,9 @@
 
 {% block main %}
 
-    {% if message %}
+    {% for message in messages %}
         <div>{{ message }}</div>
-    {% endif %}
+    {% endfor %}
 
     <div class="login-form">
         <form method="post">
