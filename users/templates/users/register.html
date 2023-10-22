@@ -3,6 +3,13 @@
 {% extends "users/layout.html" %}
 
 {% block header %}
+    <header>
+        <nav>
+            <span>
+                <h1>Mac's Fitness Tracker</h1>
+            </span>
+        </nav>
+    </header>
 {% endblock %}
 
 {% block main %}
@@ -14,15 +21,13 @@
     <div class="registration-form">
         <form method="post">
             {% csrf_token %}
-            {{ form.username.label }}
-            {{ form.username }}
-            {{ form.email.label }}
-            {{ form.email }}
-            {{ form.password1.label }}
-            {{ form.password1 }}      
-            {{ form.password2.label }}
-            {{ form.password2 }}
-            <button type="submit">Register</button>
+            <div>{{ form.username }}</div>
+            <div>{{ form.email }}</div>
+            <div>{{ form.password1 }}</div>    
+            </div>{{ form.password2 }}</div>
+            <div>
+                <button type="submit">Register</button>
+            </div>
         </form>
         <div class="login-link">
             Already have an account? <a href="{% url 'users-login' %}">Login</a>
