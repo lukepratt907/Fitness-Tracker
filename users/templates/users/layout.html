@@ -11,6 +11,10 @@
         <!--<link rel="stylesheet" href="{% static 'users/style.css' %}">declares it is looking for a static item which is our css file-->
     </head>
     <body>
+        {% if message %}
+            {{ messages }}
+        {% endif %}
+
         {% block header %}
         {% endblock %}
     </div>
