@@ -13,7 +13,7 @@ def register_view(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('users-login')
+            return redirect('users-profile')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
@@ -36,5 +36,3 @@ def profile_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
-
-
