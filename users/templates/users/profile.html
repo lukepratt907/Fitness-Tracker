@@ -14,5 +14,9 @@
 {% block main %}
 <h1>Welcome, {{ user.username }}!</h1>
     <p>This is your profile dashboard.</p>
+    <div class="profile-data">
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+    </div>
     <a href="{% url 'users-logout' %}">Logout</a>
 {% endblock %}

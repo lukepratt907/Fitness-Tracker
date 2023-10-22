@@ -24,7 +24,7 @@ def login_view(request):
         form = LoginForm(data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('profile.html')
+            return redirect('users-profile')
     else:
         form = LoginForm()
     return render(request, 'users/login.html', {'form': form})
