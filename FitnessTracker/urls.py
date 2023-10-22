@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from users import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #path('register/', user_views.register_view, name='register'), # In Corey's vids this is put here, but ours is iin users/urls.py, not sure why
     path("", include("users.urls"))#can change url
 ]

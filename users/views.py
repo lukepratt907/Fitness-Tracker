@@ -1,43 +1,23 @@
 from django.shortcuts import render, redirect
 from django.db import IntegrityError
 from django.http import HttpResponse
-from .forms import SignUpForm, LoginForm
+from .forms import LoginForm, UserCreationForm, UserRegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 
 def register_view(request):
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
-            # Get the details from the form
+            form.save()
             username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password1')
-            confirmation = form.cleaned_data.get('confirmation')
-
-            # Ensure password matches confirmation
-            if password != confirmation:
-                return render(request, "users/register.html", {
-                    "message": "Passwords must match."
-                })
-
-            # Attempt to create a new user
-            try:
-                user = User.objects.create_user(username, email, password)
-                user.save()
-            except IntegrityError:
-                return render(request, "users/register.html", {
-                    "message": "Username already taken."
-                })
-
-            login(request, user)
-            return redirect('users-profile')
-        else:
-            return render(request, "users/register.html", {'form': form})
+            messages.success(request, f'Account created for {username}!')
+            return redirect('users-login')
     else:
-        form = SignUpForm()
-        return render(request, "users/register.html", {'form': form})
+        form = UserRegisterForm()
+    return render(request, 'users/register.html', {'form': form})
 
 
 def login_view(request):

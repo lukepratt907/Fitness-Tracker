@@ -17,6 +17,14 @@ class LoginForm(AuthenticationForm):
         'minlength': '6',
     }))
 
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+"""
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, required=True)
     def __init__(self, *args, **kwargs):
@@ -68,3 +76,4 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+"""
