@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db import IntegrityError
 from django.http import HttpResponse
-from .forms import LoginForm, UserCreationForm, UserRegisterForm
+from .forms import LoginForm, UserRegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
@@ -24,7 +24,7 @@ def login_view(request):
         form = LoginForm(data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('profile.html')
+            return redirect('users-profile')
     else:
         form = LoginForm()
     return render(request, 'users/login.html', {'form': form})
