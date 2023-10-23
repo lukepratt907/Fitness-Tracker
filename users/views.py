@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse
 from .forms import LoginForm, UserRegisterForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
@@ -30,6 +31,7 @@ def login_view(request):
     return render(request, 'users/login.html', {'form': form})
 
 
+@login_required
 def profile_view(request):
     return render(request, 'users/profile.html', {'user': request.user})
 
