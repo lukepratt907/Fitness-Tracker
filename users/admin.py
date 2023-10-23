@@ -13,3 +13,5 @@ class GoalAdmin(admin.ModelAdmin):
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(DiaryEntry, DiaryEntryAdmin)
 admin.site.register(Goal, GoalAdmin)
+
+# This is a test from Jacob
