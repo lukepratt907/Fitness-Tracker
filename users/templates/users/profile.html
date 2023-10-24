@@ -2,10 +2,20 @@
 
 {% block header %}
     <header>
-        <h1>Mac's Fitness Tracker</h1>
+        <h1>Mac's Strength and Power: Fitness Tracker</h1>
         <nav>
             <span>
-                <a href="{% url 'users-profile' %}">Home</a>
+                <a href="{% url 'users-logout' %}">Home</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Workout 1</a></li>
+                        <li><a class="dropdown-item" href="#">Workout 2</a></li>
+                        <li><a class="dropdown-item" href="#">Workout 3</a></li>
+                    </ul>
+                </div>
             </span>
         </nav>
     </header>
