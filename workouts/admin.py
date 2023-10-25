@@ -1,3 +1,5 @@
+"""
+
 from django.contrib import admin
 from .models import Workout, FavoriteWorkout
 
@@ -9,3 +11,4 @@ class FavoriteWorkoutAdmin(admin.ModelAdmin):
 
 admin.site.register(Workout, WorkoutAdmin)
 admin.site.register(FavoriteWorkout, FavoriteWorkoutAdmin)
+"""
