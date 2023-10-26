@@ -1,8 +1,12 @@
+<!--BEFORE EDITING -->
+{% load static %}
 <!-- workouts/templates/workouts/workout_page.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- ... -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
     <h1>Workout Page</h1>
@@ -34,7 +38,7 @@
     <h2>Create a Workout</h2>
     <!-- workouts/templates/workouts/workout_page.html -->
     <!-- ... -->
-    <form method="post" action="">
+    <form method="post" action="" autocomplete="off">
         {% csrf_token %}
         {{ form.as_p }}
         {{ form.exercises.management_form }}
@@ -46,6 +50,15 @@
     </form>
     <!-- ... -->
 
+    <script>
+        $(function() {
+            // Assuming "id_exercise" is the ID of the input field for exercise name
+            $("#id_exercise").autocomplete({
+                source: "{% url 'exercise_autocomplete' %}",  // Replace with the actual URL for exercise autocomplete
+                minLength: 5,  // Adjust as needed
+            });
+        });
+    </script>    
+
 </body>
 </html>
-<!--BEFORE EDIT 1-->

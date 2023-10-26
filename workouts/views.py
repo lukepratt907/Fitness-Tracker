@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Workout
+from .models import Workout, Exercise
 from .forms import WorkoutForm
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views import View
 
 @login_required
 def workout_page(request):
@@ -25,3 +27,10 @@ def delete_workout(request, workout_id):
     workout = get_object_or_404(Workout, id=workout_id, user=request.user)
     workout.delete()
     return redirect('workout_page')
+
+class ExerciseAutocompleteView(View):
+    @login_required
+    def get(self, request, *args, **kwargs):
+        term = request.GET.get('term', '')
+        exercises = Exercise.objects.filter(name__icontains=term).values_list('name', flat=True)
+        return JsonResponse(list(exercises), safe=False)
