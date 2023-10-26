@@ -1,0 +1,32 @@
+<!-- about_page.html in 'about' app's 'templates' directory -->
+{% load static %}
+
+<div class="gym-info-container">
+    <h1>{{ gym_info.description }}<br><small><small><small><small><small>Established in {{ gym_info.year_established }}</small></small></small></small></small></h1>
+</div>
+
+<!-- To show machines/stations -->
+<section class="info-section">
+    <h2>Machines and Stations</h2>
+    <ul>
+        {% for machine in machines_list %}
+            <li>{{ machine }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- To show equipment -->
+<section class="equipment-section">
+    <h2>Equipment</h2>
+    <ul>
+        {% for equipment in equipment_list %}
+            <li>{{ equipment }}</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<div class="clear-both"></div>
+
+<footer>
+    <p>&copy; 2023 Fitness Tracker. All Rights Reserved.</p>
+</footer>

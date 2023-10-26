@@ -197,6 +197,25 @@ METRIC_TYPES = (
     ('resistance_bands', 'Resistance Bands'),
 )
 
+MACHINES = [
+    'Standing Calf Raise Machine', 'Seated Calf Raise Machine', 'Hip Abduction Machine',
+    'Hip Adduction Machine', 'Lying Hamstring Curl Machine', 'Leg Extension Machine',
+    'Hip Thrust Machine', 'Leg Press', 'Squat Rack', 'Deadlift Platform',
+    'Preacher Curl Machine', 'Pull-Up Stations', 'Row Machine', 'Cable Row Machine',
+    'Pull Down Machine', 'Adjustable Rope Machine', 'Incline Hyperextension Machine',
+    'Flat Hyperextension Machine', 'Reverse Hyperextension Machine', 'Dip Station',
+    'Roman Chair', 'Stationary Exercise Bicycle', 'Shoulder Press Station',
+    'Bench Press Station', 'Incline Bench Press Station', 'Pec Fly Machine',
+    'Hammer Strength Bench Press', 'Hammer Strength Incline Press', 'Hammer Strength Decline Press',
+    'Hammer Strength Shoulder Press', 'Hammer Strength Row', 'Hammer Strength Pull Down',
+    'Abdominal Crunch Machine', 'Chest Press Machine', 'Stair Master', 'Treadmill',
+]
+
+EQUIPMENT = [
+    'Deadlift Bar', 'Safety Squat Bar', 'Easy Bars', 'Dumbbells', 'Barbells',
+    'Bamboo Bar', 'Adjustable Benches', 'Boxes', 'Kettlebells', 'Yoga Balls', 'Resistance Bands'
+]
+
 EXERCISES = [
     ('arnold_press', 'Arnold Press'),
     ('back_squats', 'Back Squats'),
