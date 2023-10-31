@@ -1,0 +1,14 @@
+
+{% block content %}
+  <h2>Create A Custom Workout</h2>
+  <form method="POST" action="{% url 'create_custom_workout' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+
+  <!-- Button to go to the user's profile -->
+  <a href="{% url 'users-profile' %}">
+    <button>Profile</button>
+  </a>
+{% endblock %}

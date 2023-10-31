@@ -1,8 +1,8 @@
 # workouts/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Workout
-from .forms import WorkoutForm
+from .models import Workout, CustomWorkout
+from .forms import WorkoutForm, CustomWorkoutForm
 
 @login_required
 def create_workout(request):
@@ -16,6 +16,23 @@ def create_workout(request):
     else:
         form = WorkoutForm()
     return render(request, 'workouts/create_workout.html', {'form': form})
+
+@login_required
+def create_custom_workout(request):
+    if request.method == 'POST':
+        title = request.POST.get('Title', False)
+        description = request.POST.get('Description', False)
+        category = request.POST.get('Category', False)#not working right?
+        w = CustomWorkout(user=request.user, title=title, description=description, category=category)
+        w.save()
+        return redirect('workout_list')
+
+    else:
+        form = CustomWorkoutForm()
+        return render(request, 'workouts/create_custom_workout.html', {
+            'form': form
+
+        })
 
 @login_required
 def workout_list(request):
