@@ -1,8 +1,9 @@
 # workouts/admin.py
 from django.contrib import admin
-from .models import Exercise
+from .models import Exercise, CustomWorkout
 
 admin.site.register(Exercise)
+admin.site.register(CustomWorkout)
 
 """
 
