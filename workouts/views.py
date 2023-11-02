@@ -2,20 +2,29 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Workout, CustomWorkout
-from .forms import WorkoutForm, CustomWorkoutForm
+from .forms import WorkoutForm, CustomWorkoutForm, WorkoutExerciseFormSet
 
 @login_required
 def create_workout(request):
     if request.method == 'POST':
         form = WorkoutForm(request.POST)
-        if form.is_valid():
+        exercise_formset = WorkoutExerciseFormSet(request.POST, instance=Workout())
+        if form.is_valid() and exercise_formset.is_valid():
             workout = form.save(commit=False)
             workout.user = request.user
             workout.save()
+
+            # Save the related WorkflowExercise instances with the workout instance
+            instances = exercise_formset.save(commit=False)
+            for instance in instances:
+                instance.workout = workout
+                instance.save()
+
             return redirect('workout_list')
     else:
         form = WorkoutForm()
-    return render(request, 'workouts/create_workout.html', {'form': form})
+        exercise_formset = WorkoutExerciseFormSet(instance=Workout())
+    return render(request, 'workouts/create_workout.html', {'form': form, "exercise_formset": exercise_formset})
 
 @login_required
 def create_custom_workout(request):

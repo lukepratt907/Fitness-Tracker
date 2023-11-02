@@ -1,22 +1,26 @@
-
 {% block content %}
-  <h2>Your Workouts</h2>
-  <ul>
-    {% for workout in workouts %}
-      <li>
-        <strong>{{ workout.name }}</strong>
-        <p>Description: {{ workout.description }}</p>
-        <p>Exercise: {{ workout.exercise }}, Sets: {{ workout.sets }}, Reps: {{ workout.reps }}</p>
-        <form method="post" action="{% url 'delete_workout' workout.id %}">
-          {% csrf_token %}
-          <button type="submit">Delete</button>
-        </form>
-      </li>
+<h2>Your Workouts</h2>
+<ul>
+  {% for workout in workouts %}
+  <li>
+    <strong>{{ workout.name }}</strong>
+    <p>Description: {{ workout.description }}</p>
+    {% for obj in workout.workoutexercise_set.all %}
+    <p>
+      <span>Exercise {{ forloop.counter }}: {{ obj.exercise.name }},</span>
+      <span>Sets: {{ obj.sets }}, Reps: {{ obj.reps }}</span>
+    </p>
     {% endfor %}
-  </ul>
+    <form method="post" action="{% url 'delete_workout' workout.id %}">
+      {% csrf_token %}
+      <button type="submit">Delete</button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
 
-  <!-- Button to go back to create_workout page -->
-  <a href="{% url 'create_workout' %}">
-    <button>Create New Workout</button>
-  </a>
+<!-- Button to go back to create_workout page -->
+<a href="{% url 'create_workout' %}">
+  <button>Create New Workout</button>
+</a>
 {% endblock %}

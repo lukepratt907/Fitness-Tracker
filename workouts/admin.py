@@ -1,6 +1,14 @@
 # workouts/admin.py
 from django.contrib import admin
-from .models import Exercise, CustomWorkout
+from .models import Exercise, CustomWorkout, Workout, WorkoutExercise
+
+class WorkoutExerciseInline(admin.TabularInline):
+    model = WorkoutExercise
+    extra = 1
+
+
+class WorkoutAdmin(admin.ModelAdmin):
+    inlines = [WorkoutExerciseInline]
 
 admin.site.register(Exercise)
 admin.site.register(CustomWorkout)
@@ -19,3 +27,5 @@ class FavoriteWorkoutAdmin(admin.ModelAdmin):
 admin.site.register(Workout, WorkoutAdmin)
 admin.site.register(FavoriteWorkout, FavoriteWorkoutAdmin)
 """
+
+admin.site.register(Workout, WorkoutAdmin)
