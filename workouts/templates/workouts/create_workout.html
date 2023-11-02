@@ -15,6 +15,21 @@
     <!--<link rel="stylesheet" href="{% static 'users/style.css' %}">declares it is looking for a static item which is our css file-->
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'users-profile' %}">Profile</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users-logout' %}">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     {% block content %}
     <h2>Create Workout</h2>
     <form method="post" action="{% url 'create_workout' %}">
@@ -31,34 +46,34 @@
           {% for exercise_form in exercise_formset.forms %}
           <div class="exercise-form">
             {{ exercise_form.as_table }} {% if forloop.counter != 1 %}
-            <button type="button" class="delete-exercise">
-              Delete Exercise
+            <button type="button" class="delete-exercise rounded-button">
+              Remove
             </button>
             {% endif %}
           </div>
           {% endfor %}
         </div>
-        <button type="button" id="add-exercise">Add Exercise</button>
+        <button type="button" id="add-exercise" class="rounded-button">Add Exercise</button>
         <div id="empty_form" style="display: none">
           <div class="exercise-form">
             {{ exercise_formset.empty_form.as_table }}
-            <button type="button" class="delete-exercise">
-              Delete Exercise
+            <button type="button" class="delete-exercise rounded-button">
+              Remove
             </button>
           </div>
         </div>
       </div>
 
-      <button type="submit">Save</button>
+      <button type="submit" class="rounded-button">Save</button>
     </form>
 
-    <!-- Button to go to the user's profile -->
-    <a href="{% url 'users-profile' %}">
-      <button>Profile</button>
-    </a>
     {% endblock %}
     <div>
       <style>
+        .rounded-button {
+          border-radius: 8px;
+        }
+
         input[type="number"] {
           width: 60px;
         }
