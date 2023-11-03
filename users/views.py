@@ -38,3 +38,9 @@ def profile_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+def diary_view(request):
+    return render(request, 'users/diary.html', {'user': request.user})
+
+def goal_view(request):
+    return render(request, 'users/goals.html', {'user': request.user})

@@ -12,7 +12,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
-                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
+                        <li><a class="dropdown-item" href="#">Goals</a></li>
                         <li><a class="dropdown-item" href="#">Workout 3</a></li>
                     </ul>
                 </div>
@@ -28,13 +28,15 @@
     {% endfor %}
 
     <h1>Welcome, {{ user.username }}!</h1>
-    <p>This is your profile dashboard.</p>
+    <p>This is your goals page.</p>
     <div class="profile-data">
         <p>Username: {{ user.username }}</p>
-        <p>Email: {{ user.email }}</p>
     </div>
-    <a href="{% url 'create_workout' %}">Go to Workout Page</a>
-    <a href="{% url 'create_custom_workout' %}">Create a custom workout</a>
-    <a href="{% url 'users-logout' %}">Logout</a>
+    <div>
+        <a href="#">New Goal</a>
+    </div>
+    <div>
+        <a href="{% url 'users-logout' %}">Logout</a>
+    </div>
 
 {% endblock %}
