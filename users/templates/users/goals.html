@@ -12,8 +12,8 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
-                        <li><a class="dropdown-item" href="#">Goals</a></li>
-                        <li><a class="dropdown-item" href="#">Workout 3</a></li>
+                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
+                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
                     </ul>
                 </div>
             </span>
@@ -27,7 +27,7 @@
         <div>{{ message }}</div>
     {% endfor %}
 
-    <h1>Welcome, {{ user.username }}!</h1>
+    <h1>{{ user.username }}'s Goals</h1>
     <p>This is your goals page.</p>
     <div class="profile-data">
         <p>Username: {{ user.username }}</p>
