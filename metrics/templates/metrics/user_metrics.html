@@ -1,0 +1,21 @@
+{% extends "users/layout.html" %}
+
+{% block main %}
+
+    {% for message in messages %}
+        <div>{{ message }}</div>
+    {% endfor %}
+
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>This is your workout analytics page.</p>
+    <div class="profile-data">
+        <p>Username: {{ user.username }}</p>
+    </div>
+    <div>
+        <a href="#">New Metric</a>
+    </div>
+    <div>
+        <a href="{% url 'users-logout' %}">Logout</a>
+    </div>
+
+{% endblock %}
