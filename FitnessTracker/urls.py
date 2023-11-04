@@ -23,4 +23,5 @@ urlpatterns = [
     path("", include("users.urls")),    # can change url
     path('workouts/', include('workouts.urls')),  # Include workouts app URLs
     path('about/', include('about.urls')),
+    path('metrics/', include('metrics.urls'))
 ]

@@ -2,6 +2,7 @@ from typing import Any
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from .models import DiaryEntry, Goal
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -31,6 +32,16 @@ class UserRegisterForm(UserCreationForm):
         self.fields['email'].widget.attrs.update({'placeholder': 'Email'})
         self.fields['password1'].widget.attrs.update({'placeholder': 'Password'})
         self.fields['password2'].widget.attrs.update({'placeholder': 'Confirm Password'})
+
+class DiaryForm(forms.ModelForm):
+    class Meta:
+        model = DiaryEntry
+        fields = ['user', 'date', 'title', 'content']
+
+class GoalForm(forms.ModelForm):
+    class Meta:
+        model = Goal
+        fields = ['user', 'title', 'description', 'status']
 
 """
 class SignUpForm(UserCreationForm):
