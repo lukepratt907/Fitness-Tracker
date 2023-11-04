@@ -9,6 +9,7 @@
     <p>
       <span>Exercise {{ forloop.counter }}: {{ obj.exercise.name }},</span>
       <span>Sets: {{ obj.sets }}, Reps: {{ obj.reps }}</span>
+      <!--Day: {{obj.day}}-->
     </p>
     {% endfor %}
     <form method="post" action="{% url 'delete_workout' workout.id %}">

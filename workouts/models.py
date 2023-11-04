@@ -12,6 +12,8 @@ class Workout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
+    #day = models.DateTimeField(auto_now_add= True,blank=True,null=True)
+    #day = models.CharField(max_length=20)
     # exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     exs = models.ManyToManyField(Exercise, through="WorkoutExercise")
     # sets = models.PositiveIntegerField()
@@ -28,13 +30,17 @@ class WorkoutExercise(models.Model):
 
 
 class CustomWorkout(models.Model):
-    CARDIO = "Cardio"
-
+    RUN = "Run"
+    LEG = "Leg Press"
     CATEGORIES = [
-        (CARDIO, "Cardio"),
+        (RUN, "Run"),
+        (LEG, "Leg")
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     description = models.TextField()
-    category = models.CharField(max_length=20, choices=CATEGORIES, blank=False)#not working?
-    #need to add choice field for workouts like machine to select then sets and reps
+    #exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE)
+    #excercise = models.ManyToManyField(Exercise, through="WorkoutExercise")
+    #exercise = models.CharField(max_length=100, choices=CATEGORIES)
+    #sets = models.PositiveIntegerField()
+    #reps = models.PositiveIntegerField()

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Workout, CustomWorkout
 from .forms import WorkoutForm, CustomWorkoutForm, WorkoutExerciseFormSet
+from datetime import date
 
 @login_required
 def create_workout(request):
@@ -26,20 +27,24 @@ def create_workout(request):
         exercise_formset = WorkoutExerciseFormSet(instance=Workout())
     return render(request, 'workouts/create_workout.html', {'form': form, "exercise_formset": exercise_formset})
 
-@login_required
+@login_required(login_url='users/login.html')
 def create_custom_workout(request):
     if request.method == 'POST':
         title = request.POST.get('Title', False)
         description = request.POST.get('Description', False)
-        category = request.POST.get('Category', False)#not working right?
-        w = CustomWorkout(user=request.user, title=title, description=description, category=category)
+        exercise = request.POST.get('Exercise', False)#not working right?
+        sets = request.POST.get('Sets', False)
+        reps = request.POST.get('Reps', False)
+        w = CustomWorkout(user=request.user, title=title, description=description)
         w.save()
         return redirect('workout_list')
 
     else:
         form = CustomWorkoutForm()
+        exercise_formset = WorkoutExerciseFormSet(instance=Workout())
         return render(request, 'workouts/create_custom_workout.html', {
-            'form': form
+            'form': form,
+            "exercise_formset": exercise_formset
 
         })
 
