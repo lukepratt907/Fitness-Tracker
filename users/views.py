@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db import IntegrityError
 from django.http import HttpResponse
 from .forms import LoginForm, UserRegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import DiaryEntry
 
 
 def register_view(request):
@@ -39,8 +40,13 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-def diary_view(request):
-    return render(request, 'users/diary.html', {'user': request.user})
+def diary_list(request):
+    diaries = DiaryEntry.objects.filter(user=request.user)
+    return render(request, 'users/diary.html', {'diaries': diaries})
+
+def diary_detail(request, pk):
+    diary = get_object_or_404(DiaryEntry, pk=pk)
+    return render(request, 'users/diary_detail.html', {'diary': diary})
 
 def goal_view(request):
     return render(request, 'users/goals.html', {'user': request.user})

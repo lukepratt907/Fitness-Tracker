@@ -32,6 +32,15 @@
     <div class="profile-data">
         <p>Username: {{ user.username }}</p>
     </div>
+    {% if diaries %}
+        {% for diary in diaries %}
+            <div>
+                <a href="{% url 'diary-detail' diary.pk %}">Entry #</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You have no diary entries.</p>
+    {% endif %}
     <div>
         <a href="#">New Entry</a>
     </div>
