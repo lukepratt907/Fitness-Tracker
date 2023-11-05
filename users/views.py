@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import IntegrityError
 from django.http import HttpResponse
-from .forms import LoginForm, UserRegisterForm
+from .forms import LoginForm, UserRegisterForm, DiaryForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -47,6 +47,21 @@ def diary_list(request):
 def diary_detail(request, pk):
     diary = get_object_or_404(DiaryEntry, pk=pk)
     return render(request, 'users/diary_detail.html', {'diary': diary})
+
+def create_diary_entry(request):
+    if request.method == "POST":
+        form = DiaryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = request.user
+            date = request.date
+            title = request.title
+            content = request.content
+
+            return redirect('users-diary', {'user': user, 'date': date, 'title': title, 'content': content})
+    else:
+        form = DiaryForm()
+    return render(request, 'users/diary_entry.html', {'form': form})
 
 def goal_view(request):
     return render(request, 'users/goals.html', {'user': request.user})

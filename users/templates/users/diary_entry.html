@@ -27,23 +27,16 @@
         <div>{{ message }}</div>
     {% endfor %}
 
-    <h1>{{ user.username }}'s Workout Diary</h1>
-    <p>This is your diary page.</p>
-    <div class="profile-data">
-        <p>Username: {{ user.username }}</p>
-    </div>
-    {% if diaries %}
-        {% for diary in diaries %}
-            <div>
-                <a href="{% url 'diary-detail' diary.pk %}">Entry #</a>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>You have no diary entries.</p>
-    {% endif %}
-    <div>
-        <a href="{% url 'new-diary-entry' %}">New Entry</a>
-    </div>
+    <h1>{{ user.username }}: Create a New Diary Entry Here</h1>
+    <form method="post" action="{% url 'new-diary-entry' %}">
+        {% csrf_token %}
+        <div class="form-section">
+          <h2>New Diary Entry</h2>
+          {{ form.as_p }}
+        </div>
+  
+        <button type="submit" class="rounded-button">Save</button>
+    </form>  
     <div>
         <a href="{% url 'users-logout' %}">Logout</a>
     </div>

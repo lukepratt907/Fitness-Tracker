@@ -36,7 +36,7 @@ class UserRegisterForm(UserCreationForm):
 class DiaryForm(forms.ModelForm):
     class Meta:
         model = DiaryEntry
-        fields = ['user', 'date', 'title', 'content']
+        fields = ['title', 'content']
 
 class GoalForm(forms.ModelForm):
     class Meta:
