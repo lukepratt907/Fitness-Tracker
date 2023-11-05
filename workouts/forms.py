@@ -45,8 +45,8 @@ class CustomWorkoutForm(forms.Form):
         })
     )
 
-    category = forms.ChoiceField(#not working right?
-        label='Category',
+    exercise = forms.ChoiceField(#not working right?
+        label='Exercise',
         required=True,
         choices=CustomWorkout.CATEGORIES,
         widget=forms.Select(attrs={
@@ -55,3 +55,30 @@ class CustomWorkoutForm(forms.Form):
         })
     )
 
+    sets = forms.DecimalField(
+        label='Sets',
+        required=False,
+        initial=1,
+        widget=forms.NumberInput(attrs={
+            'class': 'CustomWorkoutCSS',
+            'placeholder': 'Sets',
+            'min': '1',
+            'max': '1000',
+            'step': '1'
+        }
+        )
+    )
+
+    reps = forms.DecimalField(
+        label='Reps',
+        required=False,
+        initial=1,
+        widget=forms.NumberInput(attrs={
+            'class': 'CustomWorkoutCSS',
+            'placeholder': 'Starting Bid',
+            'min': '1',
+            'max': '1000',
+            'step': '1'
+        }
+        )
+    )
