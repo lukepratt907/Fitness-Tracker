@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Workout, CustomWorkout
 from .forms import WorkoutForm, CustomWorkoutForm, WorkoutExerciseFormSet
-from datetime import date
+from datetime import datetime
 
 @login_required
 def create_workout(request):
