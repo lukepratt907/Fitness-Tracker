@@ -1,5 +1,37 @@
-{% block content %}
-<h2>Your Workouts</h2>
+{% extends "users/layout.html" %}
+
+{% block header %}
+    <header>
+        <h1>Mac's Strength and Power: Fitness Tracker</h1>
+        <nav>
+            <span>
+                <a href="{% url 'users-profile' %}">Home</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
+                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
+                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
+                    </ul>
+                </div>
+            </span>
+        </nav>
+    </header>
+{% endblock %}
+
+{% block main %}
+<div class="row">
+  <div class="col-md-6">
+    <h2>Your Workouts</h2>
+  </div>
+  <div class="col-md-6 text-end">
+    <a href="{% url 'create_workout' %}">
+      <button class="btn btn-primary btn-rounded">Create New Workout</button>
+    </a>
+  </div>
+</div>
 <ul>
   {% for workout in workouts %}
   <li>
@@ -15,14 +47,10 @@
     {% endfor %}
     <form method="post" action="{% url 'delete_workout' workout.id %}">
       {% csrf_token %}
-      <button type="submit">Delete</button>
+      <button type="submit" class="btn btn-danger btn-rounded">Delete</button>
     </form>
   </li>
   {% endfor %}
 </ul>
 
-<!-- Button to go back to create_workout page -->
-<a href="{% url 'create_workout' %}">
-  <button>Create New Workout</button>
-</a>
 {% endblock %}

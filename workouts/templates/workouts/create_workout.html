@@ -1,139 +1,126 @@
-{% load static %}<!--loads static for stylesheet usagle in django-->
+{% extends "users/layout.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Fitness Tracker{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!--<link rel="stylesheet" href="{% static 'users/style.css' %}">declares it is looking for a static item which is our css file-->
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'users-profile' %}">Profile</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'users-logout' %}">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    {% block content %}
-    <h2>Create Workout</h2>
-    <form method="post" action="{% url 'create_workout' %}">
-      {% csrf_token %}
-      <div class="form-section">
-        <h2>Workout Details</h2>
-        {{ form.as_p }}
-      </div>
+{% block header %}
+    <header>
+        <h1>Mac's Strength and Power: Fitness Tracker</h1>
+        <nav>
+            <span>
+                <a href="{% url 'users-profile' %}">Home</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
+                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
+                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
+                    </ul>
+                </div>
+            </span>
+        </nav>
+    </header>
+{% endblock %}
 
-      <div class="form-section">
-        <h2>Exercise Details</h2>
-        {{ exercise_formset.management_form }}
-        <div id="exercise-formset">
-          {% for exercise_form in exercise_formset.forms %}
-          <div class="exercise-form">
-            {{ exercise_form.as_table }} {% if forloop.counter != 1 %}
-            <button type="button" class="delete-exercise rounded-button">
-              Remove
-            </button>
-            {% endif %}
-          </div>
-          {% endfor %}
-        </div>
-        <button type="button" id="add-exercise" class="rounded-button">Add Exercise</button>
-        <div id="empty_form" style="display: none">
-          <div class="exercise-form">
-            {{ exercise_formset.empty_form.as_table }}
-            <button type="button" class="delete-exercise rounded-button">
-              Remove
-            </button>
-          </div>
-        </div>
-      </div>
+{% block main %}
 
-      <button type="submit" class="rounded-button">Save</button>
-    </form>
-
-    {% endblock %}
-    <div>
-      <style>
-        .rounded-button {
-          border-radius: 8px;
-        }
-
-        input[type="number"] {
-          width: 60px;
-        }
-        .workout-form {
-          width: 60%;
-          margin: auto;
-        }
-
-        .form-section {
-          margin-bottom: 20px;
-        }
-
-        .exercise-form {
-          border: 1px solid #ddd;
-          padding: 10px;
-          margin-bottom: 10px;
-        }
-
-        #add-exercise {
-          margin-top: 10px;
-        }
-      </style>
-      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-      <script>
-        function updateDeleteButtons() {
-          // Only show last delete button
-          $(".exercise-form .delete-exercise").hide();
-          $(".exercise-form:last-child .delete-exercise").show();
-        }
-        $(document).ready(function () {
-          $("#add-exercise").click(function () {
-            var form_idx = $("#id_workoutexercise_set-TOTAL_FORMS").val();
-            $("#exercise-formset").append(
-              $("#empty_form")
-                .html()
-                .replace(/__prefix__/g, form_idx)
-            );
-            $("#id_workoutexercise_set-TOTAL_FORMS").val(
-              parseInt(form_idx) + 1
-            );
-            updateDeleteButtons();
-          });
-
-          // Add event listener for delete buttons
-          $("#exercise-formset").on("click", ".delete-exercise", function () {
-            // Remove the parent exercise form when delete button is clicked
-            $(this).parent(".exercise-form").remove();
-
-            // Update the formset management form with the new total forms count
-            var totalForms = $("#id_workoutexercise_set-TOTAL_FORMS").val();
-            var newTotalForms = parseInt(totalForms) - 1;
-            $("#id_workoutexercise_set-TOTAL_FORMS").val(newTotalForms);
-
-            updateDeleteButtons();
-          });
-        });
-      </script>
+<body>
+  <h2>Create Workout</h2>
+  <form method="post" action="{% url 'create_workout' %}">
+    {% csrf_token %}
+    <div class="form-section">
+      {{ form.as_p }}
     </div>
-  </body>
-  <footer>
-    <p>&copy; 2023 Fitness Tracker. All Rights Reserved.</p>
-  </footer>
-</html>
+
+    <div class="form-section">
+      <h2>Exercise Details</h2>
+      {{ exercise_formset.management_form }}
+      <div id="exercise-formset">
+        {% for exercise_form in exercise_formset.forms %}
+        <div class="exercise-form">
+          {{ exercise_form.as_table }} {% if forloop.counter != 1 %}
+          <button type="button" class="delete-exercise rounded-button">
+            Remove
+          </button>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      <button type="button" id="add-exercise" class="rounded-button">Add Exercise</button> <button type="submit" class="rounded-button" style="float: right;">Save Workout</button>
+      <div id="empty_form" style="display: none">
+        <div class="exercise-form">
+          {{ exercise_formset.empty_form.as_table }}
+          <button type="button" class="delete-exercise rounded-button">
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div>
+    <style>
+      .rounded-button {
+        border-radius: 8px;
+      }
+
+      input[type="number"] {
+        width: 60px;
+      }
+      .workout-form {
+        width: 60%;
+        margin: auto;
+      }
+
+      .form-section {
+        margin-bottom: 20px;
+      }
+
+      .exercise-form {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      #add-exercise {
+        margin-top: 10px;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      function updateDeleteButtons() {
+        // Only show last delete button
+        $(".exercise-form .delete-exercise").hide();
+        $(".exercise-form:last-child .delete-exercise").show();
+      }
+      $(document).ready(function () {
+        $("#add-exercise").click(function () {
+          var form_idx = $("#id_workoutexercise_set-TOTAL_FORMS").val();
+          $("#exercise-formset").append(
+            $("#empty_form")
+              .html()
+              .replace(/__prefix__/g, form_idx)
+          );
+          $("#id_workoutexercise_set-TOTAL_FORMS").val(
+            parseInt(form_idx) + 1
+          );
+          updateDeleteButtons();
+        });
+
+        // Add event listener for delete buttons
+        $("#exercise-formset").on("click", ".delete-exercise", function () {
+          // Remove the parent exercise form when delete button is clicked
+          $(this).parent(".exercise-form").remove();
+
+          // Update the formset management form with the new total forms count
+          var totalForms = $("#id_workoutexercise_set-TOTAL_FORMS").val();
+          var newTotalForms = parseInt(totalForms) - 1;
+          $("#id_workoutexercise_set-TOTAL_FORMS").val(newTotalForms);
+
+          updateDeleteButtons();
+        });
+      });
+    </script>
+  </div>
+</body>
+
+{% endblock %}
