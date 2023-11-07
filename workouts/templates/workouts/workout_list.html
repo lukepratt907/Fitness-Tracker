@@ -36,7 +36,7 @@
   {% for workout in workouts %}
   <li>
     <strong>{{ workout.name }}</strong>
-    <p>Description: {{ workout.description }}</p>
+    <p>Notes: {{ workout.description }}</p>
     <p>Added on {{ workout.day }} AKT</p>
     {% for obj in workout.workoutexercise_set.all %}
     <p>

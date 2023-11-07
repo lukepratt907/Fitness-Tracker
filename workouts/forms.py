@@ -17,6 +17,7 @@ class WorkoutForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(WorkoutForm, self).__init__(*args, **kwargs)
         # self.fields['exercise'].queryset = Exercise.objects.all()
+        self.fields['description'].label = 'Notes'
 
 class WorkflowExerciseForm(forms.ModelForm):
     class Meta:
