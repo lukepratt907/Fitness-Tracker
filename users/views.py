@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import DiaryEntry
+from django.views.decorators.cache import cache_control
 
 
 def register_view(request):
@@ -20,7 +21,7 @@ def register_view(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
@@ -33,6 +34,7 @@ def login_view(request):
 
 
 @login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def profile_view(request):
     return render(request, 'users/profile.html', {'user': request.user})
 
@@ -48,6 +50,7 @@ def diary_detail(request, pk):
     diary = get_object_or_404(DiaryEntry, pk=pk)
     return render(request, 'users/diary_detail.html', {'diary': diary})
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def create_diary_entry(request):
     if request.method == "POST":
         form = DiaryForm(request.POST)

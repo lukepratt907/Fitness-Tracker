@@ -33,8 +33,9 @@
         <p>Username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
     </div>
-    <a href="{% url 'create_workout' %}">Go to Workout Page</a>
-    <a href="{% url 'create_custom_workout' %}">Create a custom workout</a>
+    <a href="{% url 'create_workout' %}">Create Workout</a>
+    <a href="{% url 'create_custom_workout' %}">Create Custom Workout</a>
+    <a href="{% url 'workout_list' %}">Workout List</a> <!-- ADDED During cache edits -->
     <a href="{% url 'users-logout' %}">Logout</a>
 
 {% endblock %}

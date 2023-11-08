@@ -4,8 +4,11 @@ from django.contrib.auth.decorators import login_required
 from .models import Workout, CustomWorkout
 from .forms import WorkoutForm, CustomWorkoutForm, WorkoutExerciseFormSet
 from datetime import datetime
+from django.views.decorators.cache import cache_control
 
-@login_required
+
+@login_required(login_url='users/login.html')
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def create_workout(request):
     if request.method == 'POST':
         form = WorkoutForm(request.POST)
@@ -49,10 +52,12 @@ def create_custom_workout(request):
         })
 
 @login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def workout_list(request):
     workouts = Workout.objects.filter(user=request.user)
     return render(request, 'workouts/workout_list.html', {'workouts': workouts})
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def delete_workout(request, workout_id):
     workout = get_object_or_404(Workout, id=workout_id)
 
