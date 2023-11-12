@@ -4,7 +4,6 @@
   <nav>
     <span>
       <a href="{% url 'users-profile' %}">Home</a>
-      <a href="{% url 'users-reminder' %}">Set Reminders</a>
       <div class="dropdown">
         <button
           class="btn btn-secondary dropdown-toggle"
@@ -33,16 +32,28 @@
 <div>{{ message }}</div>
 {% endfor %}
 
-<h1>Welcome, {{ user.username }}!</h1>
-<p>This is your profile dashboard.</p>
-<div class="profile-data">
-  <p>Username: {{ user.username }}</p>
-  <p>Email: {{ user.email }}</p>
+<h1>{{ user.username }}'s Reminders</h1>
+<p>This is your reminders page.</p>
+<div>
+  {% if reminders %} {% for reminder in reminders %}
+  <div>{{ reminder.message }} at {{reminder.time}}</div>
+  {% endfor %} {% else %}
+  <p>You have no reminders.</p>
+  {% endif %}
 </div>
-<a href="{% url 'create_workout' %}">Create Workout</a>
-<a href="{% url 'create_custom_workout' %}">Create Custom Workout</a>
-<a href="{% url 'workout_list' %}">Workout List</a>
-<!-- ADDED During cache edits -->
-<a href="{% url 'users-logout' %}">Logout</a>
+
+<h1>{{ user.username }}: Create a New Reminder Here</h1>
+<form method="post" action="{% url 'users-reminder' %}">
+  {% csrf_token %}
+  <div class="form-section">
+    <h2>New Reminder</h2>
+    {{ form.as_p }}
+  </div>
+
+  <button type="submit" class="rounded-button">Save</button>
+</form>
+<div>
+  <a href="{% url 'users-logout' %}">Logout</a>
+</div>
 
 {% endblock %}

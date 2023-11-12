@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import IntegrityError
 from django.http import HttpResponse
-from .forms import LoginForm, UserRegisterForm, DiaryForm
+from .forms import LoginForm, UserRegisterForm, DiaryForm, ReminderForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import DiaryEntry
+from .models import DiaryEntry, Reminder
 from django.views.decorators.cache import cache_control
 
 
@@ -68,3 +68,20 @@ def create_diary_entry(request):
 
 def goal_view(request):
     return render(request, 'users/goals.html', {'user': request.user})
+
+
+def reminder_view(request):
+    if request.method == "POST":
+        form = ReminderForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+
+            return redirect('users-reminder')
+        else:
+            return redirect('users-reminder')
+    else:
+        reminders = Reminder.objects.filter(user=request.user)
+        form = ReminderForm()
+        return render(request, 'users/reminder.html', {'user': request.user, 'reminders': reminders, 'form': form})

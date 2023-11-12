@@ -48,3 +48,12 @@ class Goal(models.Model):
 
     def __str__(self):
         return f'{self.user}s Goals'
+
+
+class Reminder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reminders")
+    message = models.TextField(max_length=1000)
+    time = models.DateTimeField(null=False, blank=False)
+
+    def __str__(self):
+        return f'{self.user}s Reminders'
