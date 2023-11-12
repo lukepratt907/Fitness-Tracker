@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
@@ -137,9 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_FROM="keelerjacobc@gmail.com"
+EMAIL_FROM="keelerjacobc@gmail.com" # change later
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
-EMAIL_HOST_USER="keelerjacobc@gmail.com"
-EMAIL_HOST_PASSWORD="qrll bnlb hazx nfcn"
+EMAIL_HOST_USER="keelerjacobc@gmail.com" # change later
+EMAIL_HOST_PASSWORD="qrll bnlb hazx nfcn" # if you change email, get a new password in gmail -> Secutiry-> App Passwords
