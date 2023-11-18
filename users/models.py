@@ -14,7 +14,6 @@ GOAL_STATUS = (
     ('failed', 'Failed'),
 )
 
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.PositiveIntegerField(null=True, blank=True)
@@ -23,7 +22,7 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True)
 
     def __str__(self):
-        return f'{self.user}s Profile'
+        return f'{self.user}\'s Profile'
 
 
 class DiaryEntry(models.Model):

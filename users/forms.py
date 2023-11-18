@@ -9,14 +9,14 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-input',
         'placeholder': 'Username',
-        'maxlength': '16',
+        'maxlength': '30',
         'minlength': '4',
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-input',
         'placeholder': 'Password',
-        'maxlength': '16',
-        'minlength': '6',
+        'maxlength': '30',
+        'minlength': '8',
     }))
 
 class UserRegisterForm(UserCreationForm):
