@@ -1,55 +1,69 @@
 {% extends "users/layout.html" %}
 
 {% block header %}
-    <header>
-        <h1>Mac's Strength and Power: Fitness Tracker</h1>
-        <nav>
-            <span>
-                <a href="{% url 'users-profile' %}">Home</a>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Diary, Goals and Metrics
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
-                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
-                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
-                    </ul>
-                </div>
-            </span>
-        </nav>
-    </header>
+  <header style="background-color: black;">
+    <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
+    <nav>
+      <span>
+        <div class="container">
+          <div class="row">
+            <div class="col text-end">
+              <a href="{% url 'users-profile' %}" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">Home</a>
+            </div>
+            <div class="col text-start">
+              <div class="dropdown">
+                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">
+                    Diary, Goals and Metrics
+                </button>
+                <ul class="dropdown-menu" style="background-color: black; overflow: hidden; padding-right: 15px; text-align: center; border: 1px solid gray;">
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'users-diary' %}" style="color: white; background-color: black !important; padding: 0">Diary</a></li>
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'users-goal' %}" style="color: white; background-color: black !important; padding: 0">Goals</a></li>
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'metrics' %}" style="color: white; background-color: black !important; padding: 0;">Metrics</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </span>
+    </nav>
+  </header>
 {% endblock %}
 
 {% block main %}
 
-<body>
-  <h2>Create Workout</h2>
+<body style="background-color: black;">
+  <h2 style="color: white; text-align: center; padding-bottom: 50px;">Create Workout</h2>
   <form method="post" action="{% url 'create_workout' %}">
     {% csrf_token %}
-    <div class="form-section">
+
+    <style>
+      .form-section label {
+        color: white;
+      }
+    </style>
+    <div class="form-section" style="text-align: center;">
       {{ form.as_p }}
     </div>
 
     <div class="form-section">
-      <h2>Exercise Details</h2>
+      <h3 style="color: white;">Exercise Details</h3>
       {{ exercise_formset.management_form }}
       <div id="exercise-formset">
         {% for exercise_form in exercise_formset.forms %}
         <div class="exercise-form">
           {{ exercise_form.as_table }} {% if forloop.counter != 1 %}
-          <button type="button" class="delete-exercise rounded-button">
+          <button type="button" class="delete-exercise rounded-button" style="float: right; color: yellow; background-color: black; border-color: white;">
             Remove
           </button>
           {% endif %}
         </div>
         {% endfor %}
       </div>
-      <button type="button" id="add-exercise" class="rounded-button">Add Exercise</button> <button type="submit" class="rounded-button" style="float: right;">Save Workout</button>
+      <button type="button" id="add-exercise" class="rounded-button" style="color: yellow; background-color: black; border-color: white;">Add Exercise</button> <button type="submit" class="rounded-button" style="float: right; color: yellow; background-color: black; border-color: white;">Save Workout</button>
       <div id="empty_form" style="display: none">
         <div class="exercise-form">
           {{ exercise_formset.empty_form.as_table }}
-          <button type="button" class="delete-exercise rounded-button">
+          <button type="button" class="delete-exercise rounded-button" style="float: right; color: yellow; background-color: black; border-color: white;">
             Remove
           </button>
         </div>
