@@ -5,12 +5,12 @@
     <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
     <nav>
       <span>
-        <div class="container">
+        <div class="container" style="display: flex; justify-content: space-around;">
           <div class="row">
-            <div class="col text-end">
+            <div class="col">
               <a href="{% url 'users-profile' %}" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">Home</a>
             </div>
-            <div class="col text-start">
+            <div class="col">
               <div class="dropdown">
                 <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">
                     Diary, Goals and Metrics
@@ -21,6 +21,9 @@
                     <li class="d-grid"><a class="dropdown-item" href="{% url 'metrics' %}" style="color: white; background-color: black !important; padding: 0;">Metrics</a></li>
                 </ul>
               </div>
+            </div>
+            <div class="col text-start">
+              <a href="{% url 'about_page' %}" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">About</a>
             </div>
           </div>
         </div>
@@ -39,6 +42,12 @@
     <style>
       .form-section label {
         color: white;
+      }
+      .exercise-form {
+        border: 1px solid #ccc;
+        border-radius: 10px; /* Adjust the value to control the roundness */
+        padding: 10px; /* Add some padding for better appearance */
+        margin-bottom: 10px; /* Add margin to separate each exercise form */
       }
     </style>
     <div class="form-section" style="text-align: center;">

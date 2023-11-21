@@ -1,32 +1,62 @@
-<!-- about_page.html in 'about' app's 'templates' directory -->
-{% load static %}
+{% extends "users/layout.html" %}
 
-<div class="gym-info-container">
-    <h1>{{ gym_info.description }}<br><small><small><small><small><small>Established in {{ gym_info.year_established }}</small></small></small></small></small></h1>
-</div>
+{% block header %}
+  <header style="background-color: black;">
+    <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker<br><small><small><small><small><small>Established in {{ gym_info.year_established }}</small></small></small></small></small></h1>
+    <nav>
+      <span>
+        <div class="container" style="display: flex; justify-content: space-around;">
+          <div class="row">
+            <div class="col text-end">
+              <a href="{% url 'users-profile' %}" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">Home</a>
+            </div>
+            <div class="col text-start">
+              <div class="dropdown">
+                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">
+                    Diary, Goals and Metrics
+                </button>
+                <ul class="dropdown-menu" style="background-color: black; overflow: hidden; padding-right: 15px; text-align: center; border: 1px solid gray;">
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'users-diary' %}" style="color: white; background-color: black !important; padding: 0">Diary</a></li>
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'users-goal' %}" style="color: white; background-color: black !important; padding: 0">Goals</a></li>
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'metrics' %}" style="color: white; background-color: black !important; padding: 0;">Metrics</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </span>
+    </nav>
+  </header>
+<!---------------------------------------------------------------------------------------->
+{% endblock %}
 
-<!-- To show machines/stations -->
-<section class="info-section">
-    <h2>Machines and Stations</h2>
-    <ul>
-        {% for machine in machines_list %}
-            <li>{{ machine }}</li>
-        {% endfor %}
-    </ul>
-</section>
-
-<!-- To show equipment -->
-<section class="equipment-section">
-    <h2>Equipment</h2>
-    <ul>
-        {% for equipment in equipment_list %}
-            <li>{{ equipment }}</li>
-        {% endfor %}
-    </ul>
-</section>
-
-<div class="clear-both"></div>
+{% block main %}
+    <body style="background-color: black;">
+        <div class="container" style="display: flex; justify-content: space-between;">
+            <div class="left-column" style="display: flex; justify-content: center;">
+                <section class="info-section">
+                    <h2 style="color: yellow;">Machines and Stations</h2>
+                    <ul style="color: white;">
+                        {% for machine in machines_list %}
+                            <li>{{ machine }}</li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </div>
+            <div class="right-column" style="display: flex; justify-content: center;">
+                <section class="equipment-section">
+                    <h2 style="color: yellow;">Equipment</h2>
+                    <ul style="color: white;">
+                        {% for equipment in equipment_list %}
+                            <li>{{ equipment }}</li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </body>
+{% endblock %}
 
 <footer>
-    <p>&copy; 2023 Fitness Tracker. All Rights Reserved.</p>
+    <p >&copy; 2023 Fitness Tracker. All Rights Reserved.</p>
 </footer>

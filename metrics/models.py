@@ -198,22 +198,23 @@ METRIC_TYPES = (
 )
 
 MACHINES = [
-    'Standing Calf Raise Machine', 'Seated Calf Raise Machine', 'Hip Abduction Machine',
-    'Hip Adduction Machine', 'Lying Hamstring Curl Machine', 'Leg Extension Machine',
-    'Hip Thrust Machine', 'Leg Press', 'Squat Rack', 'Deadlift Platform',
-    'Preacher Curl Machine', 'Pull-Up Stations', 'Row Machine', 'Cable Row Machine',
-    'Pull Down Machine', 'Adjustable Rope Machine', 'Incline Hyperextension Machine',
-    'Flat Hyperextension Machine', 'Reverse Hyperextension Machine', 'Dip Station',
-    'Roman Chair', 'Stationary Exercise Bicycle', 'Shoulder Press Station',
-    'Bench Press Station', 'Incline Bench Press Station', 'Pec Fly Machine',
-    'Hammer Strength Bench Press', 'Hammer Strength Incline Press', 'Hammer Strength Decline Press',
-    'Hammer Strength Shoulder Press', 'Hammer Strength Row', 'Hammer Strength Pull Down',
-    'Abdominal Crunch Machine', 'Chest Press Machine', 'Stair Master', 'Treadmill',
+    'Abdominal Crunch Machine', 'Adjustable Rope Machine', 'Bench Press Station',
+    'Cable Row Machine', 'Chest Press Machine', 'Deadlift Platform', 'Dip Station',
+    'Flat Hyperextension Machine', 'Hammer Strength Bench Press', 'Hammer Strength Decline Press',
+    'Hammer Strength Incline Press', 'Hammer Strength Pull Down', 'Hammer Strength Row',
+    'Hammer Strength Shoulder Press', 'Hip Abduction Machine', 'Hip Adduction Machine',
+    'Hip Thrust Machine', 'Incline Bench Press Station', 'Incline Hyperextension Machine',
+    'Leg Extension Machine', 'Leg Press', 'Lying Hamstring Curl Machine', 'Pec Fly Machine',
+    'Preacher Curl Machine', 'Pull Down Machine', 'Pull-Up Stations', 'Reverse Hyperextension Machine',
+    'Roman Chair', 'Row Machine', 'Seated Calf Raise Machine', 'Shoulder Press Station',
+    'Squat Rack', 'Stair Master', 'Standing Calf Raise Machine', 'Stationary Exercise Bicycle',
+    'Treadmill',
 ]
 
+
 EQUIPMENT = [
-    'Deadlift Bar', 'Safety Squat Bar', 'Easy Bars', 'Dumbbells', 'Barbells',
-    'Bamboo Bar', 'Adjustable Benches', 'Boxes', 'Kettlebells', 'Yoga Balls', 'Resistance Bands'
+    'Adjustable Benches', 'Barbells', 'Bamboo Bar', 'Boxes', 'Deadlift Bar', 'Dumbbells',
+    'Easy Bars', 'Kettlebells', 'Resistance Bands', 'Safety Squat Bar', 'Yoga Balls',
 ]
 
 EXERCISES = [
