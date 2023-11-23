@@ -16,6 +16,9 @@
                         <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
                     </ul>
                 </div>
+                <div>
+                    <a href="{% url 'users-logout' %}">Logout</a>
+                </div>
             </span>
         </nav>
     </header>
@@ -23,17 +26,27 @@
 
 {% block main %}
 
+    <!-- Messages -->
     {% for message in messages %}
         <div>{{ message }}</div>
     {% endfor %}
 
-    <h1>{{ user.username }}'s Detailed View of Diary Entry #{{ diary.pk }}</h1>
-    <p>This is a detailed view of one of your entries</p>
-    <div>
-        <a href="{% url 'new-diary-entry' %}">New Entry</a>
+    <!-- Diary Page Heading -->
+    <h1>{{ user.username }}'s Workout Diary: Entry {{ diary.id }}</h1>
+
+    <div class="container py-3">
+        <div class="diary-grid">
+            <div class="diary-card">
+                <h3>{{ diary.title }}</h3>
+                <p>{{ diary.date }}</p>
+                <p>{{ diary.content }}
+            </div>
+        </div>
     </div>
-    <div>
-        <a href="{% url 'users-logout' %}">Logout</a>
+
+    <!-- New Diary Entry Button -->
+    <div class="new-entry-button">
+        <a href="{% url 'new-diary-entry' %}">Add New Entry</a>
     </div>
 
 {% endblock %}

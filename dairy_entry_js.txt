@@ -1,0 +1,109 @@
+ <!-- New Diary Entry Form (Hidden by default) -->
+    <div id="newEntryForm" style="display:none;">
+        <form id="diaryForm">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Title">
+            <textarea name="content" placeholder="New diary entry..."></textarea>
+            <button type="submit">Submit Entry</button>
+        </form>
+    </div>
+
+    <script>
+
+        // Method to retrieve value of a specified cookie by its name. Gets the CSRF token from cookies for POST request
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken')
+
+        // Toggle diary entry accordion open and closed on user click
+        function toggleAccordian(element) {
+            const content = element.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+
+        function loadDiaryDetails(diaryId) {
+            fetch(`/diary/${diaryId}/`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const contentDiv = document.getElementById(`collapse${diaryId}`).querySelector('.card-body');
+                contentDiv.innerHTML = `<p>${data.content}</p>`;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+
+        document.querySelectorAll('.btn-link').forEach(button => {
+            button.addEventListener('click', function() {
+                const diaryId = this.getAttribute('data-diary-id');
+                toggleAccordion(this);
+                loadDiaryDetails(diaryId);
+            });
+        });
+
+
+        // AJAX submission for new diary entry
+        document.getElementById('newEntryBtn').addEventListener('click', function() {
+            document.getElementById('newEntryForm').style.display = 'block';
+        });
+
+        document.getElementById('diaryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            fetch("{% url 'new-diary-entry' %}", {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.status === 'success') {
+                    // Add the new accordion item
+                    const diaryList = document.querySelector('#accordion');
+                    diaryList.innerHTML += `
+                        <div class="card">
+                            <div class="card-header" id="heading${data.id}">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-diary-id="${data.id}" onclick="toggleAccordion(this)">
+                                        ${data.title} - Just now
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapse${data.id}" class="collapse">
+                                <div class="card-body">${data.content}</div>
+                            </div>
+                        </div>`;
+                    document.getElementById('diaryForm').reset();
+                    document.getElementById('newEntryForm').style.display = 'none';
+                } else {
+                    console.error('Error:', data.errors);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+
+    </script>

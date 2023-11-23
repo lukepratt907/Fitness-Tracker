@@ -28,7 +28,7 @@ class UserProfile(models.Model):
 
 class DiaryEntry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=100, default="Diary Entry")
     content = models.TextField()
 
@@ -42,7 +42,7 @@ class Goal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, default="Goal")
     description = models.TextField(blank=True)
-    start_date = models.DateField()
+    start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField(null=True, blank=True)
     status = models.CharField(choices=GOAL_STATUS, max_length=50)
 
