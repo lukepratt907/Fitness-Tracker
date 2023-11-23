@@ -1,7 +1,8 @@
 {% extends "users/layout.html" %}
-
+{% load static %}
 {% block header %}
-  <header style="background-color: black;">
+  <header style="background-color: black; position: relative;">
+    <img src="{% static 'images/mac_header.jpg' %}" style="width: 8%; position: absolute; top: 25px; left: 75px;" alt="Mac" />
     <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
     <nav>
       <span>

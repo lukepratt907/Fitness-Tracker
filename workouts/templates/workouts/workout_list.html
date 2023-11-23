@@ -1,56 +1,72 @@
 {% extends "users/layout.html" %}
-
+{% load static %}
 {% block header %}
-    <header>
-        <h1>Mac's Strength and Power: Fitness Tracker</h1>
-        <nav>
-            <span>
-                <a href="{% url 'users-profile' %}">Home</a>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Diary, Goals and Metrics
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
-                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
-                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
-                    </ul>
-                </div>
-            </span>
-        </nav>
-    </header>
+  <header style="background-color: black; position: relative;">
+    <img src="{% static 'images/mac_header.jpg' %}" style="width: 8%; position: absolute; top: 25px; left: 75px;" alt="Mac" />
+    <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
+    <nav>
+      <span>
+        <div class="container" style="display: flex; justify-content: space-around;">
+          <div class="row">
+            <div class="col">
+              <a href="{% url 'users-profile' %}" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">Home</a>
+            </div>
+            <div class="col">
+              <div class="dropdown">
+                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">
+                    Diary, Goals and Metrics
+                </button>
+                <ul class="dropdown-menu" style="background-color: black; overflow: hidden; padding-right: 15px; text-align: center; border: 1px solid gray;">
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'users-diary' %}" style="color: white; background-color: black !important; padding: 0">Diary</a></li>
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'users-goal' %}" style="color: white; background-color: black !important; padding: 0">Goals</a></li>
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'metrics' %}" style="color: white; background-color: black !important; padding: 0;">Metrics</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col text-start">
+              <a href="{% url 'about_page' %}" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">About</a>
+            </div>
+          </div>
+        </div>
+      </span>
+    </nav>
+  </header>
 {% endblock %}
 
 {% block main %}
-<div class="row">
-  <div class="col-md-6">
-    <h2>Your Workouts</h2>
+<body style="background-color: black;">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 style="color: white;">Your Workouts</h2>
+    </div>
+    <div class="col-md-6 text-end">
+      <a href="{% url 'create_workout' %}">
+        <button type="button" id="add-exercise" class="rounded-button" style="color: yellow; background-color: black; border-color: white;">Create New Workout</button>
+      </a>
+    </div>
   </div>
-  <div class="col-md-6 text-end">
-    <a href="{% url 'create_workout' %}">
-      <button class="btn btn-primary btn-rounded">Create New Workout</button>
-    </a>
-  </div>
-</div>
-<ul>
-  {% for workout in workouts %}
-  <li>
-    <strong>{{ workout.name }}</strong>
-    <p>Notes: {{ workout.description }}</p>
-    <p>Added on {{ workout.day }} AKT</p>
-    {% for obj in workout.workoutexercise_set.all %}
-    <p>
-      <span>Exercise {{ forloop.counter }}: {{ obj.exercise.name }},</span>
-      <span>Sets: {{ obj.sets }}, Reps: {{ obj.reps }}</span>
-      <!--Day: {{obj.day}}-->
-    </p>
+  <ul>
+    {% for workout in workouts %}
+    <li>
+      <strong style="color: yellow;">{{ workout.name }} - <small style="color: lightgray; font-weight: normal; font-size: 80%;">{{ workout.day }} AKT</small></strong>
+      <p style="color: white; margin-top: 10px;"><span style="color: gray; font-style: italic;">Notes:</span> {{ workout.description }}</p>
+      {% for obj in workout.workoutexercise_set.all %}
+      <p>
+        <span style="color: white;"><span style="font-style: italic;">Exercise</span> {{ forloop.counter }} - {{ obj.exercise.name }}:</span>
+        <span style="color: white;">{{ obj.sets }} {% if obj.sets == 1 %} set{% else %} sets{% endif %}, {{ obj.reps }} {% if obj.reps == 1 %} rep{% else %} reps{% endif %}</span>
+      </p>
+      {% endfor %}
+      <form method="post" action="{% url 'delete_workout' workout.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-rounded" style="margin-bottom: 20px;">Delete</button>
+      </form>
+    </li>
     {% endfor %}
-    <form method="post" action="{% url 'delete_workout' workout.id %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-danger btn-rounded">Delete</button>
-    </form>
-  </li>
-  {% endfor %}
-</ul>
-
+  </ul>
+</body>
+<style>
+  .rounded-button {
+        border-radius: 8px;
+  }
+</style>
 {% endblock %}
