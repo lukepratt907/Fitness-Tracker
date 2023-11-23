@@ -11,7 +11,7 @@ class Exercise(models.Model):
 class Workout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     day = models.DateTimeField(auto_now=True)
     #day = models.DateTimeField(auto_now_add= True,blank=True,null=True)
     #day = models.CharField(max_length=20)

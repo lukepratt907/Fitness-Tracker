@@ -1,139 +1,150 @@
-{% load static %}<!--loads static for stylesheet usagle in django-->
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Fitness Tracker{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!--<link rel="stylesheet" href="{% static 'users/style.css' %}">declares it is looking for a static item which is our css file-->
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'users-profile' %}">Profile</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'users-logout' %}">Logout</a>
-            </li>
-          </ul>
+{% extends "users/layout.html" %}
+{% load static %}
+{% block header %}
+  <header style="background-color: black; position: relative;">
+    <img src="{% static 'images/mac_header.jpg' %}" style="width: 8%; position: absolute; top: 25px; left: 75px;" alt="Mac" />
+    <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
+    <nav>
+      <span>
+        <div class="container" style="display: flex; justify-content: space-around;">
+          <div class="row">
+            <div class="col">
+              <a href="{% url 'users-profile' %}" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">Home</a>
+            </div>
+            <div class="col">
+              <div class="dropdown">
+                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">
+                    Diary, Goals and Metrics
+                </button>
+                <ul class="dropdown-menu" style="background-color: black; overflow: hidden; padding-right: 15px; text-align: center; border: 1px solid gray;">
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'users-diary' %}" style="color: white; background-color: black !important; padding: 0">Diary</a></li>
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'users-goal' %}" style="color: white; background-color: black !important; padding: 0">Goals</a></li>
+                    <li class="d-grid"><a class="dropdown-item" href="{% url 'metrics' %}" style="color: white; background-color: black !important; padding: 0;">Metrics</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col text-start">
+              <a href="{% url 'about_page' %}" style="color: yellow; background-color: black; border-color: white;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">About</a>
+            </div>
+          </div>
         </div>
-      </div>
+      </span>
     </nav>
-    {% block content %}
-    <h2>Create Workout</h2>
-    <form method="post" action="{% url 'create_workout' %}">
-      {% csrf_token %}
-      <div class="form-section">
-        <h2>Workout Details</h2>
-        {{ form.as_p }}
-      </div>
+  </header>
+{% endblock %}
 
-      <div class="form-section">
-        <h2>Exercise Details</h2>
-        {{ exercise_formset.management_form }}
-        <div id="exercise-formset">
-          {% for exercise_form in exercise_formset.forms %}
-          <div class="exercise-form">
-            {{ exercise_form.as_table }} {% if forloop.counter != 1 %}
-            <button type="button" class="delete-exercise rounded-button">
-              Remove
-            </button>
-            {% endif %}
-          </div>
-          {% endfor %}
-        </div>
-        <button type="button" id="add-exercise" class="rounded-button">Add Exercise</button>
-        <div id="empty_form" style="display: none">
-          <div class="exercise-form">
-            {{ exercise_formset.empty_form.as_table }}
-            <button type="button" class="delete-exercise rounded-button">
-              Remove
-            </button>
-          </div>
-        </div>
-      </div>
+{% block main %}
 
-      <button type="submit" class="rounded-button">Save</button>
-    </form>
+<body style="background-color: black;">
+  <h2 style="color: white; text-align: center; padding-bottom: 50px;">Create Workout</h2>
+  <form method="post" action="{% url 'create_workout' %}">
+    {% csrf_token %}
 
-    {% endblock %}
-    <div>
-      <style>
-        .rounded-button {
-          border-radius: 8px;
-        }
-
-        input[type="number"] {
-          width: 60px;
-        }
-        .workout-form {
-          width: 60%;
-          margin: auto;
-        }
-
-        .form-section {
-          margin-bottom: 20px;
-        }
-
-        .exercise-form {
-          border: 1px solid #ddd;
-          padding: 10px;
-          margin-bottom: 10px;
-        }
-
-        #add-exercise {
-          margin-top: 10px;
-        }
-      </style>
-      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-      <script>
-        function updateDeleteButtons() {
-          // Only show last delete button
-          $(".exercise-form .delete-exercise").hide();
-          $(".exercise-form:last-child .delete-exercise").show();
-        }
-        $(document).ready(function () {
-          $("#add-exercise").click(function () {
-            var form_idx = $("#id_workoutexercise_set-TOTAL_FORMS").val();
-            $("#exercise-formset").append(
-              $("#empty_form")
-                .html()
-                .replace(/__prefix__/g, form_idx)
-            );
-            $("#id_workoutexercise_set-TOTAL_FORMS").val(
-              parseInt(form_idx) + 1
-            );
-            updateDeleteButtons();
-          });
-
-          // Add event listener for delete buttons
-          $("#exercise-formset").on("click", ".delete-exercise", function () {
-            // Remove the parent exercise form when delete button is clicked
-            $(this).parent(".exercise-form").remove();
-
-            // Update the formset management form with the new total forms count
-            var totalForms = $("#id_workoutexercise_set-TOTAL_FORMS").val();
-            var newTotalForms = parseInt(totalForms) - 1;
-            $("#id_workoutexercise_set-TOTAL_FORMS").val(newTotalForms);
-
-            updateDeleteButtons();
-          });
-        });
-      </script>
+    <style>
+      .form-section label {
+        color: white;
+      }
+      .exercise-form {
+        border: 1px solid #ccc;
+        border-radius: 10px; /* Adjust the value to control the roundness */
+        padding: 10px; /* Add some padding for better appearance */
+        margin-bottom: 10px; /* Add margin to separate each exercise form */
+      }
+    </style>
+    <div class="form-section" style="text-align: center;">
+      {{ form.as_p }}
     </div>
-  </body>
-  <footer>
-    <p>&copy; 2023 Fitness Tracker. All Rights Reserved.</p>
-  </footer>
-</html>
+
+    <div class="form-section">
+      <h3 style="color: white;">Exercise Details</h3>
+      {{ exercise_formset.management_form }}
+      <div id="exercise-formset">
+        {% for exercise_form in exercise_formset.forms %}
+        <div class="exercise-form">
+          {{ exercise_form.as_table }} {% if forloop.counter != 1 %}
+          <button type="button" class="delete-exercise rounded-button" style="float: right; color: yellow; background-color: black; border-color: white;">
+            Remove
+          </button>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      <button type="button" id="add-exercise" class="rounded-button" style="color: yellow; background-color: black; border-color: white;">Add Exercise</button> <button type="submit" class="rounded-button" style="float: right; color: yellow; background-color: black; border-color: white;">Save Workout</button>
+      <div id="empty_form" style="display: none">
+        <div class="exercise-form">
+          {{ exercise_formset.empty_form.as_table }}
+          <button type="button" class="delete-exercise rounded-button" style="float: right; color: yellow; background-color: black; border-color: white;">
+            Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div>
+    <style>
+      .rounded-button {
+        border-radius: 8px;
+      }
+
+      input[type="number"] {
+        width: 60px;
+      }
+      .workout-form {
+        width: 60%;
+        margin: auto;
+      }
+
+      .form-section {
+        margin-bottom: 20px;
+      }
+
+      .exercise-form {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      #add-exercise {
+        margin-top: 10px;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      function updateDeleteButtons() {
+        // Only show last delete button
+        $(".exercise-form .delete-exercise").hide();
+        $(".exercise-form:last-child .delete-exercise").show();
+      }
+      $(document).ready(function () {
+        $("#add-exercise").click(function () {
+          var form_idx = $("#id_workoutexercise_set-TOTAL_FORMS").val();
+          $("#exercise-formset").append(
+            $("#empty_form")
+              .html()
+              .replace(/__prefix__/g, form_idx)
+          );
+          $("#id_workoutexercise_set-TOTAL_FORMS").val(
+            parseInt(form_idx) + 1
+          );
+          updateDeleteButtons();
+        });
+
+        // Add event listener for delete buttons
+        $("#exercise-formset").on("click", ".delete-exercise", function () {
+          // Remove the parent exercise form when delete button is clicked
+          $(this).parent(".exercise-form").remove();
+
+          // Update the formset management form with the new total forms count
+          var totalForms = $("#id_workoutexercise_set-TOTAL_FORMS").val();
+          var newTotalForms = parseInt(totalForms) - 1;
+          $("#id_workoutexercise_set-TOTAL_FORMS").val(newTotalForms);
+
+          updateDeleteButtons();
+        });
+      });
+    </script>
+  </div>
+</body>
+
+{% endblock %}

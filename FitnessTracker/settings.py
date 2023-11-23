@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_apscheduler',
     'corsheaders',
 ]
 
@@ -125,11 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 # Commented out below because it was giving a warning, and I am not sure if we even need it
-'''
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-'''
+
 
 STATIC_URL = 'static/'
 
@@ -138,4 +139,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Email
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_FROM="keelerjacobc@gmail.com" # change later
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER="keelerjacobc@gmail.com" # change later
+EMAIL_HOST_PASSWORD="qrll bnlb hazx nfcn" # if you change email, get a new password in gmail -> Secutiry-> App Passwords
 CORS_ALLOW_ALL_ORIGINS = True

@@ -1,5 +1,26 @@
 {% extends "users/layout.html" %}
 
+{% block header %}
+    <header>
+        <h1>Mac's Strength and Power: Fitness Tracker</h1>
+        <nav>
+            <span>
+                <a href="{% url 'users-profile' %}">Home</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
+                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
+                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
+                    </ul>
+                </div>
+            </span>
+        </nav>
+    </header>
+{% endblock %}
+
 {% block main %}
     <!-- New Diary Entry Form -->
     <form id="diaryForm" method="post" action="{% url 'new-diary-entry' %}">

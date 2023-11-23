@@ -17,6 +17,12 @@ class WorkoutForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(WorkoutForm, self).__init__(*args, **kwargs)
         # self.fields['exercise'].queryset = Exercise.objects.all()
+        #Added the 4 lines below on Nov 21
+        self.fields['name'].widget.attrs.update({'placeholder': 'Workout Name'})
+        self.fields['description'].widget.attrs.update({'placeholder': 'Anything Interesting? . . .'})
+        self.fields['name'].label = ''
+        self.fields['description'].label = ''
+        #self.fields['description'].label = 'Notes'
 
 class WorkflowExerciseForm(forms.ModelForm):
     class Meta:

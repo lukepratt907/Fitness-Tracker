@@ -1,5 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import IntegrityError
+from django.http import HttpResponse
+from .forms import LoginForm, UserRegisterForm, DiaryForm, ReminderForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import DiaryEntry, Reminder
+from django.views.decorators.cache import cache_control
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from .forms import LoginForm, UserRegisterForm, DiaryForm
@@ -27,7 +34,7 @@ def register_view(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
@@ -40,6 +47,7 @@ def login_view(request):
 
 
 @login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def profile_view(request):
     return render(request, 'users/profile.html', {'user': request.user})
 
@@ -65,6 +73,8 @@ def diary_list(request):
 def diary_detail(request, pk):
     diary = get_object_or_404(DiaryEntry, pk=pk)
     return render(request, 'users/diary_detail.html', {'diary': diary})
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
     
 def create_diary_entry(request):
     logger = logging.getLogger(__name__)
@@ -86,3 +96,20 @@ def create_diary_entry(request):
 
 def goal_view(request):
     return render(request, 'users/goals.html', {'user': request.user})
+
+
+def reminder_view(request):
+    if request.method == "POST":
+        form = ReminderForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+
+            return redirect('users-reminder')
+        else:
+            return redirect('users-reminder')
+    else:
+        reminders = Reminder.objects.filter(user=request.user)
+        form = ReminderForm()
+        return render(request, 'users/reminder.html', {'user': request.user, 'reminders': reminders, 'form': form})
