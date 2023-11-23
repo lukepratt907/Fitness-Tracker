@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import IntegrityError
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from .forms import LoginForm, UserRegisterForm, DiaryForm
 from django.contrib.auth import authenticate, login, logout
@@ -47,8 +48,15 @@ def logout_view(request):
     return redirect('/')
 
 def diary_list(request):
+    diaries = DiaryEntry.objects.filter(user=request.user).order_by('-date')
     search = request.GET.get('search', '')
-    diaries = DiaryEntry.objects.filter(user=request.user, title__icontains=search).order_by('-date')
+    if search:
+        diaries = diaries.filter(
+            Q(content__icontains=search) |
+            Q(title__icontains=search) |
+            Q(date__icontains=search)
+        )
+
     p = Paginator(diaries, 5)
     page_number = request.GET.get('page')
     page_obj = p.get_page(page_number)

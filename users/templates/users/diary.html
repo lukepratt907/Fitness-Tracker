@@ -35,6 +35,12 @@
     <h1>{{ user.username }}'s Workout Diary</h1>
     <p>This is your diary page.</p>
 
+    <!-- Search Form -->
+    <form method="get" action="{% url 'users-diary' %}">
+        <input type="text" name="search" value="{{ search }}" placeholder="Search diary entries...">
+        <button type="submit">Search</button>
+    </form>
+
     <!-- Grid Layout for Diary Entries -->
     <div class="container py-3">
         {% if page_obj %}
