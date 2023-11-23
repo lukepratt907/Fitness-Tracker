@@ -16,6 +16,9 @@
                         <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
                     </ul>
                 </div>
+                <div>
+                    <a href="{% url 'users-logout' %}">Logout</a>
+                </div>
             </span>
         </nav>
     </header>
@@ -23,29 +26,58 @@
 
 {% block main %}
 
+    <!-- Messages -->
     {% for message in messages %}
         <div>{{ message }}</div>
     {% endfor %}
 
+    <!-- Diary Page Heading -->
     <h1>{{ user.username }}'s Workout Diary</h1>
     <p>This is your diary page.</p>
-    <div class="profile-data">
-        <p>Username: {{ user.username }}</p>
-    </div>
-    {% if diaries %}
-        {% for diary in diaries %}
-            <div>
-                <a href="{% url 'diary-detail' diary.pk %}">Entry #</a>
+
+    <!-- Search Form -->
+    <form method="get" action="{% url 'users-diary' %}">
+        <input type="text" name="search" value="{{ search }}" placeholder="Search diary entries...">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Grid Layout for Diary Entries -->
+    <div class="container py-3">
+        {% if page_obj %}
+            <div class="diary-grid">
+                {% for diary in page_obj %}
+                    <div class="diary-card">
+                        <h3>{{ diary.title }}</h3>
+                        <p>{{ diary.date }}</p>
+                        <a href="{% url 'diary-detail' diary.pk %}">Read More</a>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    {% else %}
-        <p>You have no diary entries.</p>
-    {% endif %}
-    <div>
-        <a href="{% url 'new-diary-entry' %}">New Entry</a>
+        {% else %}
+            <p>You have no diary entries.</p>
+        {% endif %}
     </div>
-    <div>
-        <a href="{% url 'users-logout' %}">Logout</a>
+
+    <!-- New Diary Entry Button -->
+    <div class="new-entry-button">
+        <a href="{% url 'new-diary-entry' %}">Add New Entry</a>
+    </div>
+
+    <!-- Pagination for many diary entries -->
+    <div class="pagination">
+        <span class="pages">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 
 {% endblock %}

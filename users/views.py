@@ -7,7 +7,20 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import DiaryEntry, Reminder
 from django.views.decorators.cache import cache_control
+from django.db.models import Q
+from django.http import HttpResponse, JsonResponse
+from .forms import LoginForm, UserRegisterForm, DiaryForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.paginator import Paginator
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+from .models import DiaryEntry
+import logging
 
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 def register_view(request):
     if request.method == 'POST':
@@ -43,28 +56,43 @@ def logout_view(request):
     return redirect('/')
 
 def diary_list(request):
-    diaries = DiaryEntry.objects.filter(user=request.user)
-    return render(request, 'users/diary.html', {'diaries': diaries})
+    diaries = DiaryEntry.objects.filter(user=request.user).order_by('-date')
+    search = request.GET.get('search', '')
+    if search:
+        diaries = diaries.filter(
+            Q(content__icontains=search) |
+            Q(title__icontains=search) |
+            Q(date__icontains=search)
+        )
+
+    p = Paginator(diaries, 5)
+    page_number = request.GET.get('page')
+    page_obj = p.get_page(page_number)
+    return render(request, 'users/diary.html', {'page_obj': page_obj, 'search': search})
 
 def diary_detail(request, pk):
     diary = get_object_or_404(DiaryEntry, pk=pk)
     return render(request, 'users/diary_detail.html', {'diary': diary})
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
+    
 def create_diary_entry(request):
+    logger = logging.getLogger(__name__)
+    logger.debug(request.POST)
     if request.method == "POST":
         form = DiaryForm(request.POST)
         if form.is_valid():
-            form.save()
-            user = request.user
-            date = request.date
-            title = request.title
-            content = request.content
-
-            return redirect('users-diary', {'user': user, 'date': date, 'title': title, 'content': content})
+            diary_entry = form.save(commit=False)
+            diary_entry.user = request.user
+            diary_entry.save()
+            return redirect('users-diary')
+        else:
+            logger.error(f"Form Errors: {form.errors}")
+            return render(request, 'users/diary_entry.html', {'form': form})
     else:
+        logger.error("Invalid request type")
         form = DiaryForm()
-    return render(request, 'users/diary_entry.html', {'form': form})
+        return render(request, 'users/diary_entry.html', {'form': form})
 
 def goal_view(request):
     return render(request, 'users/goals.html', {'user': request.user})
