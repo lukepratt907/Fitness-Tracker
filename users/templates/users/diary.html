@@ -35,11 +35,11 @@
     <h1>{{ user.username }}'s Workout Diary</h1>
     <p>This is your diary page.</p>
 
+    <!-- Grid Layout for Diary Entries -->
     <div class="container py-3">
-        {% if diaries %}
-            <!-- Grid Layout for Diary Entries -->
+        {% if page_obj %}
             <div class="diary-grid">
-                {% for diary in diaries %}
+                {% for diary in page_obj %}
                     <div class="diary-card">
                         <h3>{{ diary.title }}</h3>
                         <p>{{ diary.date }}</p>
@@ -55,6 +55,23 @@
     <!-- New Diary Entry Button -->
     <div class="new-entry-button">
         <a href="{% url 'new-diary-entry' %}">Add New Entry</a>
+    </div>
+
+    <!-- Pagination for many diary entries -->
+    <div class="pagination">
+        <span class="pages">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 
 {% endblock %}

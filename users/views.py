@@ -5,6 +5,7 @@ from .forms import LoginForm, UserRegisterForm, DiaryForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from .models import DiaryEntry
@@ -46,8 +47,12 @@ def logout_view(request):
     return redirect('/')
 
 def diary_list(request):
-    diaries = DiaryEntry.objects.filter(user=request.user)
-    return render(request, 'users/diary.html', {'diaries': diaries})
+    search = request.GET.get('search', '')
+    diaries = DiaryEntry.objects.filter(user=request.user, title__icontains=search).order_by('-date')
+    p = Paginator(diaries, 5)
+    page_number = request.GET.get('page')
+    page_obj = p.get_page(page_number)
+    return render(request, 'users/diary.html', {'page_obj': page_obj, 'search': search})
 
 def diary_detail(request, pk):
     diary = get_object_or_404(DiaryEntry, pk=pk)
