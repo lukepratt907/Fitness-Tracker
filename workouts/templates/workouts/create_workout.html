@@ -69,7 +69,8 @@
         </div>
         {% endfor %}
       </div>
-      <button type="button" id="add-exercise" class="rounded-button" style="color: yellow; background-color: black; border-color: white;">Add Exercise</button> <button type="submit" class="rounded-button" style="float: right; color: yellow; background-color: black; border-color: white;">Save Workout</button>
+      <button type="button" id="add-exercise" class="rounded-button" style="color: yellow; background-color: black; border-color: white;">Add Exercise</button> <button type="submit" name="btnlog" class="rounded-button" style="float: right; color: yellow; background-color: black; border-color: white;">Log Workout</button>
+      <button type="submit" name="btnlogsave" class="rounded-button" style="float: right; color: yellow; background-color: black; border-color: white;">Log Workout and Save for Later</button>
       <div id="empty_form" style="display: none">
         <div class="exercise-form">
           {{ exercise_formset.empty_form.as_table }}

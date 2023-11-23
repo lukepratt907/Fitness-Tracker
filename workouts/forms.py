@@ -31,7 +31,7 @@ class WorkflowExerciseForm(forms.ModelForm):
 
 WorkoutExerciseFormSet = inlineformset_factory(Workout, WorkoutExercise, form=WorkflowExerciseForm, extra=2, can_delete = False)
 
-
+"""
 class CustomWorkoutForm(forms.Form):
     title = forms.CharField(
         label='Title',
@@ -88,3 +88,4 @@ class CustomWorkoutForm(forms.Form):
         }
         )
     )
+"""

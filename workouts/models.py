@@ -36,12 +36,9 @@ class CustomWorkout(models.Model):
     CATEGORIES = [
         (RUN, "Run"),
         (LEG, "Leg")
-    ]
+   ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    description = models.TextField()
-    #exercise = models.ForeignKey(WorkoutExercise, on_delete=models.CASCADE)
-    #excercise = models.ManyToManyField(Exercise, through="WorkoutExercise")
-    #exercise = models.CharField(max_length=100, choices=CATEGORIES)
-    #sets = models.PositiveIntegerField()
-    #reps = models.PositiveIntegerField()
+    workout = models.ForeignKey(Workout, on_delete=models.CASCADE) 
+
+    def __str__(self):
+        return self.workout.name

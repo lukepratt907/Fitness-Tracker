@@ -4,3 +4,4 @@ sqlparse==0.4.3
 pillow==10.1.0
 django-apscheduler==0.6.2
 django-cors-headers
+mysqlclient==2.2.0

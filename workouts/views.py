@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Workout, CustomWorkout
-from .forms import WorkoutForm, CustomWorkoutForm, WorkoutExerciseFormSet
+from .forms import WorkoutForm, WorkoutExerciseFormSet #, CustomWorkoutForm
 from datetime import datetime
 from django.views.decorators.cache import cache_control
 
@@ -10,7 +10,7 @@ from django.views.decorators.cache import cache_control
 @login_required(login_url='users/login.html')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def create_workout(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and 'btnlog' in request.POST:
         form = WorkoutForm(request.POST)
         exercise_formset = WorkoutExerciseFormSet(request.POST, instance=Workout())
         if form.is_valid() and exercise_formset.is_valid():
@@ -25,11 +25,29 @@ def create_workout(request):
                 instance.save()
 
             return redirect('workout_list')
+    elif request.method == 'POST' and 'btnlogsave' in request.POST:
+        form = WorkoutForm(request.POST)
+        exercise_formset = WorkoutExerciseFormSet(request.POST, instance=Workout())
+        if form.is_valid() and exercise_formset.is_valid():
+            workout = form.save(commit=False)
+            workout.user = request.user
+            workout.save()
+            workout_saved = CustomWorkout(user=request.user, workout=workout)#create customworkout
+            workout_saved.save()#save custom workout
+
+
+            # Save the related WorkflowExercise instances with the workout instance
+            instances = exercise_formset.save(commit=False)
+            for instance in instances:
+                instance.workout = workout
+                instance.save()
+
+            return redirect('workout_list')
     else:
         form = WorkoutForm()
         exercise_formset = WorkoutExerciseFormSet(instance=Workout())
     return render(request, 'workouts/create_workout.html', {'form': form, "exercise_formset": exercise_formset})
-
+"""
 @login_required(login_url='users/login.html')
 def create_custom_workout(request):
     if request.method == 'POST':
@@ -50,7 +68,7 @@ def create_custom_workout(request):
             "exercise_formset": exercise_formset
 
         })
-
+"""
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def workout_list(request):
