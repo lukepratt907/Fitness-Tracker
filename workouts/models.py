@@ -31,12 +31,6 @@ class WorkoutExercise(models.Model):
 
 
 class CustomWorkout(models.Model):
-    RUN = "Run"
-    LEG = "Leg Press"
-    CATEGORIES = [
-        (RUN, "Run"),
-        (LEG, "Leg")
-   ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE) 
 

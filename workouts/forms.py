@@ -31,61 +31,15 @@ class WorkflowExerciseForm(forms.ModelForm):
 
 WorkoutExerciseFormSet = inlineformset_factory(Workout, WorkoutExercise, form=WorkflowExerciseForm, extra=2, can_delete = False)
 
-"""
 class CustomWorkoutForm(forms.Form):
-    title = forms.CharField(
-        label='Title',
-        required=True,
-        widget=forms.TextInput(attrs={
-            'class': 'CustomWorkoutCSS',
-            'placeholder': 'Give your workout a title'
-        })
-    )
-
-    description = forms.CharField(
-        label='Description',
-        required=True,
-        widget=forms.Textarea(attrs={
-            'class': 'CustomWorkoutCSS',
-            'placeholder': 'Give your workout a description'
-        })
-    )
-
-    exercise = forms.ChoiceField(#not working right?
-        label='Exercise',
-        required=True,
-        choices=CustomWorkout.CATEGORIES,
+    name = forms.ChoiceField(
+        label='Category',
+        required=False,
+        choices=CustomWorkout.objects.all(),
         widget=forms.Select(attrs={
-            'class': 'CustomWorkoutCSS',
-            'placeholder': 'Give your workout a category'
-        })
-    )
-
-    sets = forms.DecimalField(
-        label='Sets',
-        required=False,
-        initial=1,
-        widget=forms.NumberInput(attrs={
-            'class': 'CustomWorkoutCSS',
-            'placeholder': 'Sets',
-            'min': '1',
-            'max': '1000',
-            'step': '1'
+            'class': 'form-control form-group',
+            'autocomplete': 'on',
+            'placeholder': 'Name'
         }
         )
     )
-
-    reps = forms.DecimalField(
-        label='Reps',
-        required=False,
-        initial=1,
-        widget=forms.NumberInput(attrs={
-            'class': 'CustomWorkoutCSS',
-            'placeholder': 'Starting Bid',
-            'min': '1',
-            'max': '1000',
-            'step': '1'
-        }
-        )
-    )
-"""

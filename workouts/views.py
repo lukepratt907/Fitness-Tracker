@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Workout, CustomWorkout
-from .forms import WorkoutForm, WorkoutExerciseFormSet #, CustomWorkoutForm
+from .forms import WorkoutForm, WorkoutExerciseFormSet, CustomWorkoutForm
 from datetime import datetime
 from django.views.decorators.cache import cache_control
 
@@ -46,7 +46,8 @@ def create_workout(request):
     else:
         form = WorkoutForm()
         exercise_formset = WorkoutExerciseFormSet(instance=Workout())
-    return render(request, 'workouts/create_workout.html', {'form': form, "exercise_formset": exercise_formset})
+        objectlist = Workout.objects.all()
+    return render(request, 'workouts/create_workout.html', {'form': form, "exercise_formset": exercise_formset, 'objectlist': objectlist})
 """
 @login_required(login_url='users/login.html')
 def create_custom_workout(request):

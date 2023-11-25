@@ -36,7 +36,7 @@
 {% block main %}
 
 <body style="background-color: black;">
-  <h2 style="color: white; text-align: center; padding-bottom: 50px;">Create Workout</h2>
+  <h1 style="color: white; text-align: center; padding-bottom: 50px;">Create Workout</h1>
   <form method="post" action="{% url 'create_workout' %}">
     {% csrf_token %}
 
@@ -81,7 +81,18 @@
       </div>
     </div>
   </form>
+  <h2 style="color: white; text-align: center; padding-bottom: 50px;">Or</h2>
+    <select>
 
+
+      {% for element in objectlist %}
+      
+      
+      <option value={{ element.id }}>{{ element.name }}
+      
+      
+      {% endfor %}
+    </select>
   <div>
     <style>
       .rounded-button {

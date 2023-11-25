@@ -88,8 +88,18 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'fitness_tracker',#'fitness_tracker', #can be anything?
+        'USER': 'lgpratt',#your username to login
+        'PASSWORD': 'Iluvsuka101!',#your password to login
+        'HOST': 'www.cse.uaa.alaska.edu',#'www.cse.uaa.alaska.edu',#'137.229.141.228',  # or the hostname where your MySQL server is running
+        'PORT': '22',#22     # or the port on which your MySQL server is listening
+    }
+}
+"""
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
