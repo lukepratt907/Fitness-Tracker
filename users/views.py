@@ -9,14 +9,14 @@ from .models import DiaryEntry, Reminder
 from django.views.decorators.cache import cache_control
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
-from .forms import LoginForm, UserRegisterForm, DiaryForm
+from .forms import LoginForm, UserRegisterForm, DiaryForm, GoalForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
-from .models import DiaryEntry
+from .models import DiaryEntry, Goal
 import logging
 
 def is_ajax(request):
@@ -95,7 +95,42 @@ def create_diary_entry(request):
         return render(request, 'users/diary_entry.html', {'form': form})
 
 def goal_view(request):
-    return render(request, 'users/goals.html', {'user': request.user})
+    goals = Goal.objects.filter(user=request.user).order_by('-start_date')
+    search = request.GET.get('search', '')
+    if search:
+        goals = goals.filter(
+            Q(title__icontains=search) |
+            Q(description__icontains=search) |
+            Q(start_date__icontains=search) |
+            Q(end_date__icontains=search) |
+            Q(status__icontains=search)
+        )
+    p = Paginator(goals, 5)
+    page_number = request.GET.get('page')
+    page_obj = p.get_page(page_number)
+    return render(request, 'users/goals.html', {'search': search, 'page_obj': page_obj})
+
+def goal_detail(request, pk):
+    goal = get_object_or_404(Goal, pk=pk)
+    return render(request, 'users/goal_detail.html', {'goal': goal})
+
+def create_goal(request):
+    logger = logging.getLogger(__name__)
+    logger.debug(request.POST)
+    if request.method == 'POST':
+        form = GoalForm(request.POST)
+        if form.is_valid():
+            new_goal = form.save(commit=False)
+            new_goal.user = request.user
+            new_goal.save()
+            return redirect('users-goal')
+        else:
+            logger.error(f"Form Errors: {form.errors}")
+            return render(request, 'users/new_goal.html', {'form': form})
+    else:
+        logger.error("Invalid request type")
+        form = GoalForm()
+        return render(request, 'users/new_goal.html', {'form': form})
 
 
 def reminder_view(request):

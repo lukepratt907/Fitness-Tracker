@@ -16,6 +16,9 @@
                         <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
                     </ul>
                 </div>
+                <div>
+                    <a href="{% url 'users-logout' %}">Logout</a>
+                </div>
             </span>
         </nav>
     </header>
@@ -23,20 +26,58 @@
 
 {% block main %}
 
+    <!-- Messages -->
     {% for message in messages %}
         <div>{{ message }}</div>
     {% endfor %}
 
+    <!-- Goal Page Heading -->
     <h1>{{ user.username }}'s Goals</h1>
     <p>This is your goals page.</p>
-    <div class="profile-data">
-        <p>Username: {{ user.username }}</p>
+
+    <!-- Search Form -->
+    <form method="get" action="{% url 'users-goal' %}">
+        <input type="text" name="search" value="{{ search }}" placeholder="Search goals...">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Grid Layout for Goals -->
+    <div class="container py-3">
+        {% if page_obj %}
+            <div class="goal-grid">
+                {% for goal in page_obj %}
+                    <div class="goal-card">
+                        <h3>{{ goal.title }}</h3>
+                        <p>Due: {{ goal.end_date }}</p>
+                        <a href="{% url 'goal-detail' goal.pk %}">Read More</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>You have no goals.</p>
+        {% endif %}
     </div>
-    <div>
-        <a href="#">New Goal</a>
+
+    <!-- New Goal Button -->
+    <div class="new-entry-button">
+        <a href="{% url 'new-goal' %}">Add New Goal</a>
     </div>
-    <div>
-        <a href="{% url 'users-logout' %}">Logout</a>
+
+    <!-- Pagination for many goals -->
+    <div class="pagination">
+        <span class="pages">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">Previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}">Last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 
 {% endblock %}

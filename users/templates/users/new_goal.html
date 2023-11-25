@@ -1,0 +1,42 @@
+{% extends "users/layout.html" %}
+
+{% block header %}
+    <header>
+        <h1>Mac's Strength and Power: Fitness Tracker</h1>
+        <nav>
+            <span>
+                <a href="{% url 'users-profile' %}">Home</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
+                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
+                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
+                    </ul>
+                </div>
+            </span>
+        </nav>
+    </header>
+{% endblock %}
+
+{% block main %}
+    <!-- New Goal Entry Form -->
+    <form id="goalForm" method="post" action="{% url 'new-goal' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="end_date">End Date</label>
+            <input type="date" id="end_date" name="end_date" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

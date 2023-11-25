@@ -11,5 +11,7 @@ urlpatterns = [
     path("diary/entry/", views.create_diary_entry, name="new-diary-entry"),
     path("diary/<int:pk>/", views.diary_detail, name="diary-detail"),
     path("goals/", views.goal_view, name="users-goal"),
+    path("goals/new_goal/", views.create_goal, name="new-goal"),
+    path("goals/<int:pk>/", views.goal_detail, name="goal-detail"),
     path("reminders/", views.reminder_view, name="users-reminder"),   
 ]

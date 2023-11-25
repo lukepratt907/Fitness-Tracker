@@ -43,7 +43,7 @@ class Goal(models.Model):
     description = models.TextField(blank=True)
     start_date = models.DateField(auto_now_add=True)
     end_date = models.DateField(null=True, blank=True)
-    status = models.CharField(choices=GOAL_STATUS, max_length=50)
+    status = models.CharField(choices=GOAL_STATUS, max_length=50, default="in_progress")
 
     def __str__(self):
         return f'{self.user}s Goals'
