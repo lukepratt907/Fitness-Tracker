@@ -45,11 +45,11 @@
     <div class="container py-3">
         {% if page_obj %}
             <div class="diary-grid">
-                {% for diary in page_obj %}
+                {% for diary_entry in page_obj %}
                     <div class="diary-card">
-                        <h3>{{ diary.title }}</h3>
-                        <p>{{ diary.date }}</p>
-                        <a href="{% url 'diary-detail' diary.pk %}">Read More</a>
+                        <h3>{{ diary_entry.title }}</h3>
+                        <p>{{ diary_entry.date }}</p>
+                        <a href="{% url 'diary-detail' diary_entry.pk %}">Read More</a>
                     </div>
                 {% endfor %}
             </div>

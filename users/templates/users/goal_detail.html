@@ -49,4 +49,11 @@
         <a href="{% url 'new-goal' %}">Add New Entry</a>
     </div>
 
+    <!-- Update and Delete Goal -->
+    <a href="{% url 'update-goal' goal.pk %}">Edit</a>
+    <form method="post" action="{% url 'delete-goal' goal.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+
 {% endblock %}

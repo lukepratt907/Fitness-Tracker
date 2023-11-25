@@ -71,8 +71,8 @@ def diary_list(request):
     return render(request, 'users/diary.html', {'page_obj': page_obj, 'search': search})
 
 def diary_detail(request, pk):
-    diary = get_object_or_404(DiaryEntry, pk=pk)
-    return render(request, 'users/diary_detail.html', {'diary': diary})
+    diary_entry = get_object_or_404(DiaryEntry, pk=pk)
+    return render(request, 'users/diary_detail.html', {'diary_entry': diary_entry})
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
     
@@ -93,6 +93,24 @@ def create_diary_entry(request):
         logger.error("Invalid request type")
         form = DiaryForm()
         return render(request, 'users/diary_entry.html', {'form': form})
+    
+def update_diary_entry(request, pk):
+    diary_entry = get_object_or_404(DiaryEntry, pk=pk, user=request.user)
+    if request.method == "POST":
+        form = DiaryForm(request.POST, instance=diary_entry)
+        if form.is_valid():
+            form.save()
+            return redirect('diary-detail', pk=diary_entry.pk)
+    else:
+        form = DiaryForm(instance=diary_entry)
+    return render(request, 'users/update_diary_entry.html', {'form': form})
+
+def delete_diary_entry(request, pk):
+    diary_entry = get_object_or_404(DiaryEntry, pk=pk, user=request.user)
+    if request.method == "POST":
+        diary_entry.delete()
+        return redirect('users-diary')
+    return render(request, 'users/delete_diary_entry.html', {'diary_entry': diary_entry})
 
 def goal_view(request):
     goals = Goal.objects.filter(user=request.user).order_by('-start_date')
@@ -131,7 +149,24 @@ def create_goal(request):
         logger.error("Invalid request type")
         form = GoalForm()
         return render(request, 'users/new_goal.html', {'form': form})
+    
+def update_goal(request, pk):
+    goal = get_object_or_404(Goal, pk=pk, user=request.user)
+    if request.method == "POST":
+        form = GoalForm(request.POST, instance=goal)
+        if form.is_valid():
+            form.save()
+            return redirect('goal-detail', pk=goal.pk)
+    else:
+        form = GoalForm(instance=goal)
+    return render(request, 'users/update_goal.html', {'form': form})
 
+def delete_goal(request, pk):
+    goal = get_object_or_404(Goal, pk=pk, user=request.user)
+    if request.method == "POST":
+        goal.delete()
+        return redirect('users-goal')
+    return render(request, 'users/delete_goal.html', {'goal': goal})
 
 def reminder_view(request):
     if request.method == "POST":

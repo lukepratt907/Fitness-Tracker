@@ -1,0 +1,10 @@
+{% extends "users/layout.html" %}
+
+{% block main %}
+    <h2>Update Goal</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+{% endblock %}

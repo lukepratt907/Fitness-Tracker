@@ -32,14 +32,14 @@
     {% endfor %}
 
     <!-- Diary Page Heading -->
-    <h1>{{ user.username }}'s Workout Diary: Entry {{ diary.id }}</h1>
+    <h1>{{ user.username }}'s Workout Diary: Entry {{ diary_entry.id }}</h1>
 
     <div class="container py-3">
         <div class="diary-grid">
             <div class="diary-card">
-                <h3>{{ diary.title }}</h3>
-                <p>{{ diary.date }}</p>
-                <p>{{ diary.content }}
+                <h3>{{ diary_entry.title }}</h3>
+                <p>{{ diary_entry.date }}</p>
+                <p>{{ diary_entry.content }}
             </div>
         </div>
     </div>
@@ -48,5 +48,12 @@
     <div class="new-entry-button">
         <a href="{% url 'new-diary-entry' %}">Add New Entry</a>
     </div>
+
+    <!-- Update and Delete Entry -->
+    <a href="{% url 'update-diary-entry' diary_entry.pk %}">Edit</a>
+    <form method="post" action="{% url 'delete-diary-entry' diary_entry.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
 
 {% endblock %}
