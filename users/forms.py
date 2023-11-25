@@ -42,7 +42,7 @@ class DiaryForm(forms.ModelForm):
 class GoalForm(forms.ModelForm):
     class Meta:
         model = Goal
-        fields = ['user', 'title', 'description', 'status']
+        fields = ['title', 'description', 'end_date']
 
 class ReminderForm(forms.ModelForm):
     time = forms.DateTimeField(

@@ -1,0 +1,13 @@
+{% extends "users/layout.html" %}
+
+{% block main %}
+    <h2>Delete Diary Entry</h2>
+    <p>Are you sure you want to delete this entry?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Yes, Delete">
+    </form>
+
+    <a href="{% url 'diary-detail' diary_entry.pk %}">No, Go Back</a>
+{% endblock %}
