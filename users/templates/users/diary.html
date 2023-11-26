@@ -25,59 +25,66 @@
 {% endblock %}
 
 {% block main %}
+    <body style="background-color: black;">
+        <!-- Messages -->
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
 
-    <!-- Messages -->
-    {% for message in messages %}
-        <div>{{ message }}</div>
-    {% endfor %}
-
-    <!-- Diary Page Heading -->
-    <h1>{{ user.username }}'s Workout Diary</h1>
-    <p>This is your diary page.</p>
-
-    <!-- Search Form -->
-    <form method="get" action="{% url 'users-diary' %}">
-        <input type="text" name="search" value="{{ search }}" placeholder="Search diary entries...">
-        <button type="submit">Search</button>
-    </form>
-
-    <!-- Grid Layout for Diary Entries -->
-    <div class="container py-3">
-        {% if page_obj %}
-            <div class="diary-grid">
-                {% for diary_entry in page_obj %}
-                    <div class="diary-card">
-                        <h3>{{ diary_entry.title }}</h3>
-                        <p>{{ diary_entry.date }}</p>
-                        <a href="{% url 'diary-detail' diary_entry.pk %}">Read More</a>
-                    </div>
-                {% endfor %}
+        <!-- Diary Page Heading -->
+        <div style="color: yellow;">
+            <h1>{{ user.username }}'s Workout Diary</h1>
+            <p>This is your diary page.</p>
+        </div>
+        <!-- Search Form -->
+        <form class="row mb-3" method="get" action="{% url 'users-diary' %}">
+            <div class="col-10">
+                <input  class="form-control form-control-lg" type="text" name="search" value="{{ search }}" placeholder="Search diary entries...">
             </div>
-        {% else %}
-            <p>You have no diary entries.</p>
-        {% endif %}
-    </div>
+            <div class="col-2">
+                <button class="btn btn-lg" type="submit" style="background-color: yellow;">Search</button>
+            </div>
+        </form>
 
-    <!-- New Diary Entry Button -->
-    <div class="new-entry-button">
-        <a href="{% url 'new-diary-entry' %}">Add New Entry</a>
-    </div>
-
-    <!-- Pagination for many diary entries -->
-    <div class="pagination">
-        <span class="pages">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; First</a>
-                <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">Previous</a>
+        <!-- Grid Layout for Diary Entries -->
+        <div class="card text-white bg-dark h-100 d-flex flex-column">
+            {% if page_obj %}
+                <div class="card-body">
+                    {% for diary_entry in page_obj %}
+                        <div class="diary-title" style="color: yellow;">
+                            <h3>{{ diary_entry.title }}</h3>
+                            <p>{{ diary_entry.date }}</p>
+                        </div>
+                        <div class="card-text">
+                            <a href="{% url 'diary-detail' diary_entry.pk %}" style="color: yellow">Read More</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>You have no diary entries.</p>
             {% endif %}
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </div>
+
+        <!-- New Diary Entry Button -->
+        <div class="new-entry-button">
+            <a href="{% url 'new-diary-entry' %}">Add New Entry</a>
+        </div>
+
+        <!-- Pagination for many diary entries -->
+        <div class="pagination">
+            <span class="pages">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">Previous</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}">Last &raquo;</a>
+                {% endif %}
             </span>
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}">Last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-
+        </div>
+    </body>
 {% endblock %}
