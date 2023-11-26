@@ -52,8 +52,10 @@ class ReminderForm(forms.ModelForm):
         model = Reminder
         fields = ['message', 'time']
     
-    # def __init__(self, *args, **kwargs):
-        # super(ReminderForm, self).__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(ReminderForm, self).__init__(*args, **kwargs)
+        self.fields['message'].label = ''
+        self.fields['time'].label = ''
         # self.fields['timestamp'].widget = widgets.AdminSplitDateTime()
 
 """
