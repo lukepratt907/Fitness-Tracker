@@ -5,27 +5,7 @@
     <span>
       <a href="{% url 'users-profile' %}">Home</a>
       <a href="{% url 'users-reminder' %}">Create Email Reminders</a>
-      <div class="dropdown">
-        <button
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">
-
-          Diary, Goals and Metrics
-        </button>
-        <ul class="dropdown-menu">
-          <li>
-            <a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a>
-          </li>
-        </ul>
-      </div>
+      <a href="{% url 'users-logout' %}">Logout</a>
     </span>
   </nav>
 </header>
@@ -39,10 +19,65 @@
   <p>Username: {{ user.username }}</p>
   <p>Email: {{ user.email }}</p>
 </div>
-<a href="{% url 'create_workout' %}">Create Workout</a>
-<!--<a href="">Create Custom Workout</a>-->
-<a href="{% url 'workout_list' %}">Workout List</a>
-<!-- ADDED During cache edits -->
-<a href="{% url 'users-logout' %}">Logout</a>
+
+<div class="row mb-4">
+  <div class="col-sm-6">
+    <div class="card text-white bg-dark d-flex flex-column">
+      <div class="card-body flex-grow-1">
+        <h5 class="card-title text-center" style="color: yellow;">Create Workout</h5>
+        <p class="card-text">Click the button below to create a custom workout!</p>
+      </div>
+      <div class="card-footer mb-2">
+        <a href="{% url 'create_workout' %}" class="btn col-12 text-black" style="background-color: yellow;">Create Workout</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card text-white bg-dark d-flex flex-column">
+      <div class="card-body flex-grow-1">
+        <h5 class="card-title text-center" style="color: yellow;">Workout List</h5>
+        <p class="card-text">Click the button below to access your list of custom workouts!</p>
+      </div>
+      <div class="card-footer mb-2">
+        <a href="{% url 'workout_list' %}" class="btn col-12 text-black" style="background-color: yellow;">Workout List</a>
+      </div>
+    </div>
+  </div>  
+</div>
+<div class="row margin-top: 20px;">
+  <div class="col-sm-4">
+    <div class="card text-white bg-dark h-100 d-flex flex-column">
+      <div class="card-body flex-grow-1">
+        <h5 class="card-title text-center" style="color: yellow;">Diary</h5>
+        <p class="card-text">Click the button below to access your diary!</p>
+      </div>
+      <div class="card-footer mb-2">
+        <a href="{% url 'users-diary' %}" class="btn col-12 text-black" style="background-color: yellow;">Diary</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card text-white bg-dark h-100 d-flex flex-column">
+      <div class="card-body flex-grow-1">
+        <h5 class="card-title text-center" style="color: yellow;">Goals</h5>
+        <p class="card-text">Click the button below to view your goals and add new ones!</p>
+      </div>
+      <div class="card-footer mb-2">
+        <a href="{% url 'users-goal' %}" class="btn col-12 text-black" style="background-color: yellow;">Goals</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card text-white bg-dark h-100 d-flex flex-column">
+      <div class="card-body flex-grow-1">
+        <h5 class="card-title text-center" style="color: yellow;">Metrics</h5>
+        <p class="card-text">Click the button below see your workout metrics!</p>
+      </div>
+      <div class="card-footer mb-2">
+        <a href="{% url 'metrics' %}" class="btn col-12 text-black" style="background-color: yellow;">Metrics</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
