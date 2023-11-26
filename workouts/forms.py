@@ -40,6 +40,9 @@ class CustomWorkoutForm(forms.Form):
             'class': 'form-control form-group',
             'autocomplete': 'on',
             'placeholder': 'Name'
-        }
-        )
+        })
     )
+
+    #def __init__(self, *args, **kwargs):
+        #super(CustomWorkoutForm, self).__init__(*args, **kwargs)
+        #self.fields['name'].choices = [(workout.id, workout.name) for workout in Workout.objects.all()]        
