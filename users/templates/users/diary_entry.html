@@ -1,38 +1,48 @@
 {% extends "users/layout.html" %}
 
 {% block header %}
-    <header>
-        <h1>Mac's Strength and Power: Fitness Tracker</h1>
+    <header style="background-color: black;">
+        <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
         <nav>
             <span>
-                <a href="{% url 'users-profile' %}">Home</a>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
-                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
-                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
-                    </ul>
-                </div>
+                <a class="btn btn-outline" href="{% url 'users-profile' %}" style="color: black; background-color: yellow;">Home</a>
+                <a class="btn" href="{% url 'users-reminder' %}" style="color: black; background-color: yellow;">Create Email Reminders</a>
+                <a class="btn" href="{% url 'about_page' %}" style="color: black; background-color: yellow;">About</a>
+                <a class="btn" href="{% url 'users-logout' %}" style="color: black; background-color: yellow;">Logout</a>
+            </span>
+            <hr>
+            <span class="main-pages">
+                <a class="btn" href="{% url 'users-diary' %}" style="color: black; background-color: yellow;">Diary</a>
+                <a class="btn" href="{% url 'users-goal' %}" style="color: black; background-color: yellow;">Goals</a>
+                <a class="btn" href="{% url 'metrics' %}" style="color: black; background-color: yellow;">Metrics</a>
             </span>
         </nav>
-    </header>
+      </header>     
 {% endblock %}
 
 {% block main %}
-    <!-- New Diary Entry Form -->
-    <form id="diaryForm" method="post" action="{% url 'new-diary-entry' %}">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" required>
-        </div>
-        <div class="form-group">
-            <label for="content">Content</label>
-            <textarea id="content" name="content" required></textarea>
-        </div>
-        <button type="submit">Submit</button>
-    </form>
+    <body style="background-color: black;">
+
+        <!-- Messages -->
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+
+        <!-- New Diary Entry Heading -->
+        <h1 style="color: yellow; text-align: center;">New Diary Entry</h1>
+
+        <!-- New Diary Entry Form -->
+        <form style="color: yellow;" id="diaryForm" method="post" action="{% url 'new-diary-entry' %}">
+            {% csrf_token %}
+            <div class="form-group col-12" style="text-align: center;">
+                <input class="form-title col-12 mb-4" type="text" id="title" name="title" placeholder="Title" required>
+            </div>
+            <div class="form-group col-12" style="text-align: center;">
+                <textarea cols="80" rows="20" class="form-content col-12 mb-4" id="content" name="content" placeholder="Content" required></textarea>
+            </div>
+            <div class="btn col-12 mb-4">
+                <button class="btn col-12 mb-4" type="submit" style="background-color: yellow; color: black;">Submit</button>
+            </div>
+        </form> 
+    </body>
 {% endblock %}

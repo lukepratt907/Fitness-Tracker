@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.utils import timezone
+from django.utils.dateformat import DateFormat
 from django.views.decorators.csrf import csrf_exempt
 from .models import DiaryEntry, Goal
 import logging
@@ -103,7 +104,7 @@ def update_diary_entry(request, pk):
             return redirect('diary-detail', pk=diary_entry.pk)
     else:
         form = DiaryForm(instance=diary_entry)
-    return render(request, 'users/update_diary_entry.html', {'form': form})
+    return render(request, 'users/update_diary_entry.html', {'form': form, 'diary_entry': diary_entry})
 
 def delete_diary_entry(request, pk):
     diary_entry = get_object_or_404(DiaryEntry, pk=pk, user=request.user)
@@ -113,7 +114,7 @@ def delete_diary_entry(request, pk):
     return render(request, 'users/delete_diary_entry.html', {'diary_entry': diary_entry})
 
 def goal_view(request):
-    goals = Goal.objects.filter(user=request.user).order_by('-start_date')
+    goals = Goal.objects.filter(user=request.user).order_by('end_date')
     search = request.GET.get('search', '')
     if search:
         goals = goals.filter(
@@ -123,7 +124,7 @@ def goal_view(request):
             Q(end_date__icontains=search) |
             Q(status__icontains=search)
         )
-    p = Paginator(goals, 5)
+    p = Paginator(goals, 6)
     page_number = request.GET.get('page')
     page_obj = p.get_page(page_number)
     return render(request, 'users/goals.html', {'search': search, 'page_obj': page_obj})
@@ -159,7 +160,7 @@ def update_goal(request, pk):
             return redirect('goal-detail', pk=goal.pk)
     else:
         form = GoalForm(instance=goal)
-    return render(request, 'users/update_goal.html', {'form': form})
+    return render(request, 'users/update_goal.html', {'form': form, 'goal': goal})
 
 def delete_goal(request, pk):
     goal = get_object_or_404(Goal, pk=pk, user=request.user)

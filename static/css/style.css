@@ -28,7 +28,8 @@ nav {
 }
 
 nav a {
-    color: yellow;
+    color: black;
+    background-color: yellow;
     margin: 0 15px;
     text-decoration: none;
 }

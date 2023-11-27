@@ -1,59 +1,70 @@
 {% extends "users/layout.html" %}
 
 {% block header %}
-    <header>
-        <h1>Mac's Strength and Power: Fitness Tracker</h1>
+    <header style="background-color: black;">
+        <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
         <nav>
             <span>
-                <a href="{% url 'users-profile' %}">Home</a>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Diary, Goals and Metrics
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
-                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
-                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <a href="{% url 'users-logout' %}">Logout</a>
-                </div>
+                <a class="btn btn-outline" href="{% url 'users-profile' %}" style="color: black; background-color: yellow;">Home</a>
+                <a class="btn" href="{% url 'users-reminder' %}" style="color: black; background-color: yellow;">Create Email Reminders</a>
+                <a class="btn" href="{% url 'about_page' %}" style="color: black; background-color: yellow;">About</a>
+                <a class="btn" href="{% url 'users-logout' %}" style="color: black; background-color: yellow;">Logout</a>
+            </span>
+            <hr>
+            <span class="main-pages">
+                <a class="btn" href="{% url 'users-diary' %}" style="color: black; background-color: yellow;">Diary</a>
+                <a class="btn" href="{% url 'users-goal' %}" style="color: black; background-color: yellow;">Goals</a>
+                <a class="btn" href="{% url 'metrics' %}" style="color: black; background-color: yellow;">Metrics</a>
             </span>
         </nav>
-    </header>
+      </header>     
 {% endblock %}
 
 {% block main %}
 
-    <!-- Messages -->
-    {% for message in messages %}
-        <div>{{ message }}</div>
-    {% endfor %}
+    <body style="background-color: black;">
 
-    <!-- Goal Page Heading -->
-    <h1>{{ user.username }}'s Goals: Goal {{ goal.id }}</h1>
+        <!-- Messages -->
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
 
-    <div class="container py-3">
-        <div class="goal-grid">
-            <div class="goal-card">
-                <h3>{{ goal.title }}</h3>
-                <p>{{ goal.date }}</p>
-                <p>{{ goal.description }}
+        <!-- Goal Page Heading -->
+        <h1 class="mb-4" style="color: yellow; text-align: center;">{{ user.username }}'s Goals: Goal {{ goal.id }}</h1>
+
+        <div class="container-fluid mb-4">
+            <div class="card text-white bg-dark">
+                <div class="card-header d-flex justify-content-between align-items-center" style="color: yellow; text-align: center;">
+                    <h3>{{ goal.title }}</h3>
+                </div>
+                <div class="card-body" style="color: white;">
+                    <small><p style="color: green;">Start Date: {{ goal.start_date }}</p></small>
+                    <small><p style="color: red;">Due Date: {{ goal.end_date }}</p></small>
+                    <p>{{ goal.description }}
+                </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- New Goal Button -->
-    <div class="new-entry-button">
-        <a href="{% url 'new-goal' %}">Add New Entry</a>
-    </div>
+        <!-- New Diary Entry Button -->
+        <div class="new-goal-button">
+            <a href="{% url 'new-goal' %}" class="btn col-12 mb-4" style="color: black; background-color: yellow;">Add New Goal</a>
+        </div>
 
-    <!-- Update and Delete Goal -->
-    <a href="{% url 'update-goal' goal.pk %}">Edit</a>
-    <form method="post" action="{% url 'delete-goal' goal.pk %}">
-        {% csrf_token %}
-        <input type="submit" value="Delete">
-    </form>
+        <!-- Update and Delete Entry -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col mb-4">
+                    <a class="btn btn-success col-12" href="{% url 'update-goal' goal.pk %}" style="color: black;">Update</a>
+                </div>
+                <div class="col mb-4">
+                    <form method="post" action="{% url 'delete-goal' goal.pk %}">
+                        {% csrf_token %}
+                        <input class="btn btn-danger col-12" type="submit" value="Delete" style="background-color: red; color: black;">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
 
 {% endblock %}

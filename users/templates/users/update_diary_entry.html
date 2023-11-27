@@ -1,10 +1,51 @@
 {% extends "users/layout.html" %}
+{% block header %}
+    <header style="background-color: black;">
+        <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
+        <nav>
+            <span>
+                <a class="btn btn-outline" href="{% url 'users-profile' %}" style="color: black; background-color: yellow;">Home</a>
+                <a class="btn" href="{% url 'users-reminder' %}" style="color: black; background-color: yellow;">Create Email Reminders</a>
+                <a class="btn" href="{% url 'about_page' %}" style="color: black; background-color: yellow;">About</a>
+                <a class="btn" href="{% url 'users-logout' %}" style="color: black; background-color: yellow;">Logout</a>
+            </span>
+            <hr>
+            <span class="main-pages">
+                <a class="btn" href="{% url 'users-diary' %}" style="color: black; background-color: yellow;">Diary</a>
+                <a class="btn" href="{% url 'users-goal' %}" style="color: black; background-color: yellow;">Goals</a>
+                <a class="btn" href="{% url 'metrics' %}" style="color: black; background-color: yellow;">Metrics</a>
+            </span>
+        </nav>
+      </header>     
+{% endblock %}
 
 {% block main %}
-    <h2>Update Diary Entry</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Update Entry</button>
-    </form>
+
+    <body style="background-color: black;">
+
+        <!-- Messages -->
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+
+        <!-- Update Diary Entry Heading -->
+        <h1 style="color: yellow; text-align: center;">Update Diary Entry: {{ diary_entry.pk }}</h1>
+
+        <!-- Update Diary Entry Form -->
+        <form method="post" action="{% url 'update-diary-entry' diary_entry.pk %}" class="form">
+            {% csrf_token %}
+            <div class="form-group mb-4">
+                <label for="id_title" class="form-label" style="color: yellow;">Title</label>
+                <input type="text" id="id_title" name="title" class="form-control bg-dark text-white" value="{{ form.title.value|default_if_none:diary_entry.title }}" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="id_content" class="form-label" style="color: yellow;">Content</label>
+                <textarea rows="40" cols="20" id="id_content" name="content" class="form-control bg-dark text-white" rows="5" required>{{ form.content.value|default_if_none:diary_entry.content }}</textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-warning text-black">Update Entry</button>
+            </div>
+        </form>
+    </body>
+
 {% endblock %}

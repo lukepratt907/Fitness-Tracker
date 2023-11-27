@@ -1,83 +1,101 @@
 {% extends "users/layout.html" %}
 
 {% block header %}
-    <header>
-        <h1>Mac's Strength and Power: Fitness Tracker</h1>
+    <header style="background-color: black;">
+        <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
         <nav>
             <span>
-                <a href="{% url 'users-profile' %}">Home</a>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Diary, Goals and Metrics
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'users-diary' %}">Diary</a></li>
-                        <li><a class="dropdown-item" href="{% url 'users-goal' %}">Goals</a></li>
-                        <li><a class="dropdown-item" href="{% url 'metrics' %}">Metrics</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <a href="{% url 'users-logout' %}">Logout</a>
-                </div>
+                <a class="btn btn-outline" href="{% url 'users-profile' %}" style="color: black; background-color: yellow;">Home</a>
+                <a class="btn" href="{% url 'users-reminder' %}" style="color: black; background-color: yellow;">Create Email Reminders</a>
+                <a class="btn" href="{% url 'about_page' %}" style="color: black; background-color: yellow;">About</a>
+                <a class="btn" href="{% url 'users-logout' %}" style="color: black; background-color: yellow;">Logout</a>
+            </span>
+            <hr>
+            <span class="main-pages">
+                <a class="btn" href="{% url 'users-diary' %}" style="color: black; background-color: yellow;">Diary</a>
+                <a class="btn disabled" href="{% url 'users-goal' %}" style="color: black; background-color: yellow;">Goals</a>
+                <a class="btn" href="{% url 'metrics' %}" style="color: black; background-color: yellow;">Metrics</a>
             </span>
         </nav>
-    </header>
+      </header>     
 {% endblock %}
 
 {% block main %}
+    <body style="background-color: black;">
+        <!-- Messages -->
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
 
-    <!-- Messages -->
-    {% for message in messages %}
-        <div>{{ message }}</div>
-    {% endfor %}
+        <!-- Goal Page Heading -->
+        <div style="color: yellow;">
+            <h1>{{ user.username }}'s Goals</h1>
+            <p>This is your goals page.</p>
+        </div>
 
-    <!-- Goal Page Heading -->
-    <h1>{{ user.username }}'s Goals</h1>
-    <p>This is your goals page.</p>
-
-    <!-- Search Form -->
-    <form method="get" action="{% url 'users-goal' %}">
-        <input type="text" name="search" value="{{ search }}" placeholder="Search goals...">
-        <button type="submit">Search</button>
-    </form>
-
-    <!-- Grid Layout for Goals -->
-    <div class="container py-3">
-        {% if page_obj %}
-            <div class="goal-grid">
-                {% for goal in page_obj %}
-                    <div class="goal-card">
-                        <h3>{{ goal.title }}</h3>
-                        <p>Due: {{ goal.end_date }}</p>
-                        <a href="{% url 'goal-detail' goal.pk %}">Read More</a>
-                    </div>
-                {% endfor %}
+        <!-- Search Form -->
+        <form class="row mb-3" method="get" action="{% url 'users-goal' %}">
+            <div class="col-10">
+                <input  class="form-control form-control-lg" type="text" name="search" value="{{ search }}" placeholder="Search goals...">
             </div>
-        {% else %}
-            <p>You have no goals.</p>
-        {% endif %}
-    </div>
+            <div class="col-2">
+                <button class="btn btn-lg" type="submit" style="background-color: yellow;">Search</button>
+            </div>
+        </form>
 
-    <!-- New Goal Button -->
-    <div class="new-entry-button">
-        <a href="{% url 'new-goal' %}">Add New Goal</a>
-    </div>
+        <!-- Grid Layout for Goals -->
+        <div class="container-fluid">
+            <div class="row">
+                {% if page_obj %}
+                    {% for goal in page_obj %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card text-white bg-dark h-100">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 style="color: yellow; margin-bottom: 0;">{{ goal.title }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <small style="color: white;">Due: {{ goal.end_date }}</small>
+                                    <hr>
+                                    <small style="color: yellow; margin-right: 12px;">
+                                        <small>
+                                            {{ goal.status }}
+                                        </small>
+                                    </small>
+                                    <a class="btn btn-sm" href="{% url 'goal-detail' goal.pk %}" style="background-color: yellow; color: black;">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: yellow;">You have no goals.</p>
+                {% endif %}
+            </div>
+        </div>
 
-    <!-- Pagination for many goals -->
-    <div class="pagination">
-        <span class="pages">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; First</a>
-                <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">Previous</a>
-            {% endif %}
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}">Last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
+        <!-- New Goal Button -->
+        <div> 
+            <a href="{% url 'new-goal' %}" class="btn col-12 mb-4" style="color: black; background-color: yellow;">Add New Goal</a>
+        </div>
 
+        <!-- Pagination for many goals -->
+        <div class="text-center">
+            <div class="btn-group" role="group" aria-label="Pagination">
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-sm" href="?page=1" style="color: black; background-color: yellow;">&laquo; First</a>
+                    <a class="btn btn-sm" href="?page={{ page_obj.previous_page_number }}&search={{ search }}" style="color: black; background-color: yellow;">Previous</a>
+                {% else %}
+                    <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">&laquo; First</a>
+                    <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">Previous</a>
+                {% endif %}
+                <div class="btn btn-sm disabled" style="color: black; background-color: yellow;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
+                {% if page_obj.has_next %}
+                    <a class="btn btn-sm" href="?page={{ page_obj.next_page_number }}" style="color: black; background-color: yellow;">Next</a>
+                    <a class="btn btn-sm" href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}" style="color: black; background-color: yellow;">Last &raquo;</a>
+                {% else %}
+                    <a class="btn btn-sm disabled">Next</a>
+                    <a class="btn btn-sm disabled">Last &raquo;</a>
+                {% endif %}
+            </div>
+        </div>
+    </body>
 {% endblock %}
