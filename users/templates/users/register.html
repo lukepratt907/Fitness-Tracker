@@ -3,38 +3,46 @@
 {% extends "users/layout.html" %}
 
 {% block header %}
-    <header>
-        <nav>
-            <span>
-                <h1>Mac's Strength and Power: Fitness Tracker</h1>
-                <ul>
-                    <!-- Add other left-aligned navigation items as needed -->
-                </ul>
-            </span>
-        </nav>
-    </header>
-{% endblock %}
+<header style="background-color: black;">
+  <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
+</header>
+{% endblock %} 
 
 {% block main %}
-
+<body style="background-color: black;">
     {% for message in messages %}
         <div>{{ message }}</div>
     {% endfor %}
 
-    <div class="registration-form">
+    <div class="text-center">
+        <h2 style="color: yellow;">Register</h2>
+    </div>
+    <br>
+    <div class="registration-form text-center">
         <form method="post">
             {% csrf_token %}
             <div>{{ form.username }}</div>
+            <br>
             <div>{{ form.email }}</div>
-            <div>{{ form.password1 }}</div>    
-            </div>{{ form.password2 }}</div>
+            <br>
+            <div>{{ form.password1 }}</div>
+            <br>
+            <div>{{ form.password2 }}</div>
+            <br>
             <div>
-                <button type="submit">Register</button>
+                <button type="submit" style="color: yellow; background-color: black; border-color: white;" class="rounded-button" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='white'">Register</button>
             </div>
         </form>
-        <div class="login-link">
-            Already have an account? <a href="{% url 'users-logout' %}">Login</a>
+        <br>
+        <div class="login-link" style="color: white;">
+            Already have an account? <a href="{% url 'users-logout' %}" style="color: yellow;">Login</a>
         </div>
-    </div>
+    </div>    
+</body>
 
+<style>
+    .rounded-button {
+        border-radius: 8px;
+    }
+</style>
 {% endblock %}
