@@ -94,8 +94,8 @@
                     <a class="btn btn-sm" href="?page={{ page_obj.next_page_number }}" style="color: black; background-color: yellow;">Next</a>
                     <a class="btn btn-sm" href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}" style="color: black; background-color: yellow;">Last &raquo;</a>
                 {% else %}
-                    <a class="btn btn-sm disabled">Next</a>
-                    <a class="btn btn-sm disabled">Last &raquo;</a>
+                    <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">Next</a>
+                    <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">Last &raquo;</a>
                 {% endif %}
             </div>
         </div>
