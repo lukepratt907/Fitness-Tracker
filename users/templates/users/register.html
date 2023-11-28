@@ -1,11 +1,19 @@
 <!--Signup Page for our Fitness Tracker-->
 <!--https://www.youtube.com/watch?v=tUqUdu0Sjyc&ab_channel=DennisIvy-->
 {% extends "users/layout.html" %}
+{% load static %}
 
 {% block header %}
-<header style="background-color: black;">
-  <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
-</header>
+    <header style="background-color: black; padding-top: 0; padding-bottom: 0;">
+        <nav class="navbar navbar-expand-md" style="padding-top: 0;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'users-profile' %}" style="padding-top: 0; padding-bottom: 0; padding-left: 0; padding-right: 0;">
+                    <img class="nav-logo" src="{% static 'images/mac_header.jpg' %}" alt="Mac's Strength and Power Logo" style="max-height: 100px; width: auto;"/>
+                </a>
+                <h1 class="mx-auto my-0 text-center" style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
+            </div>
+        </nav>
+    </header>
 {% endblock %} 
 
 {% block main %}
