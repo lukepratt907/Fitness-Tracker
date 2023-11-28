@@ -36,7 +36,7 @@
 {% block main %}
 <body style="background-color: black;">
   <div class="row">
-    <h2 style="color: white;">Your Workouts by Month</h2>
+    <h2 style="color: white;">Your Workouts<small><small><small><small></small> - By Month</small></small></small></h2>
     <div class="col-md-6">
       <br>
       <select id="month-filter" class="form-select" onchange="filterWorkouts(this.value)">
@@ -54,7 +54,7 @@
         <option value="11">November</option>
         <option value="12">December</option>
         <option value="">All Months</option>
-      </select>      
+      </select>
     </div>
     <div class="col-md-6 text-end">
       <a href="{% url 'create_workout' %}">
@@ -65,7 +65,7 @@
   <br>
   <ul>
     {% for workout in workouts %}
-    <li class="workout-item" data-month="{{ workout.day.month }}">
+    <li class="workout-item" data-month="{{ workout.day.month }}" style="border: 1px solid lightgrey; border-radius: 10px; margin-bottom: 10px; padding: 10px;">
       <strong style="color: yellow;">{{ workout.name }} - <small style="color: lightgray; font-weight: normal; font-size: 80%;">{{ workout.day }} AKT</small></strong>
       <p style="color: white; margin-top: 10px;"><span style="color: gray; font-style: italic;">Notes:</span> {{ workout.description }}</p>
       {% for obj in workout.workoutexercise_set.all %}
@@ -76,7 +76,7 @@
       {% endfor %}
       <form method="post" action="{% url 'delete_workout' workout.id %}">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger btn-rounded" style="margin-bottom: 20px;">Delete</button>
+        <button type="submit" class="btn btn-danger btn-rounded" style="margin-bottom: 8px;">Delete</button>
       </form>
     </li>
     {% endfor %}
