@@ -1,5 +1,5 @@
 {% extends "users/layout.html" %}
-
+{% load static %}
 {% block header %}
 <header style="background-color: black;">
   <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
@@ -12,7 +12,7 @@
 {% endblock %} 
 
 {% block main %}
-<body style="background-color: black; background-image: url('static/images/mac_header_2.png'); background-size: 20%; background-position: center; background-position-y: 215%; background-repeat: no-repeat; position: relative;">
+<body style="background-color: black;">
     <div class="text-center">
         {% for message in messages %}
             <div style="color: white;">{{ message }}</div>
@@ -35,7 +35,8 @@
         <div class="register-link" style="color: white;">
             Need an account? <strong><a href="{% url 'users-register' %}" style="color: yellow;">Register</a></strong>
         </div>
-    </div>
+    </div><br>
+    <img src="{% static 'images/mac_header_2.png' %}" alt="Mac's Strength and Power Logo 2" style="width: 50%; display: block; margin: 0 auto;"/>
 </body>
 
 <style>
