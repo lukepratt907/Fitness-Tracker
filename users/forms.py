@@ -10,7 +10,7 @@ class LoginForm(AuthenticationForm):
         'class': 'form-input',
         'placeholder': 'Username',
         'maxlength': '30',
-        'minlength': '4',
+        'minlength': '1',
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-input',
