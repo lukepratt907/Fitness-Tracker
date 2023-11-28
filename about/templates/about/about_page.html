@@ -2,7 +2,9 @@
 {% load static %}
 {% block header %}
   <header style="background-color: black; position: relative;">
-    <img href="{% url 'users-profile' %}" src="{% static 'images/mac_header.jpg' %}" style="width: 10%; position: absolute; top: 30px; left: 75px;" alt="Mac" />
+    <a class="navbar-brand" href="{% url 'users-profile' %}">
+      <img href="{% url 'users-profile' %}" src="{% static 'images/mac_header.jpg' %}" style="width: 10%; position: absolute; top: 30px; left: 75px;" alt="Mac" />
+    </a>
     <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker<br><small><small><small><small><small>Established in {{ gym_info.year_established }}</small></small></small></small></small></h1>
     <nav>
       <span>
