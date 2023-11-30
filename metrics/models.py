@@ -446,3 +446,11 @@ class PerformanceMetric(models.Model):
     metric_type = models.CharField(choices=METRIC_TYPES, max_length=50)
     value = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField()
+
+class WeightLog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='weight_logs')
+    weight = models.DecimalField(max_digits=5, decimal_places=2)
+    date_logged = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.date_logged} - {self.weight} lbs'
