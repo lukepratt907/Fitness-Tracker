@@ -4,14 +4,16 @@
 {% load static %}
 
 {% block header %}
-    <header style="background-color: black; padding-top: 0; padding-bottom: 0;">
-        <nav class="navbar navbar-expand-md" style="padding-top: 0; margin-top: 1.5%;">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'users-profile' %}" style="padding: 0;">
-                    <img class="nav-logo" src="{% static 'images/mac_header.jpg' %}" alt="Mac's Strength and Power Logo" style="max-height: 100px; width: auto;"/>
-                </a>
-                <h1 class="mx-auto my-0 text-center" style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
+    <header style="background-color: black; padding-bottom: 0;">
+        <nav class="navbar navbar-expand-md justify-content-center" style="padding-top: 0; margin-top: 1.5%;">
+          <a class="navbar-brand" href="{% url 'users-profile' %}" style="padding: 0;">
+            <img class="nav-logo" src="{% static 'images/mac_header.jpg' %}" alt="Mac's Strength and Power Logo"/>
+          </a>
+          <div class="col-md-auto">
+            <div class="row">
+              <h1 style="color: yellow;"style="right: 40;">Mac's Strength and Power: Fitness Tracker</h1>
             </div>
+          </div>
         </nav>
     </header>
 {% endblock %} 

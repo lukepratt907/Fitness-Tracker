@@ -26,11 +26,11 @@
                       Menu
                   </button>
                   <ul class="dropdown-menu" style="background-color: yellow; overflow: hidden; padding-right: 15px; text-align: center; border: 1px solid gray;">
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'create_workout' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Create A Workout</a></li>
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'workout_list' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Workout List</a></li>
                       <li class="d-grid"><a class="dropdown-item" href="{% url 'users-diary' %}" aria-disabled="true" style="color: black; background-color: yellow !important; padding: 0" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Diary</a></li>
                       <li class="d-grid"><a class="dropdown-item" href="{% url 'users-goal' %}" style="color: black; background-color: yellow !important; padding: 0" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Goals</a></li>
                       <li class="d-grid"><a class="dropdown-item disabled" href="{% url 'metrics' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Weigh-In</a></li>
-                      <li class="d-grid"><a class="dropdown-item" href="{% url 'create_workout' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Create A Workout</a></li>
-                      <li class="d-grid"><a class="dropdown-item" href="{% url 'workout_list' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Workout List</a></li>
                   </ul>
                 </div>
               </li>
@@ -38,7 +38,7 @@
                 <a class="btn" href="{% url 'users-reminder' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">Create Email Reminders</a>
               </li>
               <li class="nav-item mr-2 mb-2">
-                <a class="btn disabled" href="{% url 'about_page' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">About</a>
+                <a class="btn" href="{% url 'about_page' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">About</a>
               </li>
               <li class="nav-item mr-2 mb-2">
                 <a class="btn" href="{% url 'users-logout' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">Logout</a>
@@ -61,21 +61,21 @@
 
         <!-- Goal Page Heading -->
         <div style="color: yellow;">
-            <h1>{{ user.username }}'s Metrics</h1>
-            <p>This is your metrics page.</p>
+            <h1>{{ user.username }}'s Weigh-In</h1>
+            <p>This is your weight-in page.</p>
         </div>
 
         <!-- Search Form -->
         <form class="row mb-3" method="get" action="{% url 'metrics' %}">
             <div class="col-10">
-                <input  class="form-control form-control-lg" type="text" name="search" value="{{ search }}" placeholder="Search metrics...">
+                <input  class="form-control form-control-lg" type="text" name="search" value="{{ search }}" placeholder="Search weights...">
             </div>
             <div class="col-2">
                 <button class="btn btn-lg" type="submit" style="background-color: yellow;">Search</button>
             </div>
         </form>
 
-        <!-- Grid Layout for Goals     NEEDS TO BE UPDATED WITH METRICS OBJECTS ONCE METRICS FUNCTIONALITY IS BUILT
+        <!-- Grid Layout for Goals     NEEDS TO BE UPDATED WITH METRICS OBJECTS ONCE METRICS FUNCTIONALITY IS BUILT -->
         <div class="container-fluid">
             <div class="row">
                 {% if page_obj %}
@@ -99,15 +99,14 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <p style="color: yellow;">You have no goals.</p>
+                    <p style="color: yellow;">You have no weight-ins.</p>
                 {% endif %}
             </div>
         </div>
-        -->
 
         <!-- New Goal Button -->
         <div> 
-            <a href="#" class="btn col-12 mb-4" style="color: black; background-color: yellow;">Add New Metric</a>
+            <a href="{% url 'new-weight' %}" class="btn col-12 mb-4" style="color: black; background-color: yellow;">Log Weight</a>
         </div>
 
         <!-- Pagination for many goals -->
