@@ -22,12 +22,14 @@
               <li class="nav-item mr-2 mb-2">
                 <div class="dropdown mr-2 mb-2">
                   <button class="btn dropdown-toggle mr-2 mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black; background-color: yellow;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">
-                      Diary, Goals and Metrics
+                      Menu
                   </button>
                   <ul class="dropdown-menu" style="background-color: yellow; overflow: hidden; padding-right: 15px; text-align: center; border: 1px solid gray;">
                       <li class="d-grid"><a class="dropdown-item" href="{% url 'users-diary' %}" style="color: black; background-color: yellow !important; padding: 0" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Diary</a></li>
                       <li class="d-grid"><a class="dropdown-item" href="{% url 'users-goal' %}" style="color: black; background-color: yellow !important; padding: 0" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Goals</a></li>
-                      <li class="d-grid"><a class="dropdown-item" href="{% url 'metrics' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Metrics</a></li>
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'metrics' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Weigh-In</a></li>
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'create_workout' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Create A Workout</a></li>
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'workout_list' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Workout List</a></li>
                   </ul>
                 </div>
               </li>
