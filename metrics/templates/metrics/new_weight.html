@@ -59,13 +59,15 @@
     </div>
 
     <!-- New Weigh-In Form -->
-    <form method="post" action="{% url 'new-weight' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="btn col-12 mb-4">
-            <button class="btn col-12 mb-4" type="submit" style="background-color: yellow; color: black;">Submit Weight</button>
-        </div>
-    </form>
-    
+    <div class="card text-white h-100 d-flex flex-column" style="background-color: black;">
+        <form method="post" action="{% url 'new-weight' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="btn col-12 mb-4">
+                <button class="btn col-12 mb-4" type="submit" style="background-color: yellow; color: black;">Submit Weight</button>
+            </div>
+        </form>
+    </div>
+
 </body>
 {% endblock %}

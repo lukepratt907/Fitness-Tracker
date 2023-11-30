@@ -30,7 +30,7 @@
                       <li class="d-grid"><a class="dropdown-item" href="{% url 'workout_list' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Workout List</a></li>
                       <li class="d-grid"><a class="dropdown-item" href="{% url 'users-diary' %}" aria-disabled="true" style="color: black; background-color: yellow !important; padding: 0" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Diary</a></li>
                       <li class="d-grid"><a class="dropdown-item" href="{% url 'users-goal' %}" style="color: black; background-color: yellow !important; padding: 0" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Goals</a></li>
-                      <li class="d-grid"><a class="dropdown-item disabled" href="{% url 'metrics' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Weigh-In</a></li>
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'metrics' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Weigh-In</a></li>
                   </ul>
                 </div>
               </li>
@@ -51,61 +51,17 @@
   </header>    
 {% endblock %}
 
-{% block main %}
+{% block main %}     
 
-    <body style="background-color: black;">
-        <!-- Messages -->
-        {% for message in messages %}
-            <div>{{ message }}</div>
-        {% endfor %}
+<body style="background-color: black;">
+    <h2 style="color: yellow;">Edit Weight Entry From: {{ form.date_logged }}</h2>
+    <card class="text-white h-100 d-flex flex-column">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <button style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'" type="submit">Update Weight</button>
+        </form>
+    </card>
+</body>
 
-        <!-- Weight Log Page Heading -->
-        <div style="color: yellow;">
-            <h1>{{ user.username }}'s Weigh-Ins</h1>
-            <p>This is your weight-in page.</p>
-        </div>
-
-        <canvas id="weightChart"></canvas>
-
-        <!-- New Weight Button -->
-        <div> 
-            <a href="{% url 'new-weight' %}" class="btn col-12 mb-4" style="color: black; background-color: yellow;">Log Weight</a>
-        </div>
-
-        <div class="card" style="background-color: black;"> 
-          <a href="{% url 'weight-list' %}" class="btn col-6 mb-4" style="color: black; background-color: yellow; margin-left: auto; margin-right: auto; width: fit-content;">Edit Weights</a>
-        </div>
-
-        
-        <script type="text/javascript">
-          var dates = {{ dates|safe }};
-          var weights = {{ weights|safe }};
-
-
-          var ctx = document.getElementById('weightChart').getContext('2d');
-          var weightChart = new Chart(ctx, {
-              type: 'line',
-              data: {
-                  labels: dates,
-                  datasets: [{
-                      label: 'Weight over Time',
-                      data: weights,
-                      backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                      borderColor: 'rgba(255, 206, 86, 1)',
-                      borderWidth: 1
-                  }]
-              },
-              options: {
-                  scales: {
-                      y: {
-                          beginAtZero: true
-                      }
-                  }
-              }
-          });
-
-        </script>
-
-    </body>
-
-{% endblock %}
+{% endblock %}  
