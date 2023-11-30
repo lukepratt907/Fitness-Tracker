@@ -59,76 +59,49 @@
             <div>{{ message }}</div>
         {% endfor %}
 
-        <!-- Goal Page Heading -->
+        <!-- Weight Log Page Heading -->
         <div style="color: yellow;">
             <h1>{{ user.username }}'s Weigh-In</h1>
             <p>This is your weight-in page.</p>
         </div>
 
-        <!-- Search Form -->
-        <form class="row mb-3" method="get" action="{% url 'metrics' %}">
-            <div class="col-10">
-                <input  class="form-control form-control-lg" type="text" name="search" value="{{ search }}" placeholder="Search weights...">
-            </div>
-            <div class="col-2">
-                <button class="btn btn-lg" type="submit" style="background-color: yellow;">Search</button>
-            </div>
-        </form>
+        <canvas id="weightChart"></canvas>
 
-        <!-- Grid Layout for Goals     NEEDS TO BE UPDATED WITH METRICS OBJECTS ONCE METRICS FUNCTIONALITY IS BUILT -->
-        <div class="container-fluid">
-            <div class="row">
-                {% if page_obj %}
-                    {% for goal in page_obj %}
-                        <div class="col-md-4 mb-4">
-                            <div class="card text-white bg-dark h-100">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h5 style="color: yellow; margin-bottom: 0;">{{ goal.title }}</h5>
-                                </div>
-                                <div class="card-body">
-                                    <small style="color: white;">Due: {{ goal.end_date }}</small>
-                                    <hr>
-                                    <small style="color: yellow; margin-right: 12px;">
-                                        <small>
-                                            {{ goal.status }}
-                                        </small>
-                                    </small>
-                                    <a class="btn btn-sm" href="{% url 'goal-detail' goal.pk %}" style="background-color: yellow; color: black;">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p style="color: yellow;">You have no weight-ins.</p>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- New Goal Button -->
+        <!-- New Weight Button -->
         <div> 
             <a href="{% url 'new-weight' %}" class="btn col-12 mb-4" style="color: black; background-color: yellow;">Log Weight</a>
         </div>
 
-        <!-- Pagination for many goals -->
-        <div class="text-center">
-            <div class="btn-group" role="group" aria-label="Pagination">
-                {% if page_obj.has_previous %}
-                    <a class="btn btn-sm" href="?page=1" style="color: black; background-color: yellow;">&laquo; First</a>
-                    <a class="btn btn-sm" href="?page={{ page_obj.previous_page_number }}&search={{ search }}" style="color: black; background-color: yellow;">Previous</a>
-                {% else %}
-                    <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">&laquo; First</a>
-                    <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">Previous</a>
-                {% endif %}
-                <div class="btn btn-sm disabled" style="color: black; background-color: yellow;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
-                {% if page_obj.has_next %}
-                    <a class="btn btn-sm" href="?page={{ page_obj.next_page_number }}" style="color: black; background-color: yellow;">Next</a>
-                    <a class="btn btn-sm" href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}" style="color: black; background-color: yellow;">Last &raquo;</a>
-                {% else %}
-                    <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">Next</a>
-                    <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">Last &raquo;</a>
-                {% endif %}
-            </div>
-        </div>
+        <script type="text/javascript">
+          var dates = {{ dates|safe }};
+          var weights = {{ weights|safe }};
+
+
+          var ctx = document.getElementById('weightChart').getContext('2d');
+          var weightChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                  labels: dates,
+                  datasets: [{
+                      label: 'Weight over Time',
+                      data: weights,
+                      backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                      borderColor: 'rgba(255, 206, 86, 1)',
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero: true
+                          }
+                      }]
+                  }
+              }
+          });
+        </script>
+
     </body>
 
 {% endblock %}

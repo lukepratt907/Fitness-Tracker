@@ -1,10 +1,19 @@
 from django.shortcuts import render
-from users.models import UserProfile
+from .models import WeightLog
 from .forms import WeightForm
 from django.shortcuts import render, redirect, get_object_or_404
 
 def metrics_view(request):
-    return render(request, 'metrics/user_metrics.html')
+    weight_logs = WeightLog.objects.filter(user=request.user).order_by('date_logged')
+    dates = [log.date_logged.strftime("%Y-%m-%d") for log in weight_logs]
+    weights = [log.weight for log in weight_logs]
+
+    context = {
+        'dates': dates,
+        'weights': weights,
+    }
+
+    return render(request, 'metrics/user_metrics.html', context)
 
 def new_weight(request):
     if request.method == 'POST':
