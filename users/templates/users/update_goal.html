@@ -1,23 +1,54 @@
 {% extends "users/layout.html" %}
+{% load static %}
 
 {% block header %}
-    <header style="background-color: black;">
-        <h1 style="color: yellow;">Mac's Strength and Power: Fitness Tracker</h1>
-        <nav>
-            <span>
-                <a class="btn btn-outline" href="{% url 'users-profile' %}" style="color: black; background-color: yellow;">Home</a>
-                <a class="btn" href="{% url 'users-reminder' %}" style="color: black; background-color: yellow;">Create Email Reminders</a>
-                <a class="btn" href="{% url 'about_page' %}" style="color: black; background-color: yellow;">About</a>
-                <a class="btn" href="{% url 'users-logout' %}" style="color: black; background-color: yellow;">Logout</a>
-            </span>
-            <hr>
-            <span class="main-pages">
-                <a class="btn" href="{% url 'users-diary' %}" style="color: black; background-color: yellow;">Diary</a>
-                <a class="btn" href="{% url 'users-goal' %}" style="color: black; background-color: yellow;">Goals</a>
-                <a class="btn" href="{% url 'metrics' %}" style="color: black; background-color: yellow;">Metrics</a>
-            </span>
-        </nav>
-      </header>     
+<header style="background-color: black; padding-bottom: 0;">
+    <nav class="navbar navbar-expand-md justify-content-center" style="padding-top: 0; margin-top: 1.5%;">
+      <a class="navbar-brand" href="{% url 'users-profile' %}" style="padding: 0;">
+        <img class="nav-logo" src="{% static 'images/mac_header.jpg' %}" alt="Mac's Strength and Power Logo"/>
+      </a>
+      <div class="col-md-auto">
+        <div class="row">
+          <h1 style="color: yellow;"style="right: 40;">Mac's Strength and Power: Fitness Tracker</h1>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="row">
+          <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar" style="left: 25%">
+            <ul class="navbar-nav">
+              <li class="nav-item mr-2 mb-2">
+                <a class="btn" href="{% url 'users-profile' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">Home</a>
+              </li>
+              <li class="nav-item mr-2 mb-2">
+                <div class="dropdown-center mr-2 mb-2">
+                  <button class="btn dropdown-toggle mr-2 mb-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black; background-color: yellow;" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">
+                      Menu
+                  </button>
+                  <ul class="dropdown-menu" style="background-color: yellow; overflow: hidden; padding-right: 15px; text-align: center; border: 1px solid gray;">
+                      <li class="d-grid"><a class="dropdown-item disabled" href="{% url 'users-diary' %}" aria-disabled="true" style="color: black; background-color: yellow !important; padding: 0" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Diary</a></li>
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'users-goal' %}" style="color: black; background-color: yellow !important; padding: 0" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Goals</a></li>
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'metrics' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Weigh-In</a></li>
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'create_workout' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Create A Workout</a></li>
+                      <li class="d-grid"><a class="dropdown-item" href="{% url 'workout_list' %}" style="color: black; background-color: yellow !important; padding: 0;" onmouseover="this.style.backgroundColor='black', this.style.color='yellow'" onmouseout="this.style.backgroundColor='yellow', this.style.color='black'">Workout List</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item mr-2 mb-2">
+                <a class="btn" href="{% url 'users-reminder' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">Create Email Reminders</a>
+              </li>
+              <li class="nav-item mr-2 mb-2">
+                <a class="btn" href="{% url 'about_page' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">About</a>
+              </li>
+              <li class="nav-item mr-2 mb-2">
+                <a class="btn" href="{% url 'users-logout' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+</header>
 {% endblock %}
 
 {% block main %}
