@@ -5,6 +5,7 @@ from .models import Workout, Exercise, WorkoutExercise
 from .forms import WorkoutForm, WorkoutExerciseFormSet
 from datetime import datetime
 from django.http import HttpResponse
+from django.db import models
 from django.views.decorators.cache import cache_control
 
 
@@ -55,8 +56,10 @@ def create_workout(request):
     else:
         form = WorkoutForm()
         exercise_formset = WorkoutExerciseFormSet(instance=Workout())
-        objectlist = Workout.objects.distinct()
-    return render(request, 'workouts/create_workout.html', {'form': form, "exercise_formset": exercise_formset, 'objectlist': objectlist})
+        objectlist = Workout.objects.all()
+        unique_models = Workout.objects.values('name').annotate(max_id=models.Max('id'))
+        unique_instances = Workout.objects.filter(id__in=unique_models.values('max_id'))
+    return render(request, 'workouts/create_workout.html', {'form': form, "exercise_formset": exercise_formset, 'unique_instances': unique_instances})
 
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
