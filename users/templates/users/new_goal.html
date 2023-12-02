@@ -66,10 +66,10 @@
         <form style="color: yellow;" id="diaryForm" method="post" action="{% url 'new-goal' %}">
             {% csrf_token %}
             <div class="form-group col-12" style="text-align: center;">
-                <input class="form-title col-12 mb-4" type="text" id="title" name="title" placeholder="Title" required>
+                <input class="form-title col-12 mb-4" type="text" id="title" name="title" placeholder="Add your new goal's title here!" required>
             </div>
             <div class="form-group col-12" style="text-align: center;">
-                <textarea cols="80" rows="20" class="form-content col-12 mb-4" id="description" name="description" placeholder="Description" required></textarea>
+                <textarea cols="80" rows="20" class="form-content col-12 mb-4" id="description" name="description" placeholder="Describe your goal in detail. What do you want to achieve? Break it down into achievable steps. Consider including specific targets (like weight, fitness level, diet changes), why this goal matters to you, and any strategies you plan to use. Remember to set a realistic timeline and think about how you will track your progress. This is your roadmap to success!" required></textarea>
             </div>
             <div class="form-group mb-4">
                 <label for="id_end_date" class="form-label" style="color: yellow;">End Date</label>

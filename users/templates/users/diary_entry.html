@@ -65,10 +65,10 @@
         <form style="color: yellow;" id="diaryForm" method="post" action="{% url 'new-diary-entry' %}">
             {% csrf_token %}
             <div class="form-group col-12" style="text-align: center;">
-                <input class="form-title col-12 mb-4" type="text" id="title" name="title" placeholder="Title" required>
+                <input class="form-title col-12 mb-4" type="text" id="title" name="title" placeholder="Add your diary entry's title here!" required>
             </div>
             <div class="form-group col-12" style="text-align: center;">
-                <textarea cols="80" rows="20" class="form-content col-12 mb-4" id="content" name="content" placeholder="Content" required></textarea>
+                <textarea cols="80" rows="20" class="form-content col-12 mb-4" id="content" name="content" placeholder="Share your day's journey! Quick ideas: Note your meals and calorie intake, describe today's workout and how you felt, reflect on your mood and energy levels, track progress towards fitness goals, and jot down any challenges or successes. This diary is your space to explore and celebrate your fitness journey. Happy logging!" required></textarea>
             </div>
             <div class="btn col-12 mb-4">
                 <button class="btn col-12 mb-4" type="submit" style="background-color: yellow; color: black;">Submit</button>
