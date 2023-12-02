@@ -1,8 +1,12 @@
+APScheduler==3.10.4
 asgiref==3.5.2
+chartjs==1.2
 Django==4.1.2
-sqlparse==0.4.3
-pillow==10.1.0
 django-apscheduler==0.6.2
-django-cors-headers
+django-cors-headers==4.3.0
 mysqlclient==2.2.0
-chartjs
+Pillow==10.1.0
+pytz==2023.3.post1
+six==1.16.0
+sqlparse==0.4.3
+tzlocal==5.2
