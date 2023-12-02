@@ -41,11 +41,11 @@ def create_workout(request):
             new_relation_instances = []
             for e in exs_list:
                 #return HttpResponse(e.sets)
-                new_exs = Exercise.objects.create(name=e.exercise.name)
+                #new_exs = Exercise.objects.create(name=e.exercise.name)
                 #return HttpResponse(e.sets)
                 new_relation_instance = WorkoutExercise(
                     workout = new_workout_instance,
-                    exercise = new_exs,
+                    exercise = e.exercise,
                     sets = e.sets,
                     reps = e.reps
                 )
