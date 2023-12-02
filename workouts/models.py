@@ -28,11 +28,3 @@ class WorkoutExercise(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     sets = models.PositiveIntegerField()
     reps = models.PositiveIntegerField()
-
-
-class CustomWorkout(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    workout = models.ForeignKey(Workout, on_delete=models.CASCADE) 
-
-    def __str__(self):
-        return self.workout.name

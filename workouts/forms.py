@@ -1,7 +1,7 @@
 # workouts/forms.py
 from django import forms
 from django.forms import inlineformset_factory
-from .models import Workout, Exercise, CustomWorkout, WorkoutExercise
+from .models import Workout, Exercise, WorkoutExercise
 
 class WorkoutForm(forms.ModelForm):
     class Meta:
@@ -30,12 +30,12 @@ class WorkflowExerciseForm(forms.ModelForm):
         fields = ['exercise', 'sets', 'reps']
 
 WorkoutExerciseFormSet = inlineformset_factory(Workout, WorkoutExercise, form=WorkflowExerciseForm, extra=2, can_delete = False)
-
+"""
 class CustomWorkoutForm(forms.Form):
     name = forms.ChoiceField(
         label='Category',
         required=False,
-        choices=CustomWorkout.objects.all(),
+        choices=Workout.objects.all(),
         widget=forms.Select(attrs={
             'class': 'form-control form-group',
             'autocomplete': 'on',
@@ -46,3 +46,4 @@ class CustomWorkoutForm(forms.Form):
     #def __init__(self, *args, **kwargs):
         #super(CustomWorkoutForm, self).__init__(*args, **kwargs)
         #self.fields['name'].choices = [(workout.id, workout.name) for workout in Workout.objects.all()]        
+"""
