@@ -31,6 +31,8 @@ def register_view(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
             return redirect('users-login')
+        else:
+            messages.error(request, 'Invalid Submission')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
@@ -40,8 +42,17 @@ def login_view(request):
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
-            login(request, form.get_user())
-            return redirect('users-profile')
+            user = form.get_user()
+            if user is not None:
+                login(request, form.get_user())
+                return redirect('users-profile')
+            else:
+                messages.error(request, 'Invalid username or password. Please try again.')
+
+        else:
+            messages.error(request, 'Invalid username or password. Please try again.')
+
+
     else:
         form = LoginForm()
     return render(request, 'users/login.html', {'form': form})

@@ -1,7 +1,7 @@
 # workouts/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Workout, Exercise, WorkoutExercise
+from .models import Workout, Exercise, WorkoutExercise, User
 from .forms import WorkoutForm, WorkoutExerciseFormSet
 from datetime import datetime
 from django.http import HttpResponse
@@ -56,9 +56,9 @@ def create_workout(request):
     else:
         form = WorkoutForm()
         exercise_formset = WorkoutExerciseFormSet(instance=Workout())
-        objectlist = Workout.objects.all()
+        #objectlist = Workout.objects.all()
         unique_models = Workout.objects.values('name').annotate(max_id=models.Max('id'))
-        unique_instances = Workout.objects.filter(id__in=unique_models.values('max_id'))
+        unique_instances = Workout.objects.filter(id__in=unique_models.values('max_id'), user=request.user)
     return render(request, 'workouts/create_workout.html', {'form': form, "exercise_formset": exercise_formset, 'unique_instances': unique_instances})
 
 @login_required

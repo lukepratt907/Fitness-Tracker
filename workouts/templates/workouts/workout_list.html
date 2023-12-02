@@ -70,7 +70,7 @@
         <option value="10">October</option>
         <option value="11">November</option>
         <option value="12">December</option>
-        <option value="">All Months</option>
+        <option value="" selected>All Months</option>
       </select>
     </div>
     <div class="col-md-6 text-end">
@@ -121,6 +121,14 @@
       }
     }
   }
+  function displayAllWorkouts() {
+    var workouts = document.getElementsByClassName('workout-item');
+    for (var i = 0; i < workouts.length; i++) {
+      workouts[i].style.display = 'block';
+    }
+  }
+  // Call the function to display all workouts by default
+  displayAllWorkouts();
 </script>
 
 {% endblock %}
