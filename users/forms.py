@@ -8,7 +8,7 @@ from django.contrib.admin import widgets
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-input',
-        'placeholder': 'Username',
+        'placeholder': 'Username (case sensitive)',
         'maxlength': '30',
         'minlength': '1',
     }))
