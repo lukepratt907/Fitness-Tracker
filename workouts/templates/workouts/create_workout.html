@@ -103,6 +103,7 @@
   <form method="post" action="{% url 'create_workout' %}">
     {% csrf_token %}
     <select name="actualvalue">
+      <option value="" disabled selected>Previous Workouts</option>
 
 
       {% for element in unique_instances %}
