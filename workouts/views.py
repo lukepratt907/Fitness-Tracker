@@ -7,6 +7,8 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.db import models
 from django.views.decorators.cache import cache_control
+from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 @login_required(login_url='users/login.html')
@@ -64,8 +66,20 @@ def create_workout(request):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def workout_list(request):
-    workouts = Workout.objects.filter(user=request.user)
-    return render(request, 'workouts/workout_list.html', {'workouts': workouts})
+    workouts = Workout.objects.filter(user=request.user).order_by('-day')
+    search = request.GET.get('search', '')
+    if search:
+        workouts = workouts.filter(
+            Q(name__icontains=search) |
+            Q(description__icontains=search) |
+            Q(day__icontains=search)
+        )
+        
+    p = Paginator(workouts, 5)
+    page_number = request.GET.get('page')
+    page_obj = p.get_page(page_number)
+
+    return render(request, 'workouts/workout_list.html', {'workouts': workouts, 'page_obj': page_obj, 'search': search})
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def delete_workout(request, workout_id):

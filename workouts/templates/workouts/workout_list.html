@@ -51,6 +51,19 @@
 {% endblock %}
 
 {% block main %}
+
+<!-- Search Form -->
+<form class="row mb-3" method="get" action="{% url 'workout_list' %}">
+  <div class="col-8">
+      <input  class="form-control form-control-lg" type="text" name="search" value="{{ search }}" placeholder="Search workouts...">
+  </div>
+  <div class="col-4">
+      <button class="btn btn-lg" type="submit" style="background-color: yellow;">Search</button>
+  </div>
+  <br>
+  <p class="mt-2" style="color: white;">Clear this search field to go back to the full list or filter by month!</p>
+</form>
+
 <body style="background-color: black;">
   <div class="row">
     <h2 style="color: white;">Your Workouts<small><small><small><small></small> - By Month</small></small></small></h2>
@@ -79,23 +92,48 @@
   </div>
   <br>
   <ul>
-    {% for workout in workouts %}
-    <li class="workout-item" data-month="{{ workout.day.month }}" style="border: 1px solid lightgrey; border-radius: 10px; margin-bottom: 10px; padding: 10px;">
-      <strong style="color: yellow;">{{ workout.name }} - <small style="color: lightgray; font-weight: normal; font-size: 80%;">{{ workout.day }} AKT</small></strong>
-      <p style="color: white; margin-top: 10px;"><span style="color: gray; font-style: italic;">Notes:</span> {{ workout.description }}</p>
-      {% for obj in workout.workoutexercise_set.all %}
-      <p>
-        <span style="color: white;"><span style="font-style: italic;">Exercise</span> {{ forloop.counter }} - {{ obj.exercise.name }}:</span>
-        <span style="color: white;">{{ obj.sets }} {% if obj.sets == 1 %} set{% else %} sets{% endif %}, {{ obj.reps }} {% if obj.reps == 1 %} rep{% else %} reps{% endif %}</span>
-      </p>
-      {% endfor %}
-      <form method="post" action="{% url 'delete_workout' workout.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger btn-rounded" style="margin-bottom: 8px;">Delete</button>
-      </form>
-    </li>
-    {% endfor %}
+    {% if page_obj %}
+        {% for workout in page_obj %}
+          <li class="workout-item" data-month="{{ workout.day.month }}" style="border: 1px solid lightgrey; border-radius: 10px; margin-bottom: 10px; padding: 10px;">
+            <strong style="color: yellow;">{{ workout.name }} - <small style="color: lightgray; font-weight: normal; font-size: 80%;">{{ workout.day }} AKT</small></strong>
+            <p style="color: white; margin-top: 10px;"><span style="color: gray; font-style: italic;">Notes:</span> {{ workout.description }}</p>
+            {% for obj in workout.workoutexercise_set.all %}
+            <p>
+              <span style="color: white;"><span style="font-style: italic;">Exercise</span> {{ forloop.counter }} - {{ obj.exercise.name }}:</span>
+              <span style="color: white;">{{ obj.sets }} {% if obj.sets == 1 %} set{% else %} sets{% endif %}, {{ obj.reps }} {% if obj.reps == 1 %} rep{% else %} reps{% endif %}</span>
+            </p>
+            {% endfor %}
+            <form method="post" action="{% url 'delete_workout' workout.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-rounded" style="margin-bottom: 8px;">Delete</button>
+            </form>
+          </li>
+        {% endfor %}
+    {% else %}
+        <p style="color: yellow;">You have no workouts.</p>
+    {% endif %}
   </ul>
+
+   <!-- Pagination for many workouts -->
+   <div class="text-center">
+    <div class="btn-group" role="group" aria-label="Pagination">
+        {% if page_obj.has_previous %}
+            <a class="btn btn-sm" href="?page=1" style="color: black; background-color: yellow;">&laquo; First</a>
+            <a class="btn btn-sm" href="?page={{ page_obj.previous_page_number }}&search={{ search }}" style="color: black; background-color: yellow;">Previous</a>
+        {% else %}
+            <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">&laquo; First</a>
+            <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">Previous</a>
+        {% endif %}
+        <div class="btn btn-sm disabled" style="color: black; background-color: yellow;">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
+        {% if page_obj.has_next %}
+            <a class="btn btn-sm" href="?page={{ page_obj.next_page_number }}" style="color: black; background-color: yellow;">Next</a>
+            <a class="btn btn-sm" href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}" style="color: black; background-color: yellow;">Last &raquo;</a>
+        {% else %}
+            <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">Next</a>
+            <a class="btn btn-sm disabled" style="color: black; background-color: yellow;">Last &raquo;</a>
+        {% endif %}
+    </div>
+</div>
 </body>
 <style>
   .rounded-button {
