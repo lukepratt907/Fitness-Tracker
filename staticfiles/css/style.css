@@ -1,0 +1,163 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Arial', sans-serif;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: black;
+    color: yellow;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: black;
+    background-color: yellow;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.container {
+    background-color: yellow;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #333;
+}
+
+.register {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.register a {
+    color: black;
+    text-decoration: none;
+}
+
+.register a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background: black;
+    color: yellow;
+    padding: 10px 0;
+    text-align: center;
+    margin-top: auto; /* Pushes the footer to the bottom */
+}
+
+/* Sign-up Form Styles */
+.account-form {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.account-form input[type="text"],
+.account-form input[type="email"],
+.account-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: white;
+    color: black;
+}
+
+.account-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: yellow;
+    color: black;
+    cursor: pointer;
+}
+
+.input-form {
+    margin-bottom: 10px;
+}
+
+.input-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+}
+
+.login-button {
+    background-color: black;
+    color: yellow;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+}
+
+.login-button:hover {
+    background-color: white;
+    color: black;
+}
+
