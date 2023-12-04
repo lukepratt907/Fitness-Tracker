@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
 """
 # May be used later to delete profile picture files in the case a user deletes their profile
 from django.db.models.signals import post_delete

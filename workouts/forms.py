@@ -1,7 +1,7 @@
 # workouts/forms.py
 from django import forms
 from django.forms import inlineformset_factory
-from .models import Workout, Exercise, WorkoutExercise
+from .models import Workout, WorkoutExercise
 
 class WorkoutForm(forms.ModelForm):
     class Meta:

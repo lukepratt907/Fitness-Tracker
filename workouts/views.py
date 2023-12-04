@@ -1,15 +1,12 @@
 # workouts/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Workout, Exercise, WorkoutExercise, User
+from .models import Workout, WorkoutExercise
 from .forms import WorkoutForm, WorkoutExerciseFormSet
-from datetime import datetime
-from django.http import HttpResponse
 from django.db import models
 from django.views.decorators.cache import cache_control
 from django.core.paginator import Paginator
 from django.db.models import Q
-
 
 @login_required(login_url='users/login.html')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -81,6 +78,7 @@ def workout_list(request):
 
     return render(request, 'workouts/workout_list.html', {'workouts': workouts, 'page_obj': page_obj, 'search': search})
 
+@login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def delete_workout(request, workout_id):
     workout = get_object_or_404(Workout, id=workout_id)

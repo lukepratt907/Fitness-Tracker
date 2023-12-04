@@ -1,9 +1,7 @@
-from typing import Any
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from .models import DiaryEntry, Goal, Reminder
-from django.contrib.admin import widgets                                       
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={

@@ -1,28 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db import IntegrityError
-from django.http import HttpResponse
 from .forms import LoginForm, UserRegisterForm, DiaryForm, ReminderForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import DiaryEntry, Reminder
 from django.views.decorators.cache import cache_control
 from django.db.models import Q
-from django.http import HttpResponse, JsonResponse
 from .forms import LoginForm, UserRegisterForm, DiaryForm, GoalForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.utils import timezone
-from django.utils.dateformat import DateFormat
-from django.views.decorators.csrf import csrf_exempt
 from .models import DiaryEntry, Goal
 import logging
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def register_view(request):
     if request.method == 'POST':
         form = UserRegisterForm(data=request.POST)

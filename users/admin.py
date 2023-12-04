@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Reminder, User, UserProfile, DiaryEntry, Goal
+from .models import Reminder, UserProfile, DiaryEntry, Goal
 
 class UserProfileAdmin(admin.ModelAdmin):
     pass

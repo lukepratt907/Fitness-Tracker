@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from .models import GymInfo
 from metrics.models import EQUIPMENT, MACHINES
+from django.views.decorators.cache import cache_control
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def about_page(request):
     # Create a GymInfo instance with the hardcoded description and year
     gym_info = GymInfo.objects.create(
