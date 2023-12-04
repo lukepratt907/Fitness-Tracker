@@ -27,4 +27,4 @@ urlpatterns = [
     path('metrics/', include('metrics.urls'))
 ]
 
-urlpatterns += staticfiles_urlpatterns()
+#urlpatterns += staticfiles_urlpatterns()

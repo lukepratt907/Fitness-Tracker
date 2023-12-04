@@ -32,6 +32,7 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'users.apps.UsersConfig',
     'workouts.apps.WorkoutsConfig',
     'metrics.apps.MetricsConfig',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -77,7 +79,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'FitnessTracker.wsgi.application'
-
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -140,9 +142,9 @@ USE_TZ = True
 
 # Commented out below because it was giving a warning, and I am not sure if we even need it
 
-#STATICFILES_DIRS = [
-   #os.path.join(BASE_DIR, "static"),
-#]
+STATICFILES_DIRS = [
+   os.path.join(BASE_DIR, "static"),
+]
 
 LOGIN_URL = 'users-login'
 
