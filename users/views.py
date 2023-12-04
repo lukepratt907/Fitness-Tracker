@@ -67,6 +67,8 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def diary_list(request):
     diaries = DiaryEntry.objects.filter(user=request.user).order_by('-date')
     search = request.GET.get('search', '')
@@ -82,12 +84,14 @@ def diary_list(request):
     page_obj = p.get_page(page_number)
     return render(request, 'users/diary.html', {'page_obj': page_obj, 'search': search})
 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def diary_detail(request, pk):
     diary_entry = get_object_or_404(DiaryEntry, pk=pk)
     return render(request, 'users/diary_detail.html', {'diary_entry': diary_entry})
 
+@login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-    
 def create_diary_entry(request):
     logger = logging.getLogger(__name__)
     logger.debug(request.POST)
@@ -105,7 +109,9 @@ def create_diary_entry(request):
         logger.error("Invalid request type")
         form = DiaryForm()
         return render(request, 'users/diary_entry.html', {'form': form})
-    
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def update_diary_entry(request, pk):
     diary_entry = get_object_or_404(DiaryEntry, pk=pk, user=request.user)
     if request.method == "POST":
@@ -117,6 +123,8 @@ def update_diary_entry(request, pk):
         form = DiaryForm(instance=diary_entry)
     return render(request, 'users/update_diary_entry.html', {'form': form, 'diary_entry': diary_entry})
 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def delete_diary_entry(request, pk):
     diary_entry = get_object_or_404(DiaryEntry, pk=pk, user=request.user)
     if request.method == "POST":
@@ -124,6 +132,8 @@ def delete_diary_entry(request, pk):
         return redirect('users-diary')
     return render(request, 'users/delete_diary_entry.html', {'diary_entry': diary_entry})
 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def goal_view(request):
     goals = Goal.objects.filter(user=request.user).order_by('end_date')
     search = request.GET.get('search', '')
@@ -140,10 +150,14 @@ def goal_view(request):
     page_obj = p.get_page(page_number)
     return render(request, 'users/goals.html', {'search': search, 'page_obj': page_obj})
 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def goal_detail(request, pk):
     goal = get_object_or_404(Goal, pk=pk)
     return render(request, 'users/goal_detail.html', {'goal': goal})
 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def create_goal(request):
     logger = logging.getLogger(__name__)
     logger.debug(request.POST)
@@ -161,7 +175,9 @@ def create_goal(request):
         logger.error("Invalid request type")
         form = GoalForm()
         return render(request, 'users/new_goal.html', {'form': form})
-    
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def update_goal(request, pk):
     goal = get_object_or_404(Goal, pk=pk, user=request.user)
     if request.method == "POST":
@@ -173,6 +189,8 @@ def update_goal(request, pk):
         form = GoalForm(instance=goal)
     return render(request, 'users/update_goal.html', {'form': form, 'goal': goal})
 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def delete_goal(request, pk):
     goal = get_object_or_404(Goal, pk=pk, user=request.user)
     if request.method == "POST":
@@ -180,6 +198,8 @@ def delete_goal(request, pk):
         return redirect('users-goal')
     return render(request, 'users/delete_goal.html', {'goal': goal})
 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def reminder_view(request):
     if request.method == "POST":
         form = ReminderForm(request.POST)
