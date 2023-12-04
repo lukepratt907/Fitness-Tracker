@@ -22,11 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
+#SECRET_KEY = 'django-insecure-k0!6fx--(xits5*7y043_!u==ni1hl8x^suo-j8+guajd=gg=8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-
+#DEBUG = True
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
-
+#ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -88,6 +89,7 @@ DATABASES = {
     }
 }
 database_url = os.environ.get("DATABASE_URL")
+#database_url = "postgres://lgpratt:vqBO8rruDn6wPs5G6O9K56nQeQFIDVXk@dpg-clmhhjcjtl8s73ev8ce0-a.oregon-postgres.render.com/fitness_tracker_kut9"
 DATABASES["default"] = dj_database_url.parse(database_url)
 """
 DATABASES = {
