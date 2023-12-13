@@ -8,6 +8,8 @@ from django.views.decorators.cache import cache_control
 from django.core.paginator import Paginator
 from django.db.models import Q
 
+# create_workout view manages the creation of workouts
+# Validates and saves workout instances and their related exercises based on the submitted form, ad handles both standard creation and duplicating existing workouts
 @login_required(login_url='users/login.html')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def create_workout(request):
@@ -19,7 +21,7 @@ def create_workout(request):
             workout.user = request.user
             workout.save()
 
-            # Save the related WorkflowExercise instances with the workout instance
+            # Save the related WorkoutExercise instances with the workout instance
             instances = exercise_formset.save(commit=False)
             for instance in instances:
                 instance.workout = workout
@@ -28,11 +30,8 @@ def create_workout(request):
             return redirect('workout_list')
     elif request.method == 'POST' and 'btnlogsave' in request.POST:
             option = request.POST.get('actualvalue')# value of this is none
-            #return HttpResponse(option)
             obj = get_object_or_404(Workout, id=option)
-            #new_obj = Workout.objects.get(id=option)
             exs_list = obj.workoutexercise_set.all()# this is good
-            #return HttpResponse(exs_list)
             new_workout_instance = Workout.objects.create(
                 user = obj.user,
                 name = obj.name,
@@ -40,9 +39,6 @@ def create_workout(request):
             )
             new_relation_instances = []
             for e in exs_list:
-                #return HttpResponse(e.sets)
-                #new_exs = Exercise.objects.create(name=e.exercise.name)
-                #return HttpResponse(e.sets)
                 new_relation_instance = WorkoutExercise(
                     workout = new_workout_instance,
                     exercise = e.exercise,
@@ -55,11 +51,12 @@ def create_workout(request):
     else:
         form = WorkoutForm()
         exercise_formset = WorkoutExerciseFormSet(instance=Workout())
-        #objectlist = Workout.objects.all()
         unique_models = Workout.objects.values('name').annotate(max_id=models.Max('id'))
         unique_instances = Workout.objects.filter(id__in=unique_models.values('max_id'), user=request.user)
     return render(request, 'workouts/create_workout.html', {'form': form, "exercise_formset": exercise_formset, 'unique_instances': unique_instances})
 
+# Retrieves a user's workouts and allows fdor search filtering by name, description, or day
+# Paginates results with 5 workouts per page, and includes paginated workout instances along with a search query parameter
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def workout_list(request):
@@ -78,6 +75,8 @@ def workout_list(request):
 
     return render(request, 'workouts/workout_list.html', {'workouts': workouts, 'page_obj': page_obj, 'search': search})
 
+# Handles the deletion of a workout by its id
+# If request method is POST, delete the workout and redirect to the workout list, else, redirect to workout list still
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def delete_workout(request, workout_id):
@@ -86,7 +85,7 @@ def delete_workout(request, workout_id):
     if request.method == 'POST':
         # Delete the workout
         workout.delete()
-        return redirect('workout_list')  # Replace with the actual URL name for the workout list
+        return redirect('workout_list')
 
     # Redirect to the workout list if the request is not a POST
-    return redirect('workout_list')  # Replace with the actual URL name for the workout list
+    return redirect('workout_list')

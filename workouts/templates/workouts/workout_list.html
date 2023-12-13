@@ -1,5 +1,6 @@
 {% extends "users/layout.html" %}
 {% load static %}
+<!-- Header for the navigation bar -->
 {% block header %}
   <header style="background-color: black; padding-bottom: 0;">
     <nav class="navbar navbar-expand-md justify-content-center" style="padding-top: 0; margin-top: 1.5%;">
@@ -52,8 +53,11 @@
 
 {% block main %}
 <body style="background-color: black;">
+  <!-- Workout List title -->
   <h1 style="color: white; text-align: center;">Your Workouts</h1>
   <br><br>
+
+  <!-- Workout list search structuring -->
   <div class="row">
     <div class="col-md-8">
       <form class="row mb-3" method="get" action="{% url 'workout_list' %}">
@@ -67,6 +71,7 @@
       </form>
     </div>
   
+    <!-- Structuring for the dropdown list of selectable months -->
     <div class="col-md-4">
       <select id="month-filter" style="padding: 11px;" class="form-select" onchange="filterWorkouts(this.value)">
         <option value="" selected disabled>Select Month</option>
@@ -86,50 +91,15 @@
       </select>
     </div>
   </div>
-  
-  <!--
-  <form class="row mb-3" method="get" action="{% url 'workout_list' %}">
-    <div class="col-8">
-        <input  class="form-control form-control-lg" type="text" name="search" value="{{ search }}" placeholder="Search workouts...">
-    </div>
-    <div class="col-4">
-        <button class="btn btn-lg" type="submit" style="background-color: yellow;">Search</button>
-    </div>
-    <br>
-    <p class="mt-2" style="color: white;">Clear this search field to go back to the full list or filter by month!</p>
-  </form>
-  <div class="row">
-    <h2 style="color: white;">Your Workouts<small><small><small><small></small> - By Month</small></small></small></h2>
-    <div class="col-md-6">
-      <br>
-      <select id="month-filter" class="form-select" onchange="filterWorkouts(this.value)">
-        <option value="" selected disabled>Select Month</option>
-        <option value="1">January</option>
-        <option value="2">February</option>
-        <option value="3">March</option>
-        <option value="4">April</option>
-        <option value="5">May</option>
-        <option value="6">June</option>
-        <option value="7">July</option>
-        <option value="8">August</option>
-        <option value="9">September</option>
-        <option value="10">October</option>
-        <option value="11">November</option>
-        <option value="12">December</option>
-        <option value="" selected>All Months</option>
-      </select>
-    </div>
-    <div class="col-md-6 text-end">
-        <a class="btn" href="{% url 'create_workout' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">Create New Workout</a>
-    </div>
-  </div>
-  -->
   <br>
 
+  <!-- Button for creating a new workout -->
   <div class="text-end">
     <a class="btn btn-lg" href="{% url 'create_workout' %}" style="color: black; background-color: yellow;" class="btn" onmouseover="this.style.borderColor='yellow'" onmouseout="this.style.borderColor='black'">Create New Workout</a>
   </div>
   <br>
+
+  <!-- Display of the workout form on the workout page, along with a delete button to remove the workout from the list -->
   <ul>
     {% if page_obj %}
         {% for workout in page_obj %}
@@ -174,6 +144,7 @@
     </div>
 </div>
 </body>
+
 <style>
   .rounded-button {
     border-radius: 8px;
@@ -184,6 +155,7 @@
   }
 </style>
 
+<!-- Logic for filtering workouts -->
 <script>
   function filterWorkouts(selectedMonth) {
     var workouts = document.getElementsByClassName('workout-item');
