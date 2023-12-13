@@ -6,6 +6,8 @@ from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.decorators import login_required
 
+# Authenticate weight logs for user and order by date
+# Prepares date and weight data
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def metrics_view(request):
@@ -20,6 +22,7 @@ def metrics_view(request):
 
     return render(request, 'metrics/user_metrics.html', context)
 
+# Handles submission of a new weight entry
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_weight(request):
@@ -36,6 +39,7 @@ def new_weight(request):
         form = WeightForm()
         return render(request, 'metrics/new_weight.html', {'form': form})
 
+# Retrieves weight for authenticated user, and includes pagination
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def weight_list(request):
@@ -45,6 +49,7 @@ def weight_list(request):
     page_obj = p.get_page(page_number)
     return render(request, 'metrics/edit_weight.html', {'weights': weights, 'page_obj': page_obj})
 
+# Retrieves weight logs
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def edit_weight(request, pk):

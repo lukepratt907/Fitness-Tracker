@@ -1,6 +1,7 @@
 from .models import WeightLog
 from django import forms
 
+# Weight form, makes sure weight is legitimate
 class WeightForm(forms.ModelForm):
     class Meta:
         model = WeightLog

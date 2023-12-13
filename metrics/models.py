@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# The below lists hold the machines and equipment
 METRIC_TYPES = (
     ('personal_record', 'Personal Record'),
     ('bench_press', 'Bench Press'),
@@ -298,155 +299,14 @@ EXERCISES = [
     ('treadmill_sprints', 'Treadmill Sprints'),
 ]
 
-"""
-EXERCISES_OLD = [
-    # Standing Calf Raise machine
-    ('standing_calf_raises', 'Standing Calf Raises'),
-    ('single_leg_standing_calf_raises', 'Single-Leg Standing Calf Raises'),
-    # Seated calf raise machine
-    ('seated_calf_raises', 'Seated Calf Raises'),
-    # Hip abduction machine
-    ('hip_abduction', 'Hip Abduction'),
-    ('side_leg_raises', 'Side Leg Raises'),
-    # Hip adduction machine
-    ('hip_adduction', 'Hip Adduction'),
-    ('inner_thigh_squeezes', 'Inner Thigh Squeezes'),
-    # Lying hamstring curl machine
-    ('lying_hamstring_curls', 'Lying Hamstring Curls'),
-    # Leg extension machine
-    ('leg_extensions', 'Leg Extensions'),
-    # Hip thrust machine
-    ('hip_thrusts', 'Hip Thrusts'),
-    # Leg press
-    ('leg_press', 'Leg Press'),
-    ('single_leg_press', 'Single-Leg Press'),
-    # Squat rack
-    ('back_squats', 'Back Squats'),
-    ('front_squats', 'Front Squats'),
-    ('overhead_squats', 'Overhead Squats'),
-    # Deadlift platform
-    ('conventional_deadlifts', 'Conventional Deadlifts'),
-    ('sumo_deadlifts', 'Sumo Deadlifts'),
-    # Adjustable benches
-    ('bench_press', 'Bench Press'),
-    ('incline_bench_press', 'Incline Bench Press'),
-    ('decline_bench_press', 'Decline Bench Press'),
-    ('dumbbell_bench_press', 'Dumbbell Bench Press'),
-    ('dumbbell_flyes', 'Dumbbell Flyes'),
-    # Dumbbells
-    ('dumbbell_lunges', 'Dumbbell Lunges'),
-    ('dumbbell_rows', 'Dumbbell Rows'),
-    ('dumbbell_shoulder_press', 'Dumbbell Shoulder Press'),
-    ('dumbbell_bicep_curls', 'Dumbbell Bicep Curls'),
-    ('dumbbell_tricep_extensions', 'Dumbbell Tricep Extensions'),
-    # Barbells
-    ('barbell_rows', 'Barbell Rows'),
-    ('barbell_shoulder_press', 'Barbell Shoulder Press'),
-    ('barbell_bicep_curls', 'Barbell Bicep Curls'),
-    ('skull_crushers', 'Skull Crushers'),
-    # Bamboo bar
-    ('bamboo_bar_squats', 'Bamboo Bar Squats'),
-    ('bamboo_bar_press', 'Bamboo Bar Press'),
-    # Deadlift bar
-    ('deficit_deadlifts', 'Deficit Deadlifts'),
-    ('romanian_deadlifts', 'Romanian Deadlifts'),
-    # Safety squat bar
-    ('safety_squat_bar_squats', 'Safety Squat Bar Squats'),
-    # Easy bars
-    ('easy_bar_bicep_curls', 'Easy Bar Bicep Curls'),
-    ('easy_bar_skull_crushers', 'Easy Bar Skull Crushers'),
-    # Smith machine
-    ('smith_machine_squats', 'Smith Machine Squats'),
-    ('smith_machine_lunges', 'Smith Machine Lunges'),
-    ('smith_machine_bench_press', 'Smith Machine Bench Press'),
-    ('smith_machine_shoulder_press', 'Smith Machine Shoulder Press'),
-    # Stair master
-    ('stair_climbing', 'Stair Climbing'),
-    # Treadmill
-    ('treadmill_running', 'Treadmill Running'),
-    ('treadmill_sprints', 'Treadmill Sprints'),
-    # Preacher curl machine
-    ('preacher_curls', 'Preacher Curls'),
-    # Pull-up stations
-    ('pull_ups', 'Pull-ups'),
-    ('chin_ups', 'Chin-ups'),
-    ('hanging_leg_raises', 'Hanging Leg Raises'),
-    # Boxes
-    ('box_jumps', 'Box Jumps'),
-    ('step_ups', 'Step-ups'),
-    # Kettlebells
-    ('kettlebell_swings', 'Kettlebell Swings'),
-    ('kettlebell_goblet_squats', 'Kettlebell Goblet Squats'),
-    # Yoga balls
-    ('stability_ball_crunches', 'Stability Ball Crunches'),
-    ('plank_on_stability_ball', 'Plank on Stability Ball'),
-    # Row machine
-    ('rowing_machine_rows', 'Rowing Machine Rows'),
-    # Cable row machine
-    ('cable_rows', 'Cable Rows'),
-    # Pull down machine
-    ('lat_pulldowns', 'Lat Pulldowns'),
-    ('tricep_pushdowns', 'Tricep Pushdowns'),
-    # Adjustable rope machine
-    ('tricep_pushdowns', 'Tricep Pushdowns'),
-    ('bicep_curls', 'Bicep Curls'),
-    ('face_pulls', 'Face Pulls'),
-    # Incline Hyperextension machine
-    ('incline_hyperextensions', 'Incline Hyperextensions'),
-    # Flat hyperextension machine
-    ('flat_hyperextensions', 'Flat Hyperextensions'),
-    # Reverse hyperextension machine
-    ('reverse_hyperextensions', 'Reverse Hyperextensions'),
-    # Row machine
-    ('machine_rows', 'Machine Rows'),
-    # Dip station
-    ('dips', 'Dips'),
-    # Roman chair
-    ('roman_chair_leg_raises', 'Roman Chair Leg Raises'),
-    ('roman_chair_back_extensions', 'Roman Chair Back Extensions'),
-    # Stationary exercise bicycle
-    ('stationary_bike_cardio', 'Stationary Bike Cardio'),
-    ('seated_sprints', 'Seated Sprints'),
-    # Shoulder press station
-    ('machine_shoulder_press', 'Machine Shoulder Press'),
-    ('arnold_press', 'Arnold Press'),
-    # Bench press station
-    ('machine_bench_press', 'Machine Bench Press'),
-    # Incline bench press station
-    ('machine_incline_press', 'Machine Incline Press'),
-    # Pec fly machine
-    ('pec_flyes', 'Pec Flyes'),
-    # Hammer strength bench press
-    ('hammer_strength_bench_press', 'Hammer Strength Bench Press'),
-    # Hammer strength incline press
-    ('hammer_strength_incline_press', 'Hammer Strength Incline Press'),
-    # Hammer strength decline press
-    ('hammer_strength_decline_press', 'Hammer Strength Decline Press'),
-    # Hammer strength shoulder press
-    ('hammer_strength_shoulder_press', 'Hammer Strength Shoulder Press'),
-    # Hammer strength row
-    ('hammer_strength_rows', 'Hammer Strength Rows'),
-    # Hammer strength pull down
-    ('hammer_strength_lat_pulldowns', 'Hammer Strength Lat Pulldowns'),
-    # Abdominal Crunch Machine
-    ('ab_crunch_machine', 'Ab Crunch Machine'),
-    # Chest press machine
-    ('machine_chest_press', 'Machine Chest Press'),
-    # Resistance Bands
-    ('resistance_band_pull_aparts', 'Resistance Band Pull-aparts'),
-    ('banded_squats', 'Banded Squats'),
-    ('band_pull_throughs', 'Band Pull-throughs'),
-    ('banded_lateral_raises', 'Banded Lateral Raises'),
-    ('band_face_pulls', 'Band Face Pulls'),
-]
-"""
-
+# Captures performance metrics and associated them with a user and stores their details
 class PerformanceMetric(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     metric_type = models.CharField(choices=METRIC_TYPES, max_length=50)
     value = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField()
 
+# Represents the weight logs
 class WeightLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='weight_logs')
     weight = models.DecimalField(max_digits=5, decimal_places=2)
