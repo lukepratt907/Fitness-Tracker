@@ -1,5 +1,6 @@
 from django.db import models
 
+# GymInfo model
 class GymInfo(models.Model):
     description = models.TextField()
     year_established = models.PositiveIntegerField(default=2022)

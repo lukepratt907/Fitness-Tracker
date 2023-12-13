@@ -1,5 +1,6 @@
 {% extends "users/layout.html" %}
 {% load static %}
+<!-- Header for the navigation bar -->
 {% block header %}
   <header style="background-color: black; padding-bottom: 0;">
     <nav class="navbar navbar-expand-md justify-content-center" style="padding-top: 0; margin-top: 1.5%;">
@@ -54,6 +55,7 @@
     <body style="background-color: black;">
         <div class="container" style="display: flex; justify-content: space-between;">
             <div class="left-column" style="display: flex; justify-content: center;">
+                <!-- Layout for machines and stations list -->
                 <section class="info-section">
                     <h2 style="color: yellow;">Machines and Stations</h2>
                     <ul style="color: white;">
@@ -64,6 +66,7 @@
                 </section>
             </div>
             <div class="right-column" style="display: flex; justify-content: center;">
+                <!-- Layout for equipment list -->
                 <section class="equipment-section">
                     <h2 style="color: yellow;">Equipment</h2>
                     <ul style="color: white;">
@@ -75,6 +78,7 @@
             </div>
         </div>
     </body>
+    <!-- footer -->
     <div style="text-align: center; color: yellow; ">
       <small>10930 Mausel St Unit A5</small><br>
       <small>Eagle River, AK 99577</small>

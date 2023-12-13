@@ -4,8 +4,7 @@ from metrics.models import EQUIPMENT, MACHINES
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-
+# Create a gyminfo instance with predefined equipment and machines lists to template context for rendering
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def about_page(request):
