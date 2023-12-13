@@ -20,9 +20,9 @@ from users import views as user_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    path('admin/', admin.site.urls),    # path('register/', user_views.register_view, name='register'), # In Corey's vids this is put here, but ours is iin users/urls.py, not sure why
-    path("", include("users.urls")),    # can change url
-    path('workouts/', include('workouts.urls')),  # Include workouts app URLs
+    path('admin/', admin.site.urls),
+    path("", include("users.urls")),
+    path('workouts/', include('workouts.urls')),
     path('about/', include('about.urls')),
     path('metrics/', include('metrics.urls'))
 ]
