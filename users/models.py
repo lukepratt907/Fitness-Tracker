@@ -1,10 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-"""
-# May be used later to delete profile picture files in the case a user deletes their profile
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
-"""
 
 GOAL_STATUS = (
     ('pending', 'Pending'),
@@ -13,6 +8,7 @@ GOAL_STATUS = (
     ('failed', 'Failed'),
 )
 
+# Model for user information
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.PositiveIntegerField(null=True, blank=True)
@@ -23,7 +19,7 @@ class UserProfile(models.Model):
     def __str__(self):
         return f'{self.user}\'s Profile'
 
-
+# Model for user's diary information
 class DiaryEntry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
@@ -36,6 +32,7 @@ class DiaryEntry(models.Model):
     def __str__(self):
         return f'{self.user}s Diary ({self.date})'
 
+# Model for user's goal information
 class Goal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, default="Goal")
@@ -47,7 +44,7 @@ class Goal(models.Model):
     def __str__(self):
         return f'{self.user}s Goals'
 
-
+# Model for user's reminder information
 class Reminder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reminders")
     message = models.TextField(max_length=1000)

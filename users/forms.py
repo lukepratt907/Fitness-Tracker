@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from .models import DiaryEntry, Goal, Reminder
 
+# Form for user login
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-input',
@@ -17,6 +18,7 @@ class LoginForm(AuthenticationForm):
         'minlength': '8',
     }))
 
+# Form for user registration
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 
@@ -32,16 +34,19 @@ class UserRegisterForm(UserCreationForm):
         self.fields['password1'].widget.attrs.update({'placeholder': 'Password'})
         self.fields['password2'].widget.attrs.update({'placeholder': 'Confirm Password'})
 
+# Form for diary content
 class DiaryForm(forms.ModelForm):
     class Meta:
         model = DiaryEntry
         fields = ['title', 'content']
 
+# Form for goal content
 class GoalForm(forms.ModelForm):
     class Meta:
         model = Goal
         fields = ['title', 'description', 'end_date']
 
+# Form for reminder content
 class ReminderForm(forms.ModelForm):
     time = forms.DateTimeField(
         widget=forms.widgets.DateTimeInput(attrs={'type': 'datetime-local'}),
@@ -54,58 +59,3 @@ class ReminderForm(forms.ModelForm):
         super(ReminderForm, self).__init__(*args, **kwargs)
         self.fields['message'].label = ''
         self.fields['time'].label = ''
-        # self.fields['timestamp'].widget = widgets.AdminSplitDateTime()
-
-"""
-class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, required=True)
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["username"].widget.attrs.update({
-            'required':'',
-            'name':'username',
-            'id':'username',
-            'type':'text',
-            'class':'form-input',
-            'placeholder':'Username',
-            'maxlength':'16',
-            'minlength':'4'
-
-        })
-        self.fields["email"].widget.attrs.update({
-            'required':'',
-            'name':'email',
-            'id':'email',
-            'type':'text',
-            'class':'form-input',
-            'placeholder':'Email',
-            'maxlength':'30',
-            'minlength':'6'
-
-        })
-        self.fields["password1"].widget.attrs.update({
-            'required':'',
-            'name':'password1',
-            'id':'password1',
-            'type':'password',
-            'class':'form-input',
-            'placeholder':'Password',
-            'maxlength':'16',
-            'minlength':'6'
-    
-        })
-        self.fields["password2"].widget.attrs.update({
-            'required':'',
-            'name':'password1',
-            'id':'password1',
-            'type':'password',
-            'class':'form-input',
-            'placeholder':'Password',
-            'maxlength':'16',
-            'minlength':'6'
-    
-        })
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
-"""

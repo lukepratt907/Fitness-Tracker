@@ -17,6 +17,7 @@ import logging
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
+# View to allow user registraton and check for valid submission and password declaration
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def register_view(request):
     if request.method == 'POST':
@@ -32,6 +33,7 @@ def register_view(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
+# View to allow user login and check for valid submission and password declaration
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def login_view(request):
     if request.method == 'POST':
@@ -52,16 +54,18 @@ def login_view(request):
         form = LoginForm()
     return render(request, 'users/login.html', {'form': form})
 
-
+# View for access to user profile
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def profile_view(request):
     return render(request, 'users/profile.html', {'user': request.user})
 
+# View for logging out of the user's account
 def logout_view(request):
     logout(request)
     return redirect('/')
 
+# View for listing all diary entries including pagination
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def diary_list(request):
@@ -79,12 +83,14 @@ def diary_list(request):
     page_obj = p.get_page(page_number)
     return render(request, 'users/diary.html', {'page_obj': page_obj, 'search': search})
 
+# View for diary detail additions
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def diary_detail(request, pk):
     diary_entry = get_object_or_404(DiaryEntry, pk=pk)
     return render(request, 'users/diary_detail.html', {'diary_entry': diary_entry})
 
+# View for creating a diary entry and checking if form is valid
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def create_diary_entry(request):
@@ -105,6 +111,7 @@ def create_diary_entry(request):
         form = DiaryForm()
         return render(request, 'users/diary_entry.html', {'form': form})
 
+# View for updating existing diaries
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def update_diary_entry(request, pk):
@@ -118,6 +125,7 @@ def update_diary_entry(request, pk):
         form = DiaryForm(instance=diary_entry)
     return render(request, 'users/update_diary_entry.html', {'form': form, 'diary_entry': diary_entry})
 
+# View for deleting diary entries
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def delete_diary_entry(request, pk):
@@ -127,6 +135,7 @@ def delete_diary_entry(request, pk):
         return redirect('users-diary')
     return render(request, 'users/delete_diary_entry.html', {'diary_entry': diary_entry})
 
+# View for access to the user's goals
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def goal_view(request):
@@ -145,12 +154,14 @@ def goal_view(request):
     page_obj = p.get_page(page_number)
     return render(request, 'users/goals.html', {'search': search, 'page_obj': page_obj})
 
+# View of specific goal details
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def goal_detail(request, pk):
     goal = get_object_or_404(Goal, pk=pk)
     return render(request, 'users/goal_detail.html', {'goal': goal})
 
+# View for creating new goal entries
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def create_goal(request):
@@ -171,6 +182,7 @@ def create_goal(request):
         form = GoalForm()
         return render(request, 'users/new_goal.html', {'form': form})
 
+# View for update exising goals
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def update_goal(request, pk):
@@ -184,6 +196,7 @@ def update_goal(request, pk):
         form = GoalForm(instance=goal)
     return render(request, 'users/update_goal.html', {'form': form, 'goal': goal})
 
+# View for deleting goals
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def delete_goal(request, pk):
@@ -193,6 +206,7 @@ def delete_goal(request, pk):
         return redirect('users-goal')
     return render(request, 'users/delete_goal.html', {'goal': goal})
 
+# View for accessing the email reminder functionality
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def reminder_view(request):
